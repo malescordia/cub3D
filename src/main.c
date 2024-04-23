@@ -6,14 +6,14 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/04/23 16:01:41 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:43:59 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
-
-int main(void)
+    
+int main(void) 
 {
-    printf("Makefile and libft established.\n");
+    printf("Makefile, libft and minilibx beautifully established ૮ ˶ᵔ ᵕ ᵔ˶ ა\n");
     return (0);
 }
