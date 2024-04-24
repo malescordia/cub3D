@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/04/23 19:16:42 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:57:24 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ int main(int ac, char **av)
         {
             ft_putstr_fd("Error\n", 2);
             ft_putstr_fd("File extension must be \".cub\"\n", 2);
-        }
-        else
-        {
-            printf("yay\n");
-            return (0);
         }
     }
     else
