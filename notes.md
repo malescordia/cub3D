@@ -21,7 +21,7 @@ void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *heig
 
 **RAYCASTING**
 
-Raycasting is a rendering technique to create a 3D prespective in a 2D map. Raycasting is not the same as raytracing! Raycasting is a fast semi-3D technique that works in realtime even on 4MHz graphical calculators, while raytracing is a realistic rendering technique that supports reflections and shadows in ture 3D scenes.
+Raycasting is a rendering technique to create a 3D prespective in a 2D map. Raycasting is not the same as raytracing! Raycasting is a fast semi-3D technique that works in realtime even on 4MHz graphical calculators, while raytracing is a realistic rendering technique that supports reflections and shadows.
 
 The basic idea of raycasting is as follows: the map is a 2D square grid and each square can either be 0 (no wall) or 1 (a wall with a certain color or texture).
 
