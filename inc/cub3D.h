@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:27:56 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/04/23 19:00:26 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:39:56 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 typedef struct s_data
 {
     void *mlx;
-    void *win;
-    char **map;
+    void *mlx_win;
 }   t_data;
 
 #endif
