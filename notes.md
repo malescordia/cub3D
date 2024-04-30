@@ -15,9 +15,18 @@ int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(), void *param
 - Can receive key_press, key_release, mouse click, close button click, etc based on the x_event value.
 
 void *mlx_new_image(void *mlx_ptr, int width, int height);
+- Creates a new image object in memory. This is image object can be thought of as a canvas or buffer where graphical data can be stored.
+
 char *mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
+- It is used to access the pixel data of a previously created image, or in other words, obtain a pointer to the pixel data of an image.
+
 int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+- Renders images onto windows. By specifying x and y we control where the image will be placed within the window.
+
 void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
+- Loads an XPM file from disk into memory. It returns a pointer to the loaded image object. This project can then be used to render the image.
+- If the function fails tho load the image it returns **NULL**.
+
 
 **RAYCASTING**
 
@@ -40,3 +49,27 @@ If the direction vector and the camera plane vector have the same length the **F
 If the direction vector is shorter than the camera plane, the **FOV** will be larger than 90 degree's (180 is the maximum, if the direction vector is close to 0) and you will have a much wider vision.
 
 When the player rotates, the camera has to rotate so both direction vector and the plane vector have to be rotated, then, the rays will all automaticly rotate as well. To rotate a vector, multiply it with the rotation matrix.
+
+*PRACTICAL EXAMPLE*
+
+- **posX** and **posY** represent the position vector of the player.
+- **dirX** and **dirY** represent the direction of the player.
+- **planeX** and **planeY** represent the camera plane of the player.
+
+The ratio between the length of the direction and the camera plane determinates the FOV.
+
+Variables **time** and **oldTime** will be used to store the time of the current and the previous frame, the time difference between these two can be used to determinate how much we should move when a certain key is pressed.
+
+int main(int ac, char **av)
+{
+    double posX = 22;
+    double posY = 12;
+
+    double planeX = 0;
+    double planeY = 0.66;
+
+    double time = 0;
+    double oldTime = 0;
+}
+
+**WORK IN PROGRESS, PAAAAAAUSE**
