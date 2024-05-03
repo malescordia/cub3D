@@ -1,4 +1,31 @@
 
+**MATH LIBRARY FUNCTIONS**
+
+*Trigonometric functions*
+- sin() Computes the sine of an angle.
+- cos() Computes the cosine of an angle.
+- tan() Computes the tangent of an angle.
+
+*Square root function*
+- sqrt() Calculates the square root of a number.
+
+*Absolute value function*
+- fabs() Returns the absolute value of a floating-point number.
+
+*Power function*
+- pow() Raises a number to a specified power.
+
+*Rounding functions*
+- ceil() Rounds a number up to the nearest integer.
+- floor() Rounds a number down to the nearest integer.
+
+*Degree to radian conversion*
+- deg2rad() Converts degrees to radians.
+
+*Radian to degree conversion*
+- rag2deg() Converts radians to degrees.
+
+
 **MINILIBX**
 
 void *mlx_init();
@@ -25,7 +52,7 @@ int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, 
 
 void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
 - Loads an XPM file from disk into memory. It returns a pointer to the loaded image object. This project can then be used to render the image.
-- If the function fails tho load the image it returns **NULL**.
+- If the function fails to load the image it returns **NULL**.
 
 
 **RAYCASTING**
@@ -48,28 +75,49 @@ If the direction vector and the camera plane vector have the same length the **F
 
 If the direction vector is shorter than the camera plane, the **FOV** will be larger than 90 degree's (180 is the maximum, if the direction vector is close to 0) and you will have a much wider vision.
 
-When the player rotates, the camera has to rotate so both direction vector and the plane vector have to be rotated, then, the rays will all automaticly rotate as well. To rotate a vector, multiply it with the rotation matrix.
+When the player rotates, the camera has to rotate so both direction vector and the plane vector have to be rotated, then, the rays will all automaticaly rotate as well. To rotate a vector, multiply it with the rotation matrix.
 
-*PRACTICAL EXAMPLE*
+To calculate the **distance between the player and the nearest wall**, we can use the following algorithm:
 
-- **posX** and **posY** represent the position vector of the player.
-- **dirX** and **dirY** represent the direction of the player.
-- **planeX** and **planeY** represent the camera plane of the player.
+1. Define and initialize some basic attributes needed for the projection:
 
-The ratio between the length of the direction and the camera plane determinates the FOV.
+|---------------------------------------------------------------------------------------------------------|
+| *Attribute*  | |          *Description*                   | |             *Value*                       |
+|---------------------------------------------------------------------------------------------------------|
+|    FOV        | The field of view of the player            |                60                          |
+|---------------|--------------------------------------------|--------------------------------------------|
+|   HFOV        |    Half of the player's FOV                |                30                          |
+|---------------|--------------------------------------------|--------------------------------------------|
+|  Ray angle    | Angle of the player view's direction       |  N (270º), S (90º), W (180º), E (0º)       |
+|---------------|--------------------------------------------|--------------------------------------------|
+| Ray increment | Angle difference between one ray           |        2 * HFOV / window_width             |
+|    angle      |        and the next one.                   |                                            |
+|---------------|--------------------------------------------|--------------------------------------------|
+|  Precision    |  Size of 'steps' taken every iteration     |                50                          |
+|---------------|--------------------------------------------|--------------------------------------------|
+|   Limit       | Limit of the distance the player can view  |                11                          |
+|---------------|--------------------------------------------|--------------------------------------------|
+| Player's pos  | Center of the square where the player is   | (int)(player_x + 0.5),(int)(player_y + 0.5)|
+|---------------|--------------------------------------------|--------------------------------------------|
 
-Variables **time** and **oldTime** will be used to store the time of the current and the previous frame, the time difference between these two can be used to determinate how much we should move when a certain key is pressed.
+2. From the player's position, we move the ray foward incrementing the x's and y's coordinates of the ray.
 
-int main(int ac, char **av)
-{
-    double posX = 22;
-    double posY = 12;
+    ray.x += ray_cos;
+    ray.y += ray_sin;
 
-    double planeX = 0;
-    double planeY = 0.66;
+    where ray_cos and ray_sin arer the following:
 
-    double time = 0;
-    double oldTime = 0;
-}
+    ray_cos = cos(degree_to_radians(ray_angle)) / g->ray.precision;
+    ray_sin = sin(degree_to_radians(ray_angle)) / g->ray.precision;
 
-**WORK IN PROGRESS, PAAAAAAUSE**
+3. Repeat step 2 until we reach the limit or we hit a wall.
+
+4. Calculate the distance between the player's and the ray's position using the euclidean distance:
+
+    distance = sqrt(powf(x - pl.x - 0.5, 2.) + powf(y - pl.y - 0.5, 2.));
+
+5. Fix **fisheye**
+
+    distance = distance * cos(degree_to_radians(ray_angle - g->ray.angle))
+
+This algorithm is repeated **window_width** times, in example, in every iteration we increment the angle until we have been through all the field of view. This distance is really helpful to calculate the height of the wall height: wall_height = (window_height / (1.5 * distance));
