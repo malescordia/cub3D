@@ -1,4 +1,10 @@
 
+**STUFF**
+
+*Vector*
+- A vector typically refers to a one-dimensional array, it is often used to store a collection of elements of the same data type. It's called a vector because, conceptually, it represents a quantity with both magnitude and direction, similar to how a mathematical vector behaves. However, in the context of programming languages like C, the term "vector" is often used more loosely to refer to an array, without necessarily implying any geometric interpretation. It's essentially a sequential collection of indexes. So while the name "vector" might imply a sense of direction and magnitude, in C programming, it's more about organizing and accessing data in a linear manner.
+
+
 **MATH LIBRARY FUNCTIONS**
 
 *Trigonometric functions*
@@ -57,19 +63,19 @@ void *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *heig
 
 **RAYCASTING**
 
-Raycasting is a rendering technique to create a 3D prespective in a 2D map. Raycasting is not the same as raytracing! Raycasting is a fast semi-3D technique that works in realtime even on 4MHz graphical calculators, while raytracing is a realistic rendering technique that supports reflections and shadows.
+Raycasting is a rendering technique to create a 3D prespective in a 2D map.
 
 The basic idea of raycasting is as follows: the map is a 2D square grid and each square can either be 0 (no wall) or 1 (a wall with a certain color or texture).
 
-For every **x** of the screen (for every vertical stripe of the screen) send out a ray that starts at the player position and with a direction that depends on both the player’s looking direction, and the **x-coordinate** of the screen. Then, let this ray moves forward on the 2D map until it hits a map square that is a wall. If it hits a wall, calculate the distance of this hit point to the player and use this distance to calculate how high this wall has to be drawn on the screen: the further away the wall, the smaller it is on screen, and the closer, the higher it appears to be. These are all 2D calculations.
+For every **x** of the screen (for every vertical stripe of the screen) send out a ray that starts at the player position and with a direction that depends on both the player’s looking direction, and the **x-coordinate** of the screen. Then, let this ray move forward on the 2D map until it hits a map square that is a wall. If it hits a wall, calculate the distance of this hit point to the player and use this distance to calculate how high this wall has to be drawn on the screen: the further away the wall, the smaller it is on screen, and the closer, the higher it appears to be. These are all 2D calculations.
 
-To find the first wall that a ray encounters on its way we have to let it start at the player's position, and then all the time, check wether or not the ray is inside a wall. If it's inside a wall(hit) then the loop can stop, calculate the distance and draw the wall with the correct height. if the ray position is not in a wall we have to trace it further: add a certain value to its position, in the direction of the direction of this ray and for this new position, again check if it's inside a wall or not. Keep doing this until finally a wall is hit.
+To find the first wall that a ray encounters on its way we have to let it start at the player's position, and then all the time, check wether or not the ray has touched a wall, then the loop can stop, calculate the distance and draw the wall with the correct height. If the ray has not hit a wall yet we have to trace it further: add a certain value to its position in the direction the ray is going and for this new position, again, check if a wall has been hit or not. Keep doing this until finally a wall is hit.
 
-It's impossible to find which square the ray hits immediatly with a single formula because a computer can only check a finite number of positions on the ray. Many raycasters add a constant value to the ray each step but then there's a chance that it may miss a wall. The more positions you check, the smaller the chance that the computer won't detect a wall but the more calculations are needed. For infinite precision with this method, an infinitely small step size is required, and thus, an infinite amount of calculations would be needed. There's a better method that requires only very few calculations and yet  will detect every wall: the idea is to check at every side of a wall the ray will pass through. We give each square width 1 so each side of a wall is an integer value and the places in between have a value after the point. Now the step size isn't constant, it depends on the distance to the next side.
+**PROBLEM** It's impossible to find which square the ray hits immediately with a single formula because a computer can only check a finite number of positions on the ray. Many raycasters add a constant value to the ray each step but then there's a chance that it may miss a wall. The more positions we check, the smaller the chance that the computer won't detect a wall but the more calculations are needed. For infinite precision with this method, an infinitely small step size is required, and thus, an infinite amount of calculations would be needed. **SOLUTION** There's a better method that requires only very few calculations and yet will detect every wall: the idea is to check at every side of a wall the ray will pass through.
 
-The position of the player is always a **vector(an x and y coordinate)**. We want to make the direction the player is facing a vector too, so the direction is determinated by two values: the **x** and **y** coordinates of the direction. A direction vector can be seen as follows: if you draw a line in the direction the player looks then every point of the line is the sum of the **position of the player** and a **multiple of the direction vector**. The length of a direction vector doesn't really matter, only its direction. Multiplying **x** and **y** by the same value changes the length but keeps the same direction.
+The position of the player is always a vector **(an x and y coordinate)**. We want to make the direction the player is facing a vector too, so the direction is determinated by two values: the **x** and **y** coordinates of the direction. A direction vector can be seen as follows: if you draw a line in the direction the player looks then every point of the line is the sum of the **position of the player** and a **multiple of the direction vector**. The length of a direction vector doesn't really matter, only its direction. Multiplying **x** and **y** by the same value changes the length but keeps the same direction.
 
-This method with vectors also requires an extra vector which is the camera plane vector. Our case raycasting happens in a 2D map so the camera will not really be a plane but a line, and is represented with a single vector. The camera plane should always be perpendicular in the direction vector, it represents the surface of the computer screen. The position of the player, which is a single point, is a point in front of the camera plane. A certain ray of a certain **x-coordinate** of the screen is then the ray that starts at this player position and goes through that position on the screen or this the camera plane.
+This method with vectors also requires an extra vector which is the camera plane vector. In our case raycasting happens in a 2D map so the camera will not really be a plane but a line, and is represented with a single vector. The camera plane should always be perpendicular in the direction vector, it represents the surface of the computer screen. The position of the player, which is a single point, is a point in front of the camera plane. A certain ray of a certain **x-coordinate** of the screen is then the ray that starts at this player position and goes through that position on the screen or this the camera plane.
 
 If the direction vector and the camera plane vector have the same length the **Field Of Vision (FOV)** will be 90 degree's.
 
@@ -84,14 +90,14 @@ To calculate the **distance between the player and the nearest wall**, we can us
 |---------------------------------------------------------------------------------------------------------|
 | *Attribute*  | |          *Description*                   | |             *Value*                       |
 |---------------------------------------------------------------------------------------------------------|
-|    FOV        | The field of view of the player            |                60                          |
+|    FOV        |     The field of view of the player        |                60                          |
 |---------------|--------------------------------------------|--------------------------------------------|
-|   HFOV        |    Half of the player's FOV                |                30                          |
+|   HFOV        |        Half of the player's FOV            |                30                          |
 |---------------|--------------------------------------------|--------------------------------------------|
-|  Ray angle    | Angle of the player view's direction       |  N (270º), S (90º), W (180º), E (0º)       |
+|  Ray angle    |    Angle of the player view's direction    |  N (270º), S (90º), W (180º), E (0º)       |
 |---------------|--------------------------------------------|--------------------------------------------|
-| Ray increment | Angle difference between one ray           |        2 * HFOV / window_width             |
-|    angle      |        and the next one.                   |                                            |
+| Ray increment |     Angle difference between one ray       |        2 * HFOV / window_width             |
+|    angle      |           and the next one.                |                                            |
 |---------------|--------------------------------------------|--------------------------------------------|
 |  Precision    |  Size of 'steps' taken every iteration     |                50                          |
 |---------------|--------------------------------------------|--------------------------------------------|
