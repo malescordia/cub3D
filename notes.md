@@ -32,6 +32,9 @@ sin(angle) = opposite / hypotenuse
 *Hypotenuse*
 - In a right triangle, the hypotenuse is the longest side, which is directly opposite to the right angle.
 
+*Radians*
+- It is a unit of angular measure. One radian is the angle subtended at the center of a circle by an arc that is equal in length to the radius of the circle. If we were to take the radius of a circle and wrap it along the circle's edge, the angle it would create at the center of the circle is one radian. There are 2n radians in a full circle, therefore, 180 dergees is equal to n radians and 90 degrees is equal to n/2 radians.
+
 
 **MATH LIBRARY FUNCTIONS**
 
@@ -43,7 +46,8 @@ sin(angle) = opposite / hypotenuse
 *Square root function*
 - sqrt() Calculates the square root of a number.
 
-*Absolute value function*
+*Absolute value functions*
+- abs() Returns the absolute value of an integer number.
 - fabs() Returns the absolute value of a floating-point number.
 
 *Power function*
@@ -103,11 +107,11 @@ To find the first wall that a ray encounters on its way we have to let it start 
 
 The position of the player is always a vector **(an x and y coordinate)**. We want to make the direction the player is facing a vector too, so the direction is determinated by two values: the **x** and **y** coordinates of the direction. A direction vector can be seen as follows: if you draw a line in the direction the player looks then every point of the line is the sum of the **position of the player** and a **multiple of the direction vector**. The length of a direction vector doesn't really matter, only its direction. Multiplying **x** and **y** by the same value changes the length but keeps the same direction.
 
-This method with vectors also requires an extra vector which is the camera plane vector. In our case raycasting happens in a 2D map so the camera will not really be a plane but a line, and is represented with a single vector. The camera plane should always be perpendicular in the direction vector, it represents the surface of the computer screen. The position of the player, which is a single point, is a point in front of the camera plane. A certain ray of a certain **x-coordinate** of the screen is then the ray that starts at this player position and goes through that position on the screen or this the camera plane.
+This method with vectors also requires an extra vector which is the camera plane vector. In our case raycasting happens in a 2D map so the camera will not really be a plane but a line, and is represented with a single vector. The camera plane should always be perpendicular in the direction vector, it represents the surface of the computer screen. The position of the player, which is a single point, is a point in front of the camera plane. A certain ray of a certain **x-coordinate** of the screen, is then the ray that starts at this player position, and goes through that position on the screen.
 
-If the direction vector and the camera plane vector have the same length the **Field Of Vision (FOV)** will be 90 degree's.
+*If the direction vector and the camera plane vector have the same length the **Field Of Vision (FOV)** will be 90 degree's.*
 
-If the direction vector is shorter than the camera plane, the **FOV** will be larger than 90 degree's (180 is the maximum, if the direction vector is close to 0) and you will have a much wider vision.
+*If the direction vector is shorter than the camera plane, the **FOV** will be larger than 90 degree's (180 is the maximum if the direction vector is close to 0) and you will have a much wider vision.*
 
 When the player rotates, the camera has to rotate so both direction vector and the plane vector have to be rotated, then, the rays will all automaticaly rotate as well. To rotate a vector, multiply it with the rotation matrix.
 
@@ -154,4 +158,4 @@ To calculate the **distance between the player and the nearest wall**, we can us
 
     distance = distance * cos(degree_to_radians(ray_angle - g->ray.angle))
 
-This algorithm is repeated **window_width** times, in example, in every iteration we increment the angle until we have been through all the field of view. This distance is really helpful to calculate the height of the wall height: wall_height = (window_height / (1.5 * distance));
+This algorithm is repeated **window_width** times, in example, in every iteration we increment the angle until we have been through all the field of view. This distance is really helpful to calculate the height of the wall height: **wall_height = (window_height / (1.5 * distance));**
