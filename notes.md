@@ -159,3 +159,24 @@ To calculate the **distance between the player and the nearest wall**, we can us
     distance = distance * cos(degree_to_radians(ray_angle - g->ray.angle))
 
 This algorithm is repeated **window_width** times, in example, in every iteration we increment the angle until we have been through all the field of view. This distance is really helpful to calculate the height of the wall height: **wall_height = (window_height / (1.5 * distance));**
+
+
+**PARSING**
+
+1. Check ac and file extension. DONE!
+2. Get file length for iteration through its lines so memory is allocated for each line a the content if stored in a matrix. DONE!
+3. Specify key elements in the file content (N, S, W, E, F, C).
+4. Split input lines to extract the texture type and path. Check for duplicate textures. Assign texture paths in the map structure (in example: **map->north = path_to_the_north_texture**).
+5. Iterate through the file content, get lines starting with N, S, W, E, F, C which indicates textures declarations.
+6. Extract the map data from the file content and store it in the map structure while checking for empty lines.
+7. Check characters present in the map (0, 1, N, S, W, E)
+8. Check first and last columns of the map to ensure its only 1's.
+9. Check first and last lines of the map to ensure its only 1's.
+10. Check if each row of the starts and ends with a wall (1).
+11. Check for empty spaces. Verify that each floor (0) is adjacent to at least one floor (0) or wall (1). Also check that the player position is not surrounded by empty space.
+12. Check RGB values, do a split to check if colors are within range (0-255).
+13. Convert RGB values individually to a single hexadecimanl code.
+14. Initiate mlx game window.
+15. Set up textures, player position and colors.
+16. Handle user input events.
+17. Start game loop.
