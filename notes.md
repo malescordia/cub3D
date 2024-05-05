@@ -4,6 +4,34 @@
 *Vector*
 - A vector typically refers to a one-dimensional array, it is often used to store a collection of elements of the same data type. It's called a vector because, conceptually, it represents a quantity with both magnitude and direction, similar to how a mathematical vector behaves. However, in the context of programming languages like C, the term "vector" is often used more loosely to refer to an array, without necessarily implying any geometric interpretation. It's essentially a sequential collection of indexes. So while the name "vector" might imply a sense of direction and magnitude, in C programming, it's more about organizing and accessing data in a linear manner.
 
+*Fisheye*
+- In the context of raycasting, fisheye refers to a distortion effect that occurs when calculating the distance between the player and a wall. Without correcting for fisheye, the walls appear curved or distorted, which is not the desired effect. To fix fisheye, the calculated distance is multiplied by the cosine of the angle difference between the ray angle and the player's view angle. This correction ensures that the walls are rendered with the correct height and perspective.
+
+*Cosine*
+- In a right triangle, the cosine of an angle is the ratio of the length of he adjacent side to the length of the hyotenuse.
+
+       /|
+      / | adjacent
+     /  |
+    /___|
+  hypotenuse
+
+cos(angle) = adjacent / hypotenuse
+
+*Sine*
+- In a right triangle, the sine of an angle is the ratio of the length of the opposite side to the length of th hypotenuse.
+
+       /|
+      / | opposite
+     /  |
+    /___|
+  hypotenuse
+
+sin(angle) = opposite / hypotenuse
+
+*Hypotenuse*
+- In a right triangle, the hypotenuse is the longest side, which is directly opposite to the right angle.
+
 
 **MATH LIBRARY FUNCTIONS**
 
