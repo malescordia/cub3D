@@ -10,22 +10,22 @@
 *Cosine*
 - In a right triangle, the cosine of an angle is the ratio of the length of he adjacent side to the length of the hyotenuse.
 
-       /|
-      / | adjacent
-     /  |
-    /___|
-  hypotenuse
+                 /|
+                / | adjacent
+   hypotenuse  /  |
+              /___|
+  
 
 cos(angle) = adjacent / hypotenuse
 
 *Sine*
 - In a right triangle, the sine of an angle is the ratio of the length of the opposite side to the length of th hypotenuse.
 
-       /|
-      / | opposite
-     /  |
-    /___|
-  hypotenuse
+                 /|
+                / |
+   hypotenuse  /  |
+              /___|
+            opposite
 
 sin(angle) = opposite / hypotenuse
 
