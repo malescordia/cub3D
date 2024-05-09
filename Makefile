@@ -4,7 +4,7 @@ CC = @cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/main.c src/parse.c src/free.c
+SRC = src/main.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -80,7 +80,7 @@ int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(), void *param
 - Can receive key_press, key_release, mouse click, close button click, etc based on the x_event value.
 
 void *mlx_new_image(void *mlx_ptr, int width, int height);
-- Creates a new image object in memory. This is image object can be thought of as a canvas or buffer where graphical data can be stored.
+- Creates a new image object in memory. This image object can be thought of as a canvas or buffer where graphical data can be stored.
 
 char *mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
 - It is used to access the pixel data of a previously created image, or in other words, obtain a pointer to the pixel data of an image.
@@ -161,6 +161,8 @@ To calculate the **distance between the player and the nearest wall**, we can us
 This algorithm is repeated **window_width** times, in example, in every iteration we increment the angle until we have been through all the field of view. This distance is really helpful to calculate the height of the wall height: **wall_height = (window_height / (1.5 * distance));**
 
 
+**[STRUCTURE]**
+
 **PARSING**
 
 1. Check ac and file extension. DONE!
@@ -180,3 +182,24 @@ This algorithm is repeated **window_width** times, in example, in every iteratio
 15. Set up textures, player position and colors.
 16. Handle user input events.
 17. Start game loop.
+
+**ALEX PROCEDURE**
+
+Start by creating a 2D visualization
+
+1. Open window
+2. Draw the map in top view:
+    - Create player struct
+        - x coordinate
+        - y coordinate
+        - direction
+3. Draw player (x / y point)
+4. Keybindings for player movement:
+    - Always in the direction of players view (if I go forward I always go in the direction of player view)
+5. Wall colisions:
+    - Have a little space between player and wall in order to not be too close to the wall (fixes accidentally passing through corners)
+    - Before we change the player position check if he changes tile and if true do not allow such thing to happen
+    - Wall sliding
+
+(Optional)
+6. Draw the camera plane (cone( 45 or 60 degrees)) and lines of colision
