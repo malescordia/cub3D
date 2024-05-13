@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/13 18:03:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/13 21:40:06 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@
 // Errorrs
 # define PARAM_NB		"Incorrect number of parameters."
 # define EMPTY_PARAM	"Empty parameter."
+# define WRONG_DATA		"Incorrect file data."
 
 // -STRUCTS-
 // Map struct
 typedef struct s_map
 {
 	char	**map;
-	char	*north_tex;
-	char	*east_tex;
-	char	*west_tex;
-	char	*south_tex;
-	char	*floor;
-	char	*ceiling;
+	char	*ntx;
+	char	*etx;
+	char	*wtx;
+	char	*stx;
+	char	*ftx;
+	char	*ctx;
 }	t_map;
 // All-encompassing struct
 typedef struct s_var
@@ -51,6 +52,10 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
+void	data_parser(int fd);
+int		tx_complete(t_map *map);
+char	*tx_err(char *buff, int fd);
+int		is_separator(char *buff);
 // Data parser
 void	data_parser(int fd);
 // Map parser

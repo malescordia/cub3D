@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/12 17:06:31 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:48:54 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "inc/cub3d.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //                                    UTILS                                           //
@@ -39,7 +39,7 @@ int	strlen_until_newline(char *str)
 	return (i);
 }
 
-/* receives a line and in order to find out if there is anything is not a '1', ' ' or '\n' 
+/* receives a line and in order to find out if there is anything is not a '1', ' ' or '\n'
     return 0 if all is gud
 	return -1 if condition is not ok */
 int	check_borders(t_map *map, int i)
@@ -119,7 +119,7 @@ int	check_caracters(t_map *map)
 	return (check_line(map));
 }
 
-/* check each line to ensure it starts and ends with '1' 
+/* check each line to ensure it starts and ends with '1'
 	return -1 is this condition is not ok */
 int	check_line(t_map *map)
 {
@@ -143,7 +143,7 @@ int	check_line(t_map *map)
 	return (check_column(map));
 }
 
-/* check if each '0' has a '1' above or bellow it 
+/* check if each '0' has a '1' above or bellow it
     a loop iterates down to check up
     another loop iterates up to check down *IM A GENIUS*
 	return -1 if this condition is not ok */
@@ -214,7 +214,7 @@ int	kinda_floodfill(t_map *map)
 	return (check_player(map));
 }
 
-/* checks for player existence 
+/* checks for player existence
 	returns -1 if multiple players or no player */
 int check_player(t_map *map)
 {
@@ -277,7 +277,7 @@ int	get_newsfc(t_map *map, char *line)
 int convert_color_to_int(char *code)
 {
     int n;
-    
+
     n = ft_atoi(code);
     return (n);
 }
@@ -290,7 +290,7 @@ int convert_color_to_int(char *code)
 void display_window(t_map *map)
 {
 	t_data data;
-	
+
 	data.mlx = mlx_init();
 	if(!data.mlx)
 		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);

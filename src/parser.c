@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/13 18:12:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/13 21:38:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	parser(char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);
-/* 	data_parser(fd);
-	map_parser(fd); */
+	data_parser(fd);
+	/* map_parser(fd); */
 }
+
+
