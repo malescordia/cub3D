@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/13 21:40:06 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:45:54 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PARAM_NB		"Incorrect number of parameters."
 # define EMPTY_PARAM	"Empty parameter."
 # define WRONG_DATA		"Incorrect file data."
+# define MALLOC_ERR		"Memory allocation failed"
 
 // -STRUCTS-
 // Map struct
@@ -52,12 +53,12 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-void	data_parser(int fd);
 int		tx_complete(t_map *map);
 char	*tx_err(char *buff, int fd);
 int		is_separator(char *buff);
 // Data parser
-void	data_parser(int fd);
+int		get_line_nb(int fd);
+void	data_parser(int fd, int lines);
 // Map parser
 void	map_parser(int fd);
 int		map_len(char **map);

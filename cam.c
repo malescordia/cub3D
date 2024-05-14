@@ -6,17 +6,30 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/13 21:48:53 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:54:15 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
+int	get_line_nb(int fd)
+{
+	int		lines;
+
+	lines = 0;
+	while (!EOF)
+	{
+		get_next_line(fd);
+		lines++;
+	}
+	return (lines);
+}
+
 void	data_parser(int fd)
 {
 	char	*buff;
 
-	buff = calloc(100, sizeof(char));
+	buff = ft_calloc(100, sizeof(char));
 	while (!tx_complete(var()->map) && !EOF)
 	{
 		buff = get_next_line(fd);
@@ -43,6 +56,21 @@ void	data_parser(int fd)
 		clean_exit(WRONG_DATA, 2);
 	}
 }
+
+void	data_parser(int fd, int lines)
+{
+	int		i;
+	char	**buff;
+
+	i = 0;
+	*buff = malloc(sizeof(char *) * (lines +1));
+	if (!buff)
+		clean_exit(MALLOC_ERR, 3);
+	buff[lines] = NULL;
+	while (!EOF && i < lines)
+		buff[i++] = ft_strdup(get_next_line(fd));
+}
+
 
 int	tx_complete(t_map *map)
 {
