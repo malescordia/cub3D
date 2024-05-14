@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 17:54:15 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:09:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,34 @@ int	get_line_nb(int fd)
 	return (lines);
 }
 
-void	data_parser(int fd)
+void	check_dup(char **content)
 {
-	char	*buff;
 
-	buff = ft_calloc(100, sizeof(char));
-	while (!tx_complete(var()->map) && !EOF)
-	{
-		buff = get_next_line(fd);
-		if (!ft_strncmp(buff, "NO ", 3))
-			var()->map->stx = tx_err(buff, fd);
-		else if (!ft_strncmp(buff, "EA ", 3))
-			var()->map->etx = tx_err(buff, fd);
-		else if (!ft_strncmp(buff, "WE ", 3))
-			var()->map->wtx = tx_err(buff, fd);
-		else if (!ft_strncmp(buff, "SO ", 3))
-			var()->map->stx = tx_err(buff, fd);
-		else if (!ft_strncmp(buff, "F ", 2))
-			var()->map->ftx = clr_to_hex(&buff[2]);
-		else if (!ft_strncmp(buff, "C ", 2))
-			var()->map->ctx = clr_to_hex(&buff[2]);
-		else if (!is_separator(buff))
-			clean_exit(WRONG_DATA, 2);
-		ft_bzero(buff, 100);
-	}
-	free(buff);
-	if (EOF)
-	{
-		close(fd);
-		clean_exit(WRONG_DATA, 2);
-	}
 }
 
-void	data_parser(int fd, int lines)
+void	data_parser(char **content)
 {
-	int		i;
-	char	**buff;
+	int	i;
 
 	i = 0;
-	*buff = malloc(sizeof(char *) * (lines +1));
-	if (!buff)
-		clean_exit(MALLOC_ERR, 3);
-	buff[lines] = NULL;
-	while (!EOF && i < lines)
-		buff[i++] = ft_strdup(get_next_line(fd));
+	while (content[i] && !tx_complete(var()->map))
+	{
+		if (!ft_strnmp(content[i], "NO ", 3))
+			var()->map->stx = tx_err(content, i);
+		else if (!ft_strncmp(content[i], "EA ", 3))
+			var()->map->etx = tx_err(content, i);
+		else if (!ft_strncmp(content[i], "WE ", 3))
+			var()->map->wtx = tx_err(content, i);
+		else if (!ft_strncmp(content[i], "SO ", 3))
+			var()->map->stx = tx_err(content, i);
+		else if (!ft_strncmp(content[i], "F ", i))
+			var()->map->ftx = clr_to_hex(content);
+		else if (!ft_strncmp(content[i], "C ", i))
+			var()->map->ctx = clr_to_hex(content);
+		else if (!is_separator(content[i]))
+			clean_exit(WRONG_DATA, 2);
+		i++;
+	}
 }
 
 
@@ -79,15 +63,14 @@ int	tx_complete(t_map *map)
 	return (1);
 }
 
-char	*tx_err(char *buff, int fd)
+char	*tx_err(char **content, int i)
 {
 	int	tx_fd;
 
-	tx_fd = open(&buff[3], O_WRONLY);
+	tx_fd = open(&content[i][3], O_WRONLY);
 	if (tx_fd < 0)
 	{
-		free(buff);
-		close(fd);
+		free_matrix(content);
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
@@ -106,4 +89,16 @@ int	is_separator(char *buff)
 		i++;
 	}
 	return (1);
+}
+
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	if (matrix)
+	{
+		while(matrix[i])
+			free(matrix[i++]);
+		free(matrix);
+	}
 }

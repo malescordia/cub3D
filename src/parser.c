@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 17:58:57 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:09:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	parser(char **av)
 	while (!EOF && i < lines)
 		content[i++] = ft_strdup(get_next_line(fd));
 	close(fd);
+	check_dup(content);
 	data_parser(content);
 	map_parser(content);
 }

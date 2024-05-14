@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 17:45:54 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:09:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*tx_err(char *buff, int fd);
 int		is_separator(char *buff);
 // Data parser
 int		get_line_nb(int fd);
-void	data_parser(int fd, int lines);
+void	data_parser(char **content);
 // Map parser
 void	map_parser(int fd);
 int		map_len(char **map);
