@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/13 21:48:54 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:16:43 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,16 +287,43 @@ int convert_color_to_int(char *code)
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /* did not test yet */
-void display_window(t_map *map)
+int display_win(void)
 {
-	t_data data;
+	t_var data;
 
 	data.mlx = mlx_init();
 	if(!data.mlx)
 		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-	data.win = mlx_new_window(data.mlx, 420, 840, "cub3D");
+	data.win = mlx_new_window(data.mlx, 1680, 1680, "cub3D");
 	if(!data.win)
 		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-	mlx_hook(data.win, 17, 1L << 17, mlx_loop_end, data.mlx);
+	mlx_hook(data.win, 2, 1L << 0, key_press, &data); 
+	mlx_hook(data.win, 17, 1L << 17, mlx_loop_end, data.mlx); // for X and minimizing 
 	mlx_loop(data.mlx);
+	return(printf("display_win success!\n"), 0);
 }
+
+/* KEY HOOKS */
+int key_press(int code, t_var *data)
+{
+    if (code == 65361)
+        printf("Left arrow key pressed\n");
+    else if (code == 65362)
+        printf("Up arrow key pressed\n");
+    else if (code == 65363)
+        printf("Right arrow key pressed\n");
+    else if (code == 65364)
+        printf("Down arrow key pressed\n");
+    else if (code == 'w' || code == 'W')
+        printf("W key pressed\n");
+    else if (code == 'a' || code == 'A')
+        printf("A key pressed\n");
+    else if (code == 's' || code == 'S')
+        printf("S key pressed\n");
+    else if (code == 'd' || code == 'D')
+        printf("D key pressed\n");
+	else if (code == 65307)
+        mlx_loop_end(data->mlx);
+    return(printf("key_press success!\n"), 0);
+}
+
