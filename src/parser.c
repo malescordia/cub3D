@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 18:09:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:45:59 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ void	parser(char **av)
 		clean_exit(strerror(errno), errno);
 	i = 0;
 	lines = get_line_nb(fd);
-	*content = malloc(sizeof(char *) * (lines +1));
-	if (!content)
-		clean_exit(MALLOC_ERR, 3);
-	content[lines] = NULL;
+	*content = ft_calloc(lines +1, sizeof(char *));
 	while (!EOF && i < lines)
 		content[i++] = ft_strdup(get_next_line(fd));
 	close(fd);
-	check_dup(content);
-	data_parser(content);
+	data_parser(content, lines);
 	map_parser(content);
 }
 

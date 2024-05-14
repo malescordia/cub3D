@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 18:09:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/14 18:43:32 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define EMPTY_PARAM	"Empty parameter."
 # define WRONG_DATA		"Incorrect file data."
 # define MALLOC_ERR		"Memory allocation failed"
+# define DUP_ERR		"Duplicate data in file"
 
 // -STRUCTS-
 // Map struct
@@ -58,7 +59,11 @@ char	*tx_err(char *buff, int fd);
 int		is_separator(char *buff);
 // Data parser
 int		get_line_nb(int fd);
-void	data_parser(char **content);
+void	check_dup(char **content, int lines);
+void	data_parser(char **content, int lines);
+int		tx_complete(t_map *map);
+char	*tx_err(char *buff, int fd);
+int		is_separator(char *buff);
 // Map parser
 void	map_parser(int fd);
 int		map_len(char **map);
