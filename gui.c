@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/15 12:19:14 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:23:12 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /* returns map length */
-int	get_map_len(char **map)
+int	get_2d_len(char **map)
 {
 	int	i;
 
@@ -77,7 +77,7 @@ int	check_up(t_map *map, int i, int j)
 	return -1 if a space or edge of map is reached before a '1' */
 int	check_down(t_map *map, int i, int j)
 {
-	while (i < get_map_len(map->map))
+	while (i < get_2d_len(map->map))
 	{
 		if (map->map[i + 1][j] && map->map[i + 1][j] == '1')
 			return (0);
@@ -154,7 +154,7 @@ int	check_column(t_map *map)
 	int	end;
 
 	start = 0;
-	end = get_map_len(map->map) - 1;
+	end = get_2d_len(map->map) - 1;
 	if (check_borders(map, start) == -1 || check_borders(map, end) == -1)
 		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
 	while (map->map[start] && start <= end)
@@ -330,3 +330,42 @@ int key_press(int code, t_var *data)
     return(printf("key_press success!\n"), 0);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+//                        FLOOR / CEILING ERROR CHECKING                              //
+////////////////////////////////////////////////////////////////////////////////////////
+
+/* NOT TESTED YET */
+/* checks numerical and unsigned char scope 
+	still need to check if ceiling/floor are diff */
+int	check_rgb(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	map->ceiling_split = ft_split(map->ctx, ',');
+	map->floor_split = ft_split(map->ftx, ',');
+	if (get_2d_len(map->ceiling_split) != 3)
+	{
+		if (map->ceiling_split == NULL)
+			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+	}
+	if (get_2d_len(map->floor_split) != 3)
+	{
+		if (map->floor_split == NULL)
+			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+	}
+	while (i < 3)
+	{
+		if (ft_atoi(map->ceiling_split[i]) > 255
+			|| ft_atoi(map->ceiling_split[i]) < 0
+			|| ft_atoi(map->floor_split[i]) > 255
+			|| ft_atoi(map->floor_split[i]) < 0)
+			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+		i++;
+	}
+	return (printf("check_rgb success!\n"), 0);
+}
+
+/* function to convert rgd to hexa */

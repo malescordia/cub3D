@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 18:43:32 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:07:36 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 // -MACROS-
 // Errorrs
-# define PARAM_NB		"Incorrect number of parameters."
-# define EMPTY_PARAM	"Empty parameter."
-# define WRONG_DATA		"Incorrect file data."
-# define MALLOC_ERR		"Memory allocation failed"
-# define DUP_ERR		"Duplicate data in file"
+# define PARAM_NB		"Error\nIncorrect number of parameters\n"
+# define EMPTY_PARAM	"Error\nEmpty parameter\n"
+# define WRONG_DATA		"Error\nIncorrect file data\n"
+# define MALLOC_ERR		"Error\nMemory allocation failed\n"
+# define DUP_ERR		"Error\nDuplicate data in file\n"
 
 // -STRUCTS-
 // Map struct
@@ -40,6 +40,8 @@ typedef struct s_map
 	char	*stx;
 	char	*ftx;
 	char	*ctx;
+	char 	**ceiling_split; // name is big only to make clear what it contains, you can make it small ofc :)
+	char 	**floor_split; // name is big only to make clear what it contains, you can make it small ofc :)
 }	t_map;
 // All-encompassing struct
 typedef struct s_var
