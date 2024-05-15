@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/15 19:15:03 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:32:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,35 +337,22 @@ int key_press(int code, t_var *data)
 /* NOT TESTED YET */
 /* checks numerical and unsigned char scope
 	still need to check if ceiling/floor are diff */
-int	check_rgb(t_map *map)
+int	check_rgb(char *content)
 {
-	int	i;
+	int		i;
+	char	**rgb;
 
 	i = 0;
-	map->ceiling_split = ft_split(map->ctx, ',');
-	map->floor_split = ft_split(map->ftx, ',');
-	if (get_2d_len(map->ceiling_split) != 3)
-	{
-		if (map->ceiling_split == NULL)
-			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-	}
-	if (get_2d_len(map->floor_split) != 3)
-	{
-		if (map->floor_split == NULL)
-			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-	}
+	rgb = ft_split(content, ',');
+	if (rgb == NULL || get_2d_len(rgb != 3))
+			return (0);
 	while (i < 3)
 	{
-		if (ft_atoi(map->ceiling_split[i]) > 255
-			|| ft_atoi(map->ceiling_split[i]) < 0
-			|| ft_atoi(map->floor_split[i]) > 255
-			|| ft_atoi(map->floor_split[i]) < 0)
-			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
+		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
+			return (0);
 		i++;
 	}
-	return (printf("check_rgb success!\n"), 0);
+	return (1)
 }
 
 /* function to convert rgd to hexa */

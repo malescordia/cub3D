@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 19:15:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:32:25 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ int	data_parser(char **content, int lines)
 	return (i);
 }
 
-
+char	*clr_to_hex(char *content)
+{
+	int i;
+	i = skip_sep(content, 2);
+	check_rgb(&content[i]);
+	// calculations
+}
 int	tx_complete(t_map *map)
 {
 	if (!map->ntx || !map->etx || !map->wtx || !map->stx || !map->ftx || !map->ctx)
