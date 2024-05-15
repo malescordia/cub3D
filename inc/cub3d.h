@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 18:43:32 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:34:12 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_map
 	char	*stx;
 	char	*ftx;
 	char	*ctx;
+	char	**cmap;
+	int		**imap;
 }	t_map;
 // All-encompassing struct
 typedef struct s_var
@@ -60,12 +62,12 @@ int		is_separator(char *buff);
 // Data parser
 int		get_line_nb(int fd);
 void	check_dup(char **content, int lines);
-void	data_parser(char **content, int lines);
+int		data_parser(char **content, int lines);
 int		tx_complete(t_map *map);
 char	*tx_err(char *buff, int fd);
 int		is_separator(char *buff);
 // Map parser
-void	map_parser(int fd);
+void	map_parser(char **content, int i);
 int		map_len(char **map);
 int		mapline_strlen(char *str);
 int		check_borders(int i);

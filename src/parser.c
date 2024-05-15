@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/14 18:45:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:27:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void	parser(char **av)
 	while (!EOF && i < lines)
 		content[i++] = ft_strdup(get_next_line(fd));
 	close(fd);
-	data_parser(content, lines);
-	map_parser(content);
+	i = data_parser(content, lines);
+	map_parser(content, i);
+	free_matrix(content);
 }
 
 
