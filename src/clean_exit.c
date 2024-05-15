@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/13 21:37:23 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 20:09:07 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,20 @@ void	free_map(t_map *map)
 		free(map->etx);
 	if (map->wtx)
 		free(map->wtx);
+	if (map->stx)
+		free(map->stx);
+	if (map->cmap)
+		free_matrix(map->cmap);
+}
+
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	if (matrix)
+	{
+		while(matrix[i])
+			free(matrix[i++]);
+		free(matrix);
+	}
 }

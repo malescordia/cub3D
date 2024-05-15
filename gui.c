@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/15 19:32:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 20:00:40 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,7 +352,7 @@ int	check_rgb(char *content)
 			return (0);
 		i++;
 	}
-	return (1)
+	return (1);
 }
 
 /* function to convert rgd to hexa */

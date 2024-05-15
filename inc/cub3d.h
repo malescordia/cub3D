@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 19:14:39 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 20:09:15 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WRONG_DATA		"Incorrect file data\n"
 # define MALLOC_ERR		"Memory allocation failed\n"
 # define DUP_ERR		"Duplicate data in file\n"
+# define BAD_MAP		"Invalid map\n"
 
 // -STRUCTS-
 // Map struct
@@ -38,8 +39,8 @@ typedef struct s_map
 	char	*etx;
 	char	*wtx;
 	char	*stx;
-	char	*ftx;
-	char	*ctx;
+	char	*fhex;
+	char	*chex;
 	char	**cmap;
 	int		**imap;
 	char 	**ceiling_split; // name is big only to make clear what it contains, you can make it small ofc :)
@@ -58,38 +59,37 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-// Data parser
 int		data_parser(char **content, int lines);
+void	map_parser(char **content, int i);
+// Data parser
+void	check_dup(char **content, int lines);
 char	*tx_err(char **content, int i);
-int		clr_to_int(char *code);
-int		check_rgb(t_map *map);
-// TO DO - CONVERT TO HEXA
+char	*clr_to_hex(char **content, int i);
+int		check_rgb(char *content);
 // Data parser utils
 int		get_line_nb(int fd);
-void	check_dup(char **content, int lines);
 int		tx_complete(t_map *map);
-int		is_separator(char *buff);
 int		skip_sep(char *str, int i);
+int		is_separator(char *buff);
 int		is_map(char *content);
 // Map parser
-void	map_parser(char **content, int i);
 int		check_characters(char **map);
 int		check_line(char **map);
 int		check_column(char **map);
 int		kinda_floodfill(char **map);
 int 	check_player(char **map);
 // Map parser utils
-int		map_len(char **map);
-int		mapline_strlen(char *str);
-int		check_borders(int i);
-int		check_up(int i, int j);
-int		check_down(int i, int j);
+int		get_2d_len(char **map);
+int		strlen_until_newline(char *str);
+int		check_borders(t_map *map, int i);
+int		check_up(t_map *map, int i, int j);
+int		check_down(t_map *map, int i, int j);
 // Display
-void	display_win(void);
+int		display_win(void);
 // Hooks & Events
-int key_press(int code, t_var *data);
+int 	key_press(int code, t_var *data);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_matrix(char **matrix);
 
-#endif
+# endif
