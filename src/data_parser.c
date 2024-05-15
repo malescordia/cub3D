@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 20:17:49 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 21:51:06 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,9 @@ char	*clr_to_hex(char **content, int i)
 		free_matrix(content);
 		clean_exit(WRONG_DATA, 3);
 	}
-	// calculations
-	while (i < 3)
-	{
-		res = ft_atoi(rgb[i]) / 16;
-	}
+	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8)
+		   + ft_atoi(rgb[2]);
+	return (hex_str(res));
 }
 
 /* NOT TESTED YET */
@@ -88,4 +86,29 @@ int	check_rgb(char **rgb)
 		i++;
 	}
 	return (1);
+}
+
+char	*hex_str(int res)
+{
+	int		i;
+	int		j;
+	char	*base;
+	char	hex[7];
+
+	i = 0;
+	ft_bzero(hex, 7);
+	base = "0123456789ABCDEF";
+	while (res >= 0)
+	{
+		j = 0;
+		while (base[j])
+		{
+			if (res % 10 == j)
+				hex[6 -i] = base[j];
+			j++;
+		}
+		i++;
+		res / 10;
+	}
+	return (hex);
 }

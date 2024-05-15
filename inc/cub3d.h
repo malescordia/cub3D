@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 20:09:15 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 21:48:49 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct s_map
 	char	*chex;
 	char	**cmap;
 	int		**imap;
-	char 	**ceiling_split; // name is big only to make clear what it contains, you can make it small ofc :)
-	char 	**floor_split; // name is big only to make clear what it contains, you can make it small ofc :)
 }	t_map;
 // All-encompassing struct
 typedef struct s_var
@@ -65,7 +63,8 @@ void	map_parser(char **content, int i);
 void	check_dup(char **content, int lines);
 char	*tx_err(char **content, int i);
 char	*clr_to_hex(char **content, int i);
-int		check_rgb(char *content);
+int		check_rgb(char **rgb);
+char	*hex_str(int res);
 // Data parser utils
 int		get_line_nb(int fd);
 int		tx_complete(t_map *map);
