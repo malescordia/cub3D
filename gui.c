@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/15 18:40:28 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:15:03 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	check_borders(t_map *map, int i)
 	int	j;
 
 	j = 0;
-	while (map->map[i][j])
+	while (map->cmap[i][j])
 	{
-		if (map->map[i][j] != '1' && map->map[i][j] != ' ' && map->map[i][j] != '\n')
+		if (map->cmap[i][j] != '1' && map->cmap[i][j] != ' ' && map->cmap[i][j] != '\n')
 			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
 		j++;
 	}
@@ -96,7 +96,7 @@ int	check_down(t_map *map, int i, int j)
 
 /* check if map only contains valid characters
     return -1 otherwise */
-int	check_caracters(t_map *map)
+int	check_characters(char **map)
 {
 	int		i;
 	int		j;
@@ -104,13 +104,13 @@ int	check_caracters(t_map *map)
 
 	i = 0;
 	str = " NEWSFC\n";
-	while (map->map[i])
+	while (map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (map[i][j])
 		{
-			if (map->map[i][j] != '1' && map->map[i][j] != '0' && ft_strchr(str,
-					map->map[i][j]) == 0)
+			if (map[i][j] != '1' && map[i][j] != '0' && ft_strchr(str,
+					map[i][j]) == 0)
 				return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
 			j++;
 		}
@@ -121,22 +121,22 @@ int	check_caracters(t_map *map)
 
 /* check each line to ensure it starts and ends with '1'
 	return -1 is this condition is not ok */
-int	check_line(t_map *map)
+int	check_line(char **map)
 {
 	int	i;
 	int	start;
 	int	end;
 
 	i = 0;
-	while (map->map[i])
+	while (map[i])
 	{
 		start = 0;
-		end = ft_strlen(map->map[i]) - 1;
-		while (map->map[i][start] == ' ')
+		end = ft_strlen(map[i]) - 1;
+		while (map[i][start] == ' ')
 			start++;
-		while (map->map[i][end] == ' ' || map->map[i][end] == '\n')
+		while (map[i][end] == ' ' || map[i][end] == '\n')
 			end--;
-		if (map->map[i][start] != '1' || map->map[i][end] != '1')
+		if (map[i][start] != '1' || map[i][end] != '1')
 			return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
 		i++;
 	}
@@ -147,33 +147,33 @@ int	check_line(t_map *map)
     a loop iterates down to check up
     another loop iterates up to check down *IM A GENIUS*
 	return -1 if this condition is not ok */
-int	check_column(t_map *map)
+int	check_column(char **map)
 {
 	int	j;
 	int	start;
 	int	end;
 
 	start = 0;
-	end = get_2d_len(map->map) - 1;
+	end = get_2d_len(map) - 1;
 	if (check_borders(map, start) == -1 || check_borders(map, end) == -1)
 		return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
-	while (map->map[start] && start <= end)
+	while (map[start] && start <= end)
 	{
 		j = 1;
-		while (map->map[start][j])
+		while (map[start][j])
         {
-			if (map->map[start][j] == '0' && check_up(map, start, j) == -1)
+			if (map[start][j] == '0' && check_up(map, start, j) == -1)
 				return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
             j++;
         }
 		start++;
 	}
-	while (end >= 0 && map->map[end])
+	while (end >= 0 && map[end])
 	{
 		j = 1;
-		while (map->map[end][j])
+		while (map[end][j])
         {
-			if (map->map[end][j] == '0' && check_down(map, end, j) == -1)
+			if (map[end][j] == '0' && check_down(map, end, j) == -1)
 				return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
             j++;
         }
@@ -184,7 +184,7 @@ int	check_column(t_map *map)
 
 /* check that every '0' and every 'NEWS' is surrounded by 'N', 'E', 'W', 'S', 1' or '0'
 	return -1 if the '0' is not surrounded in this way */
-int	kinda_floodfill(t_map *map)
+int	kinda_floodfill(char **map)
 {
 	int		i;
 	int		j;
@@ -192,19 +192,19 @@ int	kinda_floodfill(t_map *map)
 
 	str = "NEWS01";
 	i = 0;
-	while (map->map[i])
+	while (map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (map[i][j])
 		{
-			if (map->map[i][j] == '0' || ft_strchr("NEWS", map->map[i][j]))
+			if (map[i][j] == '0' || ft_strchr("NEWS", map[i][j]))
 			{
-				if (j + 1 > strlen_until_newline(map->map[i - 1])
-					|| j + 1 > strlen_until_newline(map->map[i + 1])
-					|| ft_strchr(str, map->map[i - 1][j]) == 0
-					|| ft_strchr(str, map->map[i + 1][j]) == 0
-					|| ft_strchr(str, map->map[i][j - 1]) == 0
-					|| ft_strchr(str, map->map[i][j + 1]) == 0)
+				if (j + 1 > strlen_until_newline(map[i - 1])
+					|| j + 1 > strlen_until_newline(map[i + 1])
+					|| ft_strchr(str, map[i - 1][j]) == 0
+					|| ft_strchr(str, map[i + 1][j]) == 0
+					|| ft_strchr(str, map[i][j - 1]) == 0
+					|| ft_strchr(str, map[i][j + 1]) == 0)
 					return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
 			}
 			j++;
@@ -216,7 +216,7 @@ int	kinda_floodfill(t_map *map)
 
 /* checks for player existence
 	returns -1 if multiple players or no player */
-int check_player(t_map *map)
+int check_player(char **map)
 {
 	int	i;
 	int	j;
@@ -224,12 +224,12 @@ int check_player(t_map *map)
 
 	i = 0;
 	player = 0;
-	while (map->map[i])
+	while (map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (map[i][j])
 		{
-			if (ft_strchr("NEWS", map->map[i][j]))
+			if (ft_strchr("NEWS", map[i][j]))
 			{
 				if (player == 1)
 					return (printf("FREEING STUFF == CAMI'S PART ✨"), -1);
@@ -274,7 +274,7 @@ int	get_newsfc(t_map *map, char *line)
 }
 
 /* NOT TESTED YET */
-int convert_color_to_int(char *code)
+int	clr_to_int(char *code)
 {
     int n;
 

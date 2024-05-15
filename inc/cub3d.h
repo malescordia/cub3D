@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 18:42:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:14:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,34 +58,38 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-int		tx_complete(t_map *map);
-char	*tx_err(char *buff, int fd);
-int		is_separator(char *buff);
 // Data parser
+int		data_parser(char **content, int lines);
+char	*tx_err(char **content, int i);
+int		clr_to_int(char *code);
+int		check_rgb(t_map *map);
+// TO DO - CONVERT TO HEXA
+// Data parser utils
 int		get_line_nb(int fd);
 void	check_dup(char **content, int lines);
-int		data_parser(char **content, int lines);
 int		tx_complete(t_map *map);
-char	*tx_err(char *buff, int fd);
 int		is_separator(char *buff);
+int		skip_sep(char *str, int i);
+int		is_map(char *content);
 // Map parser
 void	map_parser(char **content, int i);
+int		check_characters(char **map);
+int		check_line(char **map);
+int		check_column(char **map);
+int		kinda_floodfill(char **map);
+int 	check_player(char **map);
+// Map parser utils
 int		map_len(char **map);
 int		mapline_strlen(char *str);
 int		check_borders(int i);
-int		check_column(void);
 int		check_up(int i, int j);
 int		check_down(int i, int j);
-int		check_line(void);
-int		check_character(void);
-int		kinda_floodfill(void);
-int		check_player(void);
-// Texture parser
-int		get_newsfc(char *line);
-int		clr_to_int(char *code);
 // Display
 void	display_win(void);
+// Hooks & Events
+int key_press(int code, t_var *data);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
+void	free_matrix(char **matrix);
 
 #endif
