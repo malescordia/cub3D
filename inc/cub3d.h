@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 18:34:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:42:52 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 // -MACROS-
 // Errorrs
-# define PARAM_NB		"Incorrect number of parameters."
-# define EMPTY_PARAM	"Empty parameter."
-# define WRONG_DATA		"Incorrect file data."
-# define MALLOC_ERR		"Memory allocation failed"
-# define DUP_ERR		"Duplicate data in file"
+# define PARAM_NB		"Incorrect number of parameters\n"
+# define EMPTY_PARAM	"Empty parameter\n"
+# define WRONG_DATA		"Incorrect file data\n"
+# define MALLOC_ERR		"Memory allocation failed\n"
+# define DUP_ERR		"Duplicate data in file\n"
 
 // -STRUCTS-
 // Map struct
@@ -42,6 +42,8 @@ typedef struct s_map
 	char	*ctx;
 	char	**cmap;
 	int		**imap;
+	char 	**ceiling_split; // name is big only to make clear what it contains, you can make it small ofc :)
+	char 	**floor_split; // name is big only to make clear what it contains, you can make it small ofc :)
 }	t_map;
 // All-encompassing struct
 typedef struct s_var
