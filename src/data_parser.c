@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:29:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:35:14 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*hex_str(int res)
 	i = 0;
 	hex = ft_calloc(7, sizeof(char));
 	base = "0123456789ABCDEF";
-	while (res >= 0)
+	while (res > 0)
 	{
 		j = 0;
 		while (base[j])
@@ -108,14 +108,11 @@ char	*hex_str(int res)
 			if (res % 16 == j)
 			{
 				hex[5 - i] = base[j];
-				printf("HEXX IS %s\n", hex);
 				res /= 16;
-				j = 16;
 				i++;
+				break;
 			}
 			j++;
 		}
-	}
-	printf("HEX IS %s\n", hex);
 	return (hex);
 }
