@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 21:51:06 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:02:25 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_dup(char **content, int lines)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (content[i] && i < lines -1)
@@ -24,9 +24,10 @@ void	check_dup(char **content, int lines)
 		while (content[j])
 		{
 			if ((!ft_strncmp(content[i], content[j], ft_strlen(content[i])) \
-			&& !is_map(content[i])) \
-			|| (!ft_strncmp(&content[i][skip_sep(content[i], 3)], &content[j][skip_sep(content[j], 3)], ft_strlen(&content[i][3])) \
-			&& !is_map(&content[i])))
+				&& !is_map(content[i])) || \
+				(!ft_strncmp(&content[i][skip_sep(content[i], 3)], \
+				&content[j][skip_sep(content[j], 3)], \
+				ft_strlen(&content[i][3])) && !is_map(&content[i])))
 			{
 				free_matrix(content);
 				clean_exit(DUP_ERR, 2);
@@ -41,14 +42,14 @@ char	*tx_err(char **content, int i)
 {
 	int	tx_fd;
 
-	tx_fd = open(&content[i][3], O_WRONLY);
+	tx_fd = open(&content[i][skip_sep(content, 3)], O_WRONLY);
 	if (tx_fd < 0)
 	{
 		free_matrix(content);
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
-	return (ft_strdup(&content[3]));
+	return (ft_strdup(&content[skip_sep(content, 3)]));
 }
 
 char	*clr_to_hex(char **content, int i)
@@ -64,8 +65,7 @@ char	*clr_to_hex(char **content, int i)
 		free_matrix(content);
 		clean_exit(WRONG_DATA, 3);
 	}
-	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8)
-		   + ft_atoi(rgb[2]);
+	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
 	return (hex_str(res));
 }
 
@@ -78,7 +78,7 @@ int	check_rgb(char **rgb)
 
 	i = 0;
 	if (rgb == NULL || get_2d_len(rgb != 3))
-			return (0);
+		return (0);
 	while (i < 3)
 	{
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
@@ -104,7 +104,7 @@ char	*hex_str(int res)
 		while (base[j])
 		{
 			if (res % 10 == j)
-				hex[6 -i] = base[j];
+				hex[6 - i] = base[j];
 			j++;
 		}
 		i++;

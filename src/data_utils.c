@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 19:55:32 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:43:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int	get_line_nb(int fd)
 
 int	tx_complete(t_map *map)
 {
-	if (!map->ntx || !map->etx || !map->wtx || !map->stx || !map->ftx || !map->ctx)
+	if (!map->ntx || !map->etx || !map->wtx || !map->stx
+		|| !map->fhex || !map->chex)
 		return (0);
 	return (1);
 }
+
 int	skip_sep(char *str, int i)
 {
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == " ")

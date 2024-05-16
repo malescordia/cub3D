@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:02 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 20:06:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:52:13 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,22 @@ int	check_column(char **map)
 	{
 		j = 1;
 		while (map[start][j])
-        {
+		{
 			if (map[start][j] == '0' && check_up(map, start, j) == -1)
 				clean_exit(BAD_MAP, 2);
-            j++;
-        }
+			j++;
+		}
 		start++;
 	}
 	while (end >= 0 && map[end])
 	{
 		j = 1;
 		while (map[end][j])
-        {
+		{
 			if (map[end][j] == '0' && check_down(map, end, j) == -1)
 				clean_exit(BAD_MAP, 2);
-            j++;
-        }
+			j++;
+		}
 		end--;
 	}
 	return (kinda_floodfill(map));
@@ -125,12 +125,12 @@ int	kinda_floodfill(char **map)
 			}
 			j++;
 		}
-        i++;
+		i++;
 	}
 	return (check_player(map));
 }
 
-int check_player(char **map)
+int	check_player(char **map)
 {
 	int	i;
 	int	j;
@@ -155,5 +155,5 @@ int check_player(char **map)
 	}
 	if (player == 0)
 		clean_exit(BAD_MAP, 2);
-    return (0);
+	return (0);
 }

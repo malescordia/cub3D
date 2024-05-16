@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 20:09:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:42:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_matrix(char **matrix)
 
 	if (matrix)
 	{
-		while(matrix[i])
+		while (matrix[i])
 			free(matrix[i++]);
 		free(matrix);
 	}

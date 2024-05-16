@@ -6,11 +6,11 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 21:48:49 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:58:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 // -LIBRARIES-
@@ -29,12 +29,12 @@
 # define MALLOC_ERR		"Memory allocation failed\n"
 # define DUP_ERR		"Duplicate data in file\n"
 # define BAD_MAP		"Invalid map\n"
+# define WIN_ERR		"Display or window failure"
 
 // -STRUCTS-
 // Map struct
 typedef struct s_map
 {
-	char	**map;
 	char	*ntx;
 	char	*etx;
 	char	*wtx;
@@ -76,7 +76,7 @@ int		check_characters(char **map);
 int		check_line(char **map);
 int		check_column(char **map);
 int		kinda_floodfill(char **map);
-int 	check_player(char **map);
+int		check_player(char **map);
 // Map parser utils
 int		get_2d_len(char **map);
 int		strlen_until_newline(char *str);
@@ -86,9 +86,9 @@ int		check_down(t_map *map, int i, int j);
 // Display
 int		display_win(void);
 // Hooks & Events
-int 	key_press(int code, t_var *data);
+int		key_press(int code, t_var *data);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_matrix(char **matrix);
 
-# endif
+#endif

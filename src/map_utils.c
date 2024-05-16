@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/15 20:06:42 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 15:01:08 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	check_borders(t_map *map, int i)
 	j = 0;
 	while (map->cmap[i][j])
 	{
-		if (map->cmap[i][j] != '1' && map->cmap[i][j] != ' ' && map->cmap[i][j] != '\n')
+		if (map->cmap[i][j] != '1' && map->cmap[i][j] != ' '
+			&& map->cmap[i][j] != '\n')
 			clean_exit(BAD_MAP, 2);
 		j++;
 	}
@@ -54,13 +55,13 @@ int	check_borders(t_map *map, int i)
 /* check the indexes above given coordinate (same column)
 	return 0 if a '1' is found
 	return -1 if a space or edge of map is reached before a '1' */
-int	check_up(t_map *map, int i, int j)
+int	check_up(char **map, int i, int j)
 {
 	while (i > 0)
 	{
-		if (map->map[i - 1][j] && map->map[i - 1][j] == '1')
+		if (map[i - 1][j] && map[i - 1][j] == '1')
 			return (0);
-		if (map->map[i - 1][j] && map->map[i - 1][j] == ' ')
+		if (map[i - 1][j] && map[i - 1][j] == ' ')
 			return (-1);
 		i--;
 	}
@@ -70,13 +71,13 @@ int	check_up(t_map *map, int i, int j)
 /* check the indexes bellow given coordinate (same column)
 	return 0 if a '1' is found
 	return -1 if a space or edge of map is reached before a '1' */
-int	check_down(t_map *map, int i, int j)
+int	check_down(char **map, int i, int j)
 {
-	while (i < get_2d_len(map->map))
+	while (i < get_2d_len(map))
 	{
-		if (map->map[i + 1][j] && map->map[i + 1][j] == '1')
+		if (map[i + 1][j] && map[i + 1][j] == '1')
 			return (0);
-		if (map->map[i + 1][j] && map->map[i + 1][j] == ' ')
+		if (map[i + 1][j] && map[i + 1][j] == ' ')
 			return (-1);
 		i++;
 	}
