@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 18:39:49 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:22:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 
 // -MACROS-
 // Errorrs
-# define PARAM_NB		"Incorrect number of parameters\n"
-# define EMPTY_PARAM	"Empty parameter\n"
-# define WRONG_DATA		"Incorrect file data\n"
-# define MALLOC_ERR		"Memory allocation failed\n"
-# define DUP_ERR		"Duplicate data in file\n"
-# define BAD_MAP		"Invalid map\n"
+# define PARAM_NB		"Incorrect number of parameters"
+# define EMPTY_PARAM	"Empty parameter"
+# define WRONG_DATA		"Incorrect file data"
+# define MALLOC_ERR		"Memory allocation failed"
+# define DUP_ERR		"Duplicate data in file"
+# define BAD_MAP		"Invalid map"
 # define WIN_ERR		"Display or window failure"
 
 // -STRUCTS-
@@ -66,7 +66,7 @@ char	*clr_to_hex(char **content, int i);
 int		check_rgb(char **rgb);
 char	*hex_str(int res);
 // Data parser utils
-int		get_line_nb(int fd);
+int		get_line_nb(char *filename);
 int		tx_complete(t_map *map);
 int		skip_sep(char *str, int i);
 int		is_separator(char *buff);

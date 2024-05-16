@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 19:20:53 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:23:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	parser(char **av)
 
 	if (!av[1] || !av[1][0])
 		clean_exit(EMPTY_PARAM, 1);
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		clean_exit(strerror(errno), errno);
 	i = 0;
-	lines = get_line_nb(fd);
+	lines = get_line_nb(av[1]);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);
-	content = malloc(sizeof(char *) * lines);
+	content = calloc(lines, sizeof(char *));
 	while (i < lines)
 		content[i++] = get_next_line(fd);
+	i = 0;
+	while (content[i])
+		printf("content: %s\n", content[i]);
 	close(fd);
 	i = data_parser(content, lines);
 	map_parser(content, i);

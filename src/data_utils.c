@@ -6,17 +6,21 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 19:20:47 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:23:45 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	get_line_nb(int fd)
+int	get_line_nb(char *filename)
 {
 	int		lines;
+	int		fd;
 
 	lines = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		clean_exit(strerror(errno), errno);
 	while (get_next_line(fd))
 		lines++;
 	close(fd);
