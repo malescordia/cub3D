@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 14:56:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 18:45:06 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	main(int ac, char **av)
 {
 	if (ac != 2)
 		clean_exit(PARAM_NB, 1);
-	var();
 	parser(av);
 }

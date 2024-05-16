@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 16:23:17 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 18:39:49 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_var
 {
 	void	*mlx;
 	void	*win;
-	t_map	*map;
+	t_map	map;
 }	t_var;
 
 // -FUNCTIONS-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 16:16:57 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 18:27:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	check_dup(char **content, int lines)
 
 char	*tx_err(char **content, int i)
 {
-	int	tx_fd;
+	int		tx_fd;
+	char	*tx;
 
 	tx_fd = open(&content[i][skip_sep(content[i], 3)], O_WRONLY);
 	if (tx_fd < 0)
@@ -50,7 +51,8 @@ char	*tx_err(char **content, int i)
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
-	return (ft_strdup(&content[i][skip_sep(content[i], 3)]));
+	tx = ft_strdup(&content[i][skip_sep(content[i], 3)]);
+	return (tx);
 }
 
 char	*clr_to_hex(char **content, int i)

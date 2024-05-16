@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 16:22:25 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 19:20:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ int	get_line_nb(int fd)
 	int		lines;
 
 	lines = 0;
-	while (!EOF)
-	{
-		get_next_line(fd);
+	while (get_next_line(fd))
 		lines++;
-	}
+	close(fd);
 	return (lines);
 }
 
@@ -35,6 +33,8 @@ int	tx_complete(t_map *map)
 
 int	skip_sep(char *str, int i)
 {
+	if (!str)
+		return (0);
 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 		i++;
 	return (i);
