@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:23:45 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:43:59 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ int	skip_sep(char *str, int i)
 	return (i);
 }
 
-int	is_separator(char *content)
+int	is_separator(char *txt)
 {
-	if (skip_sep(content, 0) != (int)ft_strlen(content))
+	if (skip_sep(txt, 0) != (int)ft_strlen(txt))
 		return (0);
 	return (1);
 }
 
-int	is_map(char *content)
+int	is_map(char *txt)
 {
 	int	i;
 
 	i = 0;
-	while (content[i])
+	while (txt[i])
 	{
-		if (content[i] != '0' && content[i] != '1')
+		if (txt[i] != '0' && txt[i] != '1')
 			return (0);
 		i++;
 	}

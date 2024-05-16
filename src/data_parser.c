@@ -6,31 +6,31 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:17:00 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:29:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	check_dup(char **content, int lines)
+void	check_dup(char **txt, int lines)
 {
 	int	i;
 	int	j;
 	int	itx;
 
 	i = 0;
-	while (content[i] && i < lines -1)
+	while (txt[i] && i < lines -1)
 	{
 		j = i +1;
-		itx = skip_sep(content[i], 3);
-		while (content[j])
+		itx = skip_sep(txt[i], 3);
+		while (txt[j])
 		{
-			if ((!ft_strncmp(content[i], content[j], ft_strlen(content[i])) \
-			&& !is_map(content[i])) || (!ft_strncmp(&content[i][itx], \
-			&content[j][skip_sep(content[j], 3)], ft_strlen(&content[i][itx])) \
-			&& !is_map(&content[i][itx])))
+			if ((!ft_strncmp(txt[i], txt[j], ft_strlen(txt[i]) + 1) \
+			&& !is_separator(txt[i]) && !is_map(txt[i])) || \
+			(!ft_strncmp(&txt[i][itx], &txt[j][skip_sep(txt[j], 3)], \
+			ft_strlen(&txt[i][itx]) + 1) && !is_map(&txt[i][itx])))
 			{
-				free_matrix(content);
+				free_matrix(txt);
 				clean_exit(DUP_ERR, 2);
 			}
 			j++;
@@ -39,31 +39,31 @@ void	check_dup(char **content, int lines)
 	}
 }
 
-char	*tx_err(char **content, int i)
+char	*tx_err(char **txt, int i)
 {
 	int		tx_fd;
 	char	*tx;
 
-	tx_fd = open(&content[i][skip_sep(content[i], 3)], O_WRONLY);
+	tx_fd = open(&txt[i][skip_sep(txt[i], 3)], O_WRONLY);
 	if (tx_fd < 0)
 	{
-		free_matrix(content);
+		free_matrix(txt);
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
-	tx = ft_strdup(&content[i][skip_sep(content[i], 3)]);
+	tx = ft_strdup(&txt[i][skip_sep(txt[i], 3)]);
 	return (tx);
 }
 
-char	*clr_to_hex(char **content, int i)
+char	*clr_to_hex(char **txt, int i)
 {
 	int		res;
 	char	**rgb;
 
-	rgb = ft_split(&content[i][skip_sep(content[i], 2)], ',');
+	rgb = ft_split(&txt[i][skip_sep(txt[i], 2)], ',');
 	if (!check_rgb(rgb))
 	{
-		free_matrix(content);
+		free_matrix(txt);
 		clean_exit(WRONG_DATA, 3);
 	}
 	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
@@ -98,19 +98,24 @@ char	*hex_str(int res)
 	char	*hex;
 
 	i = 0;
-	hex = NULL;
+	hex = ft_calloc(7, sizeof(char));
 	base = "0123456789ABCDEF";
 	while (res >= 0)
 	{
 		j = 0;
 		while (base[j])
 		{
-			if (res % 10 == j)
-				hex[6 - i] = base[j];
+			if (res % 16 == j)
+			{
+				hex[5 - i] = base[j];
+				printf("HEXX IS %s\n", hex);
+				res /= 16;
+				j = 16;
+				i++;
+			}
 			j++;
 		}
-		i++;
-		res /= 10;
 	}
+	printf("HEX IS %s\n", hex);
 	return (hex);
 }

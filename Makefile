@@ -2,7 +2,7 @@ NAME = cub3D
 
 CC = @cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 SRC =	src/main.c \
 		src/parser.c		src/data_parser.c		src/map_parser.c \

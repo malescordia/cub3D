@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:23:33 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:14:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parser(char **av)
 	int		i;
 	int		fd;
 	int		lines;
-	char	**content;
+	char	**txt;
 
 	if (!av[1] || !av[1][0])
 		clean_exit(EMPTY_PARAM, 1);
@@ -27,63 +27,62 @@ void	parser(char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);
-	content = calloc(lines, sizeof(char *));
+	txt = ft_calloc(lines, sizeof(char *));
 	while (i < lines)
-		content[i++] = get_next_line(fd);
-	i = 0;
-	while (content[i])
-		printf("content: %s\n", content[i]);
+	{
+		txt[i] = get_next_line(fd);
+		txt[i][ft_strlen(txt[i]) -1] = 0;
+		i++;
+	}
 	close(fd);
-	i = data_parser(content, lines);
-	map_parser(content, i);
+	i = data_parser(txt, lines);
+	map_parser(txt, i);
 }
 
-int	data_parser(char **content, int lines)
+int	data_parser(char **txt, int lines)
 {
 	int	i;
 
 	i = 0;
-	check_dup(content, lines);
-	while (content[i] && !tx_complete(&var()->map))
+	check_dup(txt, lines);
+	while (txt[i] && !tx_complete(&var()->map))
 	{
-		if (!ft_strncmp(content[i], "NO ", 3) && !var()->map.ntx)
-			var()->map.ntx = tx_err(content, i);
-		else if (!ft_strncmp(content[i], "EA ", 3) && !var()->map.etx)
-			var()->map.etx = tx_err(content, i);
-		else if (!ft_strncmp(content[i], "WE ", 3) && !var()->map.wtx)
-			var()->map.wtx = tx_err(content, i);
-		else if (!ft_strncmp(content[i], "SO ", 3) && !var()->map.stx)
-			var()->map.stx = tx_err(content, i);
-		else if (!ft_strncmp(content[i], "F ", i) && !var()->map.fhex)
-			var()->map.fhex = clr_to_hex(content, i);
-		else if (!ft_strncmp(content[i], "C ", i) && !var()->map.chex)
-			var()->map.chex = clr_to_hex(content, i);
-		else if (!is_separator(content[i]))
+		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx)
+			var()->map.ntx = tx_err(txt, i);
+		else if (!ft_strncmp(txt[i], "EA ", 3) && !var()->map.etx)
+			var()->map.etx = tx_err(txt, i);
+		else if (!ft_strncmp(txt[i], "WE ", 3) && !var()->map.wtx)
+			var()->map.wtx = tx_err(txt, i);
+		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx)
+			var()->map.stx = tx_err(txt, i);
+		else if (!ft_strncmp(txt[i], "F ", 2) && !var()->map.fhex)
+			var()->map.fhex = clr_to_hex(txt, i);
+		else if (!ft_strncmp(txt[i], "C ", 2) && !var()->map.chex)
+			var()->map.chex = clr_to_hex(txt, i);
+		else if (!is_separator(txt[i]))
 			clean_exit(WRONG_DATA, 2);
 		i++;
 	}
-
-	printf("N TEXTURE = %s\n", var()->map.ntx);
 	return (i);
 }
 
-void	map_parser(char **content, int i)
+void	map_parser(char **txt, int i)
 {
 	int		j;
 	int		start;
 
-	while (content[i] && is_separator(content[i]))
+	while (txt[i] && is_separator(txt[i]))
 		i++;
 	start = i;
-	while (content[i] && !is_separator(content[i]))
+	while (txt[i] && !is_separator(txt[i]))
 		i++;
 	var()->map.cmap = malloc(sizeof(char *) * (i-start+1));
 	if (!var()->map.cmap)
 		clean_exit(MALLOC_ERR, 4);
 	j = 0;
 	while (start < i)
-		var()->map.cmap[j++] = ft_strdup(content[start++]);
-	free_matrix(content);
+		var()->map.cmap[j++] = ft_strdup(txt[start++]);
+	free_matrix(txt);
 	check_characters(var()->map.cmap);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:22:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:45:19 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-int		data_parser(char **content, int lines);
-void	map_parser(char **content, int i);
+int		data_parser(char **txt, int lines);
+void	map_parser(char **txt, int i);
 // Data parser
-void	check_dup(char **content, int lines);
-char	*tx_err(char **content, int i);
-char	*clr_to_hex(char **content, int i);
+void	check_dup(char **txt, int lines);
+char	*tx_err(char **txt, int i);
+char	*clr_to_hex(char **txt, int i);
 int		check_rgb(char **rgb);
 char	*hex_str(int res);
 // Data parser utils
@@ -70,7 +70,7 @@ int		get_line_nb(char *filename);
 int		tx_complete(t_map *map);
 int		skip_sep(char *str, int i);
 int		is_separator(char *buff);
-int		is_map(char *content);
+int		is_map(char *txt);
 // Map parser
 int		check_characters(char **map);
 int		check_line(char **map);
