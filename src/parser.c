@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 14:59:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 16:02:45 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parser(char **av)
 		clean_exit(strerror(errno), errno);
 	i = 0;
 	lines = get_line_nb(fd);
-	*content = ft_calloc(lines +1, sizeof(char *));
+	content = ft_calloc(lines +1, sizeof(char *));
 	while (!EOF && i < lines)
 		content[i++] = ft_strdup(get_next_line(fd));
 	close(fd);
@@ -43,7 +43,7 @@ int	data_parser(char **content, int lines)
 	check_dup(content, lines);
 	while (content[i] && !tx_complete(var()->map))
 	{
-		if (!ft_strnmp(content[i], "NO ", 3) && !var()->map->ntx)
+		if (!ft_strncmp(content[i], "NO ", 3) && !var()->map->ntx)
 			var()->map->ntx = tx_err(content, i);
 		else if (!ft_strncmp(content[i], "EA ", 3) && !var()->map->etx)
 			var()->map->etx = tx_err(content, i);

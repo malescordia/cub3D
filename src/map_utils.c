@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 15:01:08 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 16:19:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,14 @@ int	strlen_until_newline(char *str)
 /* receives a line and in order to find out if there is anything is not a '1', ' ' or '\n'
     return 0 if all is gud
 	return -1 if condition is not ok */
-int	check_borders(t_map *map, int i)
+int	check_borders(char **map, int i)
 {
 	int	j;
 
 	j = 0;
-	while (map->cmap[i][j])
+	while (map[i][j])
 	{
-		if (map->cmap[i][j] != '1' && map->cmap[i][j] != ' '
-			&& map->cmap[i][j] != '\n')
+		if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\n')
 			clean_exit(BAD_MAP, 2);
 		j++;
 	}

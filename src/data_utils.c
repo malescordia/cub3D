@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 14:43:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 16:22:25 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	tx_complete(t_map *map)
 
 int	skip_sep(char *str, int i)
 {
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == " ")
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 		i++;
 	return (i);
 }
 
 int	is_separator(char *content)
 {
-	if (skip_sep(content, 0) != ft_strlen(content))
+	if (skip_sep(content, 0) != (int)ft_strlen(content))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 14:58:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 16:23:17 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,16 @@ int		check_player(char **map);
 // Map parser utils
 int		get_2d_len(char **map);
 int		strlen_until_newline(char *str);
-int		check_borders(t_map *map, int i);
-int		check_up(t_map *map, int i, int j);
-int		check_down(t_map *map, int i, int j);
+int		check_borders(char **map, int i);
+int		check_up(char **map, int i, int j);
+int		check_down(char **map, int i, int j);
 // Display
 int		display_win(void);
 // Hooks & Events
 int		key_press(int code, t_var *data);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
+void	free_map(t_map *map);
 void	free_matrix(char **matrix);
 
 #endif
