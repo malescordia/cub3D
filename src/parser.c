@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:14:21 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:52:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	parser(char **av)
 		i++;
 	}
 	close(fd);
-	i = data_parser(txt, lines);
+	check_dup(txt, lines);
+	i = data_parser(txt);
 	map_parser(txt, i);
 }
 
-int	data_parser(char **txt, int lines)
+int	data_parser(char **txt)
 {
 	int	i;
 
 	i = 0;
-	check_dup(txt, lines);
 	while (txt[i] && !tx_complete(&var()->map))
 	{
 		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx)
@@ -62,6 +62,11 @@ int	data_parser(char **txt, int lines)
 		else if (!is_separator(txt[i]))
 			clean_exit(WRONG_DATA, 2);
 		i++;
+	}
+	if (!tx_complete(&var()->map))
+	{
+		free_matrix(txt);
+		clean_exit(WRONG_DATA, 2);
 	}
 	return (i);
 }

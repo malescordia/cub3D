@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:45:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:52:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-int		data_parser(char **txt, int lines);
+int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
 // Data parser
 void	check_dup(char **txt, int lines);

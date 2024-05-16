@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 20:43:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:47:49 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	get_line_nb(char *filename)
 	while (get_next_line(fd))
 		lines++;
 	close(fd);
+	if (!lines)
+		clean_exit(WRONG_DATA, 2);
 	return (lines);
 }
 
