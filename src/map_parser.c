@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:02 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 12:14:45 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:02:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	check_column(char **map)
 	return (kinda_floodfill(map));
 }
 
-/* check that every '0' and every 'NEWS' is surrounded by 'N', 'E', 'W', 
+/* check that every '0' and every 'NEWS' is surrounded by 'N', 'E', 'W',
 	'S', 1' or '0'
 	return -1 if the '0' is not surrounded in this way */
 int	kinda_floodfill(char **map)

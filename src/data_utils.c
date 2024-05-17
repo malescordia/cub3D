@@ -6,28 +6,11 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:47:49 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 14:53:26 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-int	get_line_nb(char *filename)
-{
-	int		lines;
-	int		fd;
-
-	lines = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		clean_exit(strerror(errno), errno);
-	while (get_next_line(fd))
-		lines++;
-	close(fd);
-	if (!lines)
-		clean_exit(WRONG_DATA, 2);
-	return (lines);
-}
 
 int	tx_complete(t_map *map)
 {
@@ -39,9 +22,10 @@ int	tx_complete(t_map *map)
 
 int	skip_sep(char *str, int i)
 {
-	if (!str)
+	if (!str || !str[0])
 		return (0);
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
+	//printf("NOW: |%s|\n", str);
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ' || str[i] == '\n'))
 		i++;
 	return (i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 11:28:03 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:29:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,47 @@
 // Sends to parsing functions
 void	parser(char **av)
 {
-	int		i;
 	int		fd;
-	int		lines;
 	char	**txt;
 
 	if (!av[1] || !av[1][0])
 		clean_exit(EMPTY_PARAM, 1);
-	i = 0;
-	lines = get_line_nb(av[1]);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);
-	txt = ft_calloc(lines, sizeof(char *));
-	while (i < lines)
-	{
-		txt[i] = get_next_line(fd);
-		txt[i][ft_strlen(txt[i]) -1] = 0;
-		i++;
-	}
+	txt = store_mapfile(fd);
 	close(fd);
-	check_dup(txt, lines);
-	i = data_parser(txt);
-	map_parser(txt, i);
+	if (!txt || !txt[0])
+	{
+		free_matrix(txt);
+		clean_exit(WRONG_DATA, 2);
+	}
+	check_dup(txt, get_2d_len(txt));
+	map_parser(txt, data_parser(txt));
+}
+
+char	**store_mapfile(int fd)
+{
+	char	*buff;
+	char	*join;
+	char	*tmp;
+	char	**txt;
+
+	tmp = get_next_line(fd);
+	while (1)
+	{
+		buff = get_next_line(fd);
+		if (!buff)
+			break;
+		join = ft_strjoin(tmp, buff);
+		free(tmp);
+		free(buff);
+		tmp = join;
+		join = NULL;
+	}
+	txt = ft_split(tmp, '\n');
+	free(tmp);
+	return (txt);
 }
 
 int	data_parser(char **txt)
@@ -81,9 +99,7 @@ void	map_parser(char **txt, int i)
 	start = i;
 	while (txt[i] && !is_separator(txt[i]))
 		i++;
-	var()->map.cmap = malloc(sizeof(char *) * (i-start+1));
-	if (!var()->map.cmap)
-		clean_exit(MALLOC_ERR, 4);
+	var()->map.cmap = ft_calloc(i - start +1, (sizeof(char *)));
 	j = 0;
 	while (start < i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
