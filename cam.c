@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:55:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:52:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_player
 	char	*shape;
 	int		xpos[2][2];
 	int		ypos[2][2];
-	float	facing_degree;
+	double	facing_deg;
 };
 
 

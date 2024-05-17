@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:08:54 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:55:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
 
@@ -51,6 +52,10 @@ typedef struct s_var
 {
 	void	*mlx;
 	void	*win;
+	bool	north;
+	bool	east;
+	bool	west;
+	bool	south;
 	t_map	map;
 }	t_var;
 
