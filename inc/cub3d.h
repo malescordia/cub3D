@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:55:37 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:20:46 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # define BAD_MAP		"Invalid map"
 // Display err - 3
 # define WIN_ERR		"Display or window failure"
+// Display
+# define SCREENWIDTH 800
+# define SCREENHEIGHT 800
 
 // -STRUCTS-
 // Map struct
