@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:06:40 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:12:46 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@
 # include "minilibx/mlx.h"
 
 // -MACROS-
-// Errorrs
+// Param err - 1
 # define PARAM_NB		"Incorrect number of parameters"
 # define EMPTY_PARAM	"Empty parameter"
+// File err - 2
 # define WRONG_DATA		"Incorrect file data"
 # define MALLOC_ERR		"Memory allocation failed"
 # define DUP_ERR		"Duplicate data in file"
 # define BAD_MAP		"Invalid map"
+// Display err - 3
 # define WIN_ERR		"Display or window failure"
 
 // -STRUCTS-

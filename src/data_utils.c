@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 14:53:26 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:24:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	skip_sep(char *str, int i)
 {
 	if (!str || !str[0])
 		return (0);
-	//printf("NOW: |%s|\n", str);
 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ' || str[i] == '\n'))
 		i++;
 	return (i);
@@ -44,7 +43,7 @@ int	is_map(char *txt)
 	i = 0;
 	while (txt[i])
 	{
-		if (txt[i] != '0' && txt[i] != '1')
+		if (txt[i] != '0' && txt[i] != '1' && txt[i] != ' ')
 			return (0);
 		i++;
 	}

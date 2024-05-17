@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 12:15:01 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:34:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	strlen_until_newline(char *str)
 	return (i);
 }
 
-/* receives a line and in order to find out if there is anything 
+/* receives a line and in order to find out if there is anything
 	is not a '1', ' ' or '\n'
     return 0 if all is gud
 	return -1 if condition is not ok */
