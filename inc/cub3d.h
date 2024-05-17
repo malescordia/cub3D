@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:12:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:08:54 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	parser(char **av);
 char	**store_mapfile(int fd);
 int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
+void	create_imap(t_map *map);
 // Data parser
 void	check_dup(char **txt, int lines);
 char	*tx_error(char **txt, int i);

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:06:34 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:31:58 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,30 @@ void	map_parser(char **txt, int i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
 	free_matrix(txt);
 	check_characters(var()->map.cmap);
+	create_imap(&var()->map);
+}
+
+void	create_imap(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	map->imap = ft_calloc(get_2d_len(map->cmap), sizeof(int *));
+	while (map->cmap[i])
+	{
+		j = 0;
+		map->imap[i] = ft_calloc(ft_strlen(map->cmap[i]), sizeof(int));
+		while (map->cmap[i][j])
+		{
+			if (map->cmap[i][j] == '1' || map->cmap[i][j] == '0')
+				map->imap[i][j] = (int)map->cmap[i][j] - '0';
+			else if (map->cmap[i][j] == ' ' || (map->cmap[i][j] >= 9 && map->cmap[i][j] <= 13))
+				map->imap[i][j] = -1;
+			else if (ft_strchr("NEWS", map->cmap[i][j]))
+				map->imap[i][j] = (int)map->cmap[i][j];
+			j++;
+		}
+		i++;
+	}
 }

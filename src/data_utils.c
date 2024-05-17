@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:24:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:30:19 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	skip_sep(char *str, int i)
 {
 	if (!str || !str[0])
 		return (0);
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ' || str[i] == '\n'))
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) \
+	|| str[i] == ' ' || str[i] == '\n'))
 		i++;
 	return (i);
 }
