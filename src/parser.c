@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 15:29:33 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:06:34 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	data_parser(char **txt)
 	while (txt[i] && !tx_complete(&var()->map))
 	{
 		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx)
-			var()->map.ntx = tx_err(txt, i);
+			var()->map.ntx = tx_error(txt, i);
 		else if (!ft_strncmp(txt[i], "EA ", 3) && !var()->map.etx)
-			var()->map.etx = tx_err(txt, i);
+			var()->map.etx = tx_error(txt, i);
 		else if (!ft_strncmp(txt[i], "WE ", 3) && !var()->map.wtx)
-			var()->map.wtx = tx_err(txt, i);
+			var()->map.wtx = tx_error(txt, i);
 		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx)
-			var()->map.stx = tx_err(txt, i);
+			var()->map.stx = tx_error(txt, i);
 		else if (!ft_strncmp(txt[i], "F ", 2) && !var()->map.fhex)
 			var()->map.fhex = clr_to_hex(txt, i);
 		else if (!ft_strncmp(txt[i], "C ", 2) && !var()->map.chex)
@@ -80,11 +80,6 @@ int	data_parser(char **txt)
 		else if (!is_separator(txt[i]))
 			clean_exit(WRONG_DATA, 2);
 		i++;
-	}
-	if (!tx_complete(&var()->map))
-	{
-		free_matrix(txt);
-		clean_exit(WRONG_DATA, 2);
 	}
 	return (i);
 }
@@ -94,6 +89,11 @@ void	map_parser(char **txt, int i)
 	int		j;
 	int		start;
 
+	if (!tx_complete(&var()->map))
+	{
+		free_matrix(txt);
+		clean_exit(WRONG_DATA, 2);
+	}
 	while (txt[i] && is_separator(txt[i]))
 		i++;
 	start = i;

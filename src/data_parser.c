@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 15:14:53 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:06:26 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_dup(char **txt, int lines)
 	}
 }
 
-char	*tx_err(char **txt, int i)
+char	*tx_error(char **txt, int i)
 {
 	int		tx_fd;
 	char	*tx;

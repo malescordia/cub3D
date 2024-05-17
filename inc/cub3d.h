@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 15:25:13 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:06:40 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
 // Data parser
 void	check_dup(char **txt, int lines);
-char	*tx_err(char **txt, int i);
+char	*tx_error(char **txt, int i);
 char	*clr_to_hex(char **txt, int i);
 int		check_rgb(char **rgb);
 char	*hex_str(int res);

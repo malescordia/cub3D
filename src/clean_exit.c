@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:40:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:09:24 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	clean_exit(char *err_msg, int err_code)
 {
 	if (err_msg)
 		fd_printf(2, "Error\n%s\n", err_msg);
-	if (err_code > 1)
+	if (err_code != 1)
 		free_map(&var()->map);
 	exit(err_code);
 }
