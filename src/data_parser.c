@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:48:30 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:03:38 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ char	*clr_to_hex(char **txt, int i)
 	return (hex_str(res));
 }
 
-/* NOT TESTED YET */
-/* checks numerical and unsigned char scope
-	still need to check if ceiling/floor are diff */
 int	check_rgb(char **rgb)
 {
 	int		i;
@@ -110,7 +107,7 @@ char	*hex_str(int res)
 				hex[5 - i] = base[j];
 				res /= 16;
 				i++;
-				break;
+				break ;
 			}
 			j++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 21:43:49 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:04:18 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_var	*var(void)
 
 int	main(int ac, char **av)
 {
+	int	i;
+
 	if (ac != 2)
 		clean_exit(PARAM_NB, 1);
 	parser(av);
@@ -30,7 +32,7 @@ int	main(int ac, char **av)
 	printf("SOUTH: %s\n", var()->map.stx);
 	printf("\nFLOOR: %s\n", var()->map.fhex);
 	printf("CEILING: %s\n\n", var()->map.chex);
-	int i = 0;
+	i = 0;
 	while (var()->map.cmap[i])
 		printf("> %s\n", var()->map.cmap[i++]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:02 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 16:19:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 12:14:45 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,26 @@ int	check_column(char **map)
 		clean_exit(BAD_MAP, 2);
 	while (map[start] && start <= end)
 	{
-		j = 1;
-		while (map[start][j])
-		{
+		j = 0;
+		while (map[start][++j])
 			if (map[start][j] == '0' && check_up(map, start, j) == -1)
 				clean_exit(BAD_MAP, 2);
-			j++;
-		}
 		start++;
 	}
 	while (end >= 0 && map[end])
 	{
-		j = 1;
-		while (map[end][j])
-		{
+		j = 0;
+		while (map[end][++j])
 			if (map[end][j] == '0' && check_down(map, end, j) == -1)
 				clean_exit(BAD_MAP, 2);
-			j++;
-		}
 		end--;
 	}
 	return (kinda_floodfill(map));
 }
 
+/* check that every '0' and every 'NEWS' is surrounded by 'N', 'E', 'W', 
+	'S', 1' or '0'
+	return -1 if the '0' is not surrounded in this way */
 int	kinda_floodfill(char **map)
 {
 	int		i;
@@ -107,8 +104,8 @@ int	kinda_floodfill(char **map)
 	char	*str;
 
 	str = "NEWS01";
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
 		j = 0;
 		while (map[i][j])
@@ -125,11 +122,12 @@ int	kinda_floodfill(char **map)
 			}
 			j++;
 		}
-		i++;
 	}
 	return (check_player(map));
 }
 
+/* checks for player existence
+	returns -1 if multiple players or no player */
 int	check_player(char **map)
 {
 	int	i;
