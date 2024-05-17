@@ -10,6 +10,7 @@ SRC =	src/main.c \
 		src/display.c \
 		src/hooks.c \
 		src/clean_exit.c \
+		cam.c
 
 
 OBJ = $(SRC:.c=.o)

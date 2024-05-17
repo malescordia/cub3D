@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:55:37 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:15:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,24 @@ typedef struct s_map
 	char	**cmap;
 	int		**imap;
 }	t_map;
+// Player struct
+typedef struct s_player
+{
+	float	xpos;
+	float	ypos;
+	double	facing_deg;
+}	t_player;
 // All-encompassing struct
 typedef struct s_var
 {
-	void	*mlx;
-	void	*win;
-	bool	north;
-	bool	east;
-	bool	west;
-	bool	south;
-	t_map	map;
+	void		*mlx;
+	void		*win;
+	t_player	player;
+	bool		north;
+	bool		east;
+	bool		west;
+	bool		south;
+	t_map		map;
 }	t_var;
 
 // -FUNCTIONS-
@@ -96,6 +104,8 @@ int		check_down(char **map, int i, int j);
 int		display_win(void);
 // Hooks & Events
 int		key_press(int code, t_var *data);
+// Player
+void	place_player(char **map);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);

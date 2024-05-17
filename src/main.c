@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:27:56 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:21:51 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		clean_exit(PARAM_NB, 1);
 	parser(av);
+	place_player(var()->map.cmap);
+
 	printf("NORTH: %s\n", var()->map.ntx);
 	printf("EAST: %s\n", var()->map.etx);
 	printf("WEST: %s\n", var()->map.wtx);
@@ -56,5 +58,8 @@ int	main(int ac, char **av)
 		printf("\n");
 		i++;
 	}
+	printf("\n");
+	printf("Player facing: %f\n", var()->player.facing_deg);
+	printf("player x: %f | player y: %f\n", var()->player.xpos, var()->player.ypos);
 	clean_exit(NULL, 0);
 }
