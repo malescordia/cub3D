@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:23:40 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:34:52 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_player
 {
 	float	xpos;
 	float	ypos;
-	double	facing_deg;
+	float	facing_deg[2];
 }	t_player;
 // All-encompassing struct
 typedef struct s_var
@@ -109,6 +109,7 @@ int		display_win(void);
 int		key_press(int code, t_var *data);
 // Player
 void	place_player(char **map);
+void	define_facing(t_player *player, char face);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);

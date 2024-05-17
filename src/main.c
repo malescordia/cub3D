@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:21:51 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:35:55 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 		i++;
 	}
 	printf("\n");
-	printf("Player facing: %f\n", var()->player.facing_deg);
+	printf("Player facing: %f.%f\n", var()->player.facing_deg[0], var()->player.facing_deg[1]);
 	printf("player x: %f | player y: %f\n", var()->player.xpos, var()->player.ypos);
 	clean_exit(NULL, 0);
 }
