@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/19 12:55:10 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:28:52 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define BAD_MAP		"Invalid map"
 // Display err - 3
 # define WIN_ERR		"Display or window failure"
+// 2D display
+# define CELL_SIZE 32
 
 // -STRUCTS-
 // Map struct
@@ -103,6 +105,8 @@ int		check_up(char **map, int i, int j);
 int		check_down(char **map, int i, int j);
 // Display
 int		display_win(void);
+// 2D Display
+void	render_map(t_var *data);
 // Hooks & Events
 int		key_press(int code, t_var *data);
 // Player
