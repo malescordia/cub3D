@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 19:49:02 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:33:58 by cbouvet          ###   ########.fr       */
+/*   Created: 2024/05/15 19:49:02 by gude-cas          #+#    #+#             */
+/*   Updated: 2024/05/19 13:00:47 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_line(char **map)
 
 /* check if each '0' has a '1' above or bellow it
     a loop iterates down to check up
-    another loop iterates up to check down *IM A GENIUS*
+    another loop iterates up to check down
 	return -1 if this condition is not ok */
 int	check_column(char **map)
 {
@@ -114,10 +114,10 @@ int	kinda_floodfill(char **map)
 			{
 				if (j + 1 > strlen_until_newline(map[i - 1])
 					|| j + 1 > strlen_until_newline(map[i + 1])
-					|| ft_strchr(str, map[i - 1][j]) == 0
-					|| ft_strchr(str, map[i + 1][j]) == 0
-					|| ft_strchr(str, map[i][j - 1]) == 0
-					|| ft_strchr(str, map[i][j + 1]) == 0)
+					|| ft_strchr(str, map[i - 1][j]) == NULL
+					|| ft_strchr(str, map[i + 1][j]) == NULL
+					|| ft_strchr(str, map[i][j - 1]) == NULL
+					|| ft_strchr(str, map[i][j + 1]) == NULL)
 					clean_exit(BAD_MAP, 2);
 			}
 			j++;

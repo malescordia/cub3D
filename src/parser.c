@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:52:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:54:51 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	parser(char **av)
 
 	if (!av[1] || !av[1][0])
 		clean_exit(EMPTY_PARAM, 1);
+	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4)
+		|| ft_strlen(av[1]) < 5)
+		clean_exit(WRONG_EXT, 1);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);

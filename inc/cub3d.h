@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:34:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:55:10 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // Param err - 1
 # define PARAM_NB		"Incorrect number of parameters"
 # define EMPTY_PARAM	"Empty parameter"
+# define WRONG_EXT		"Wrong file extension"
 // File err - 2
 # define WRONG_DATA		"Incorrect file data"
 # define MALLOC_ERR		"Memory allocation failed"
@@ -33,9 +34,6 @@
 # define BAD_MAP		"Invalid map"
 // Display err - 3
 # define WIN_ERR		"Display or window failure"
-// Display
-# define SCREENWIDTH 800
-# define SCREENHEIGHT 800
 
 // -STRUCTS-
 // Map struct
