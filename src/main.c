@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:35:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:47:57 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ t_var	*var(void)
 
 int	main(int ac, char **av)
 {
-	int	i;
-
 	if (ac != 2)
 		clean_exit(PARAM_NB, 1);
 	parser(av);
-	place_player(var()->map.cmap);
+	init_player(var()->map.cmap);
+
+	print_tests();
+
+	clean_exit(NULL, 0);
+}
+
+void	print_tests(void)
+{
+	int	i;
 
 	printf("NORTH: %s\n", var()->map.ntx);
 	printf("EAST: %s\n", var()->map.etx);
@@ -59,7 +66,8 @@ int	main(int ac, char **av)
 		i++;
 	}
 	printf("\n");
-	printf("Player facing: %f.%f\n", var()->player.facing_deg[0], var()->player.facing_deg[1]);
-	printf("player x: %f | player y: %f\n", var()->player.xpos, var()->player.ypos);
-	clean_exit(NULL, 0);
+	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
+	printf("player facing: %f - %f\n", var()->player.dir[0], var()->player.dir[1]);
+	printf("camera plane: %f - %f\n", var()->player.plane[0], var()->player.plane[1]);
+	printf("FOV: %f\n", var()->player.fov);
 }

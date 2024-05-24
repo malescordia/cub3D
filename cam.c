@@ -6,17 +6,20 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:35:03 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:46:59 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-void	place_player(char **map)
+void	init_player(char **map)
 {
 	int	i;
 	int	j;
 
+	var()->player.fov = 40.0;
+	var()->player.plane[0] = 0.0;
+	var()->player.plane[1] = var()->player.fov / 100;
 	i = 0;
 	while (map[i])
 	{
@@ -25,8 +28,8 @@ void	place_player(char **map)
 		{
 			if (ft_strchr("NEWS", map[i][j]))
 			{
-				var()->player.xpos = j +1;
-				var()->player.ypos = i +1;
+				var()->player.pos[0] = j +1;
+				var()->player.pos[1] = i +1;
 				define_facing(&var()->player, map[i][j]);
 				return ;
 			}
@@ -36,20 +39,20 @@ void	place_player(char **map)
 	}
 }
 
-void	define_facing(t_player *player, char face)
+void	define_facing(t_player *player, char facing)
 {
-	if (ft_strchr("NS", face))
-		player->facing_deg[0] = 0;
-	else if (ft_strchr("EW", face))
-		player->facing_deg[1] = 0;
-	if (face == 'N')
-		player->facing_deg[1] = 1;
-	else if (face == 'S')
-		player->facing_deg[1] = -1;
-	else if (face == 'E')
-		player->facing_deg[0] = 1;
-	else if (face == 'W')
-		player->facing_deg[0] = -1;
+	if (ft_strchr("NS", facing))
+		player->dir[0] = 0.0;
+	else if (ft_strchr("EW", facing))
+		player->dir[1] = 0.0;
+	if (facing == 'N')
+		player->dir[1] = 1.0;
+	else if (facing == 'S')
+		player->dir[1] = -1.0;
+	else if (facing == 'E')
+		player->dir[0] = 1.0;
+	else if (facing == 'W')
+		player->dir[0] = -1.0;
 }
 
 

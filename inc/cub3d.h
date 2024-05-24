@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 18:34:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:48:19 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 // Display
 # define SCREENWIDTH 800
 # define SCREENHEIGHT 800
+// Speed
+# define MV_SPEED	0.05
+# define ROT_SPEED	0.03
 
 // -STRUCTS-
 // Map struct
@@ -53,9 +56,10 @@ typedef struct s_map
 // Player struct
 typedef struct s_player
 {
-	float	xpos;
-	float	ypos;
-	float	facing_deg[2];
+	double	pos[2]; // <- Player position on map
+	double	dir[2]; // <- direction player is facing
+	double	plane[2]; // <- camera plane vector - always perpendicular to the direction vector
+	double	fov; // <- field of view
 }	t_player;
 // All-encompassing struct
 typedef struct s_var
@@ -108,11 +112,13 @@ int		display_win(void);
 // Hooks & Events
 int		key_press(int code, t_var *data);
 // Player
-void	place_player(char **map);
-void	define_facing(t_player *player, char face);
+void	init_player(char **map);
+void	define_facing(t_player *player, char facing);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
 void	free_matrix(char **matrix);
+// Testing shite
+void	print_tests(void);
 
 #endif
