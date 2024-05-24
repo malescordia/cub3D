@@ -6,12 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:09:24 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:43:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// Prints error message + frees variables + exits
 void	clean_exit(char *err_msg, int err_code)
 {
 	if (err_msg)
@@ -21,6 +22,7 @@ void	clean_exit(char *err_msg, int err_code)
 	exit(err_code);
 }
 
+// Frees map components
 void	free_map(t_map *map)
 {
 	if (map->ntx)
@@ -35,11 +37,29 @@ void	free_map(t_map *map)
 		free(map->fhex);
 	if (map->chex)
 		free(map->chex);
+	if (map->imap)
+		free_imatrix(map->imap, get_2d_len(map->cmap));
 	if (map->cmap)
-		free_matrix(map->cmap);
+		free_cmatrix(map->cmap);
 }
 
-void	free_matrix(char **matrix)
+// Frees matrix of ints
+void	free_imatrix(int **matrix, int indexes)
+{
+	int	i;
+
+	i = 0;
+	while (i < indexes)
+	{
+		if (matrix[i])
+			free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
+
+// Frees matrix of chars
+void	free_cmatrix(char **matrix)
 {
 	int	i;
 

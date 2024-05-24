@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 15:46:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:55:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,3 @@ void	define_facing(t_player *player, char facing)
 	else if (facing == 'W')
 		player->dir[0] = -1.0;
 }
-
-

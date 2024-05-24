@@ -6,12 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 15:50:32 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:29:27 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// Static struct containing all useful variables
 t_var	*var(void)
 {
 	static t_var	var;
@@ -19,6 +20,7 @@ t_var	*var(void)
 	return (&var);
 }
 
+// Main
 int	main(int ac, char **av)
 {
 	if (ac != 2)
@@ -32,6 +34,7 @@ int	main(int ac, char **av)
 	clean_exit(NULL, 0);
 }
 
+// Prints various tests
 void	print_tests(void)
 {
 	int	i;

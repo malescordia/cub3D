@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/19 12:54:51 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:36:29 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ void	parser(char **av)
 	close(fd);
 	if (!txt || !txt[0])
 	{
-		free_matrix(txt);
+		free_cmatrix(txt);
 		clean_exit(WRONG_DATA, 2);
 	}
 	check_dup(txt, get_2d_len(txt));
 	map_parser(txt, data_parser(txt));
 }
 
+// Stores the whole content of the file in a matrix
 char	**store_mapfile(int fd)
 {
 	char	*buff;
@@ -61,6 +62,7 @@ char	**store_mapfile(int fd)
 	return (txt);
 }
 
+// Stores textures + hexa colours
 int	data_parser(char **txt)
 {
 	int	i;
@@ -87,6 +89,7 @@ int	data_parser(char **txt)
 	return (i);
 }
 
+// Stores map as char **matrix
 void	map_parser(char **txt, int i)
 {
 	int		j;
@@ -94,7 +97,7 @@ void	map_parser(char **txt, int i)
 
 	if (!tx_complete(&var()->map))
 	{
-		free_matrix(txt);
+		free_cmatrix(txt);
 		clean_exit(WRONG_DATA, 2);
 	}
 	while (txt[i] && is_separator(txt[i]))
@@ -106,11 +109,12 @@ void	map_parser(char **txt, int i)
 	j = 0;
 	while (start < i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
-	free_matrix(txt);
+	free_cmatrix(txt);
 	check_characters(var()->map.cmap);
 	create_imap(&var()->map);
 }
 
+// Converts map into a int **matrix
 void	create_imap(t_map *map)
 {
 	int	i;

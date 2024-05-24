@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 15:51:06 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:42:34 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	define_facing(t_player *player, char facing);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
-void	free_matrix(char **matrix);
+void	free_imatrix(int **matrix, int indexes);
+void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 

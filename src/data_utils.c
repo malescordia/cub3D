@@ -6,12 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 17:30:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:37:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// Checks if each texture/clr has already been attributed
 int	tx_complete(t_map *map)
 {
 	if (!map->ntx || !map->etx || !map->wtx || !map->stx
@@ -20,6 +21,7 @@ int	tx_complete(t_map *map)
 	return (1);
 }
 
+// Returns the index of the next non-separator char
 int	skip_sep(char *str, int i)
 {
 	if (!str || !str[0])
@@ -30,6 +32,7 @@ int	skip_sep(char *str, int i)
 	return (i);
 }
 
+// Checks if a whole string is made of separators
 int	is_separator(char *txt)
 {
 	if (skip_sep(txt, 0) != (int)ft_strlen(txt))
@@ -37,6 +40,7 @@ int	is_separator(char *txt)
 	return (1);
 }
 
+// Check if string is a map
 int	is_map(char *txt)
 {
 	int	i;

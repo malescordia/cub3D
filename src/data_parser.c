@@ -6,12 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/17 16:20:13 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 16:34:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// Checks for duplicate content (except for map)
 void	check_dup(char **txt, int lines)
 {
 	int	i;
@@ -30,7 +31,7 @@ void	check_dup(char **txt, int lines)
 			(!ft_strncmp(&txt[i][itx], &txt[j][skip_sep(txt[j], 3)], \
 			ft_strlen(&txt[i][itx]) + 1) && !is_map(&txt[i][itx])))
 			{
-				free_matrix(txt);
+				free_cmatrix(txt);
 				clean_exit(DUP_ERR, 2);
 			}
 			j++;
@@ -39,6 +40,7 @@ void	check_dup(char **txt, int lines)
 	}
 }
 
+// Checks if xml texture can be opened
 char	*tx_error(char **txt, int i)
 {
 	int		tx_fd;
@@ -47,7 +49,7 @@ char	*tx_error(char **txt, int i)
 	tx_fd = open(&txt[i][skip_sep(txt[i], 3)], O_WRONLY);
 	if (tx_fd < 0)
 	{
-		free_matrix(txt);
+		free_cmatrix(txt);
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
@@ -55,6 +57,7 @@ char	*tx_error(char **txt, int i)
 	return (tx);
 }
 
+// Performs verifications on RGB values
 char	*clr_to_hex(char **txt, int i)
 {
 	int		res;
@@ -63,14 +66,15 @@ char	*clr_to_hex(char **txt, int i)
 	rgb = ft_split(&txt[i][skip_sep(txt[i], 2)], ',');
 	if (!check_rgb(rgb))
 	{
-		free_matrix(txt);
+		free_cmatrix(txt);
 		clean_exit(WRONG_DATA, 3);
 	}
 	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
-	free_matrix(rgb);
+	free_cmatrix(rgb);
 	return (hex_str(res));
 }
 
+// Checks if RGB values are valid
 int	check_rgb(char **rgb)
 {
 	int		i;
@@ -87,6 +91,7 @@ int	check_rgb(char **rgb)
 	return (1);
 }
 
+// Converts RGB values into hex-format string
 char	*hex_str(int res)
 {
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/19 14:39:26 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:42:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void draw_cell(void *mlx, void *win, int x, int y, int color)
 {
     int i;
     int j;
-    
+
     i = 0;
     while (i < CELL_SIZE)
     {
@@ -41,7 +41,7 @@ void render_map(t_var *data)
 {
     int i;
     int j;
-    
+
     i = 0;
     while(data->map.cmap[i])
     {
