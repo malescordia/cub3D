@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/16 14:50:31 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:57:30 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-/* tested */
 int	key_press(int code, t_var *data)
 {
 	if (code == 65361)
 		printf("Left arrow key pressed\n");
-	else if (code == 65362)
-		printf("Up arrow key pressed\n");
 	else if (code == 65363)
 		printf("Right arrow key pressed\n");
-	else if (code == 65364)
-		printf("Down arrow key pressed\n");
 	else if (code == 'w' || code == 'W')
 		printf("W key pressed\n");
 	else if (code == 'a' || code == 'A')
@@ -33,5 +28,5 @@ int	key_press(int code, t_var *data)
 		printf("D key pressed\n");
 	else if (code == 65307)
 		mlx_loop_end(data->mlx);
-	return (printf("key_press success!\n"), 0);
+	return (0);
 }

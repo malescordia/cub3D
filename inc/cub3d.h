@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 15:48:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 15:51:06 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // Param err - 1
 # define PARAM_NB		"Incorrect number of parameters"
 # define EMPTY_PARAM	"Empty parameter"
+# define WRONG_EXT		"Wrong file extension"
 // File err - 2
 # define WRONG_DATA		"Incorrect file data"
 # define MALLOC_ERR		"Memory allocation failed"
@@ -33,9 +34,10 @@
 # define BAD_MAP		"Invalid map"
 // Display err - 3
 # define WIN_ERR		"Display or window failure"
-// Display
+// 2D display
 # define SCREENWIDTH 800
 # define SCREENHEIGHT 800
+# define CELL_SIZE 32
 // Speed
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
@@ -109,6 +111,8 @@ int		check_up(char **map, int i, int j);
 int		check_down(char **map, int i, int j);
 // Display
 int		display_win(void);
+// 2D Display
+void	render_map(t_var *data);
 // Hooks & Events
 int		key_press(int code, t_var *data);
 // Player
