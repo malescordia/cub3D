@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 17:54:16 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:02:59 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int	main(int ac, char **av)
 	parser(av);
 	init_player(var()->map.cmap);
 	init_display(&var()->disp);
-	cube_mker();
-	mlx_hook(var()->disp.win, 2, 1L << 0, key_press, var()->disp)
-	//print_tests();
+	cube_mker(var()->map.cmap);
+	mlx_hook(var()->disp.win, 2, 1L << 0, key_press, NULL);
+	mlx_hook(var()->disp.win, 17, 1L << 17, mlx_loop_end, var()->disp.mlx);
+	mlx_loop(var()->disp.mlx);
+	print_tests();
 
 	//display_win();
 	clean_exit(NULL, 0);

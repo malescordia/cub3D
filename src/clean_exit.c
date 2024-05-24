@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 17:50:09 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 21:25:41 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	clean_exit(char *err_msg, int err_code)
 		fd_printf(2, "Error\n%s\n", err_msg);
 	if (err_code != 1)
 		free_map(&var()->map);
-	if (err_code >= 3)
+	if (err_code >= 3 || !err_code)
 		free_display(&var()->disp);
 	exit(err_code);
 }
@@ -48,18 +48,21 @@ void	free_map(t_map *map)
 // Frees disp struct contents
 void	free_display(t_disp *disp)
 {
-	if (disp->mlx)
-		free(disp->mlx);
-	if (disp->win)
-		free(disp->win);
 	if (disp->img)
-		free(disp->img);
-	if (disp->nxt_img)
-		free(disp->nxt_img);
+		mlx_destroy_image(disp->mlx, disp->img);
 	if (disp->img_addr)
 		free(disp->img_addr);
-	if (disp->nxt_img_addr)
-		free(disp->nxt_img_addr);
+	if (disp->win)
+	{
+		mlx_clear_window(disp->mlx, disp->win);
+		mlx_destroy_window(disp->mlx, disp->win);
+	}
+	if (disp->mlx)
+	{
+		mlx_destroy_display(disp->mlx);
+		mlx_loop_end(disp->mlx);
+		free(disp->mlx);
+	}
 }
 
 // Frees matrix of ints

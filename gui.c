@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/24 18:59:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 21:26:53 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void draw_cell(void *mlx, void *win, int x, int y, int color)
         i++;
     }
 }
+
 
 void render_map(t_disp *disp)
 {

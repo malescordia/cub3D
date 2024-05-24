@@ -6,29 +6,31 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 17:50:23 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 21:43:35 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	display_win(void)
+// Initialises mlx & window
+void	init_display(t_disp *disp)
 {
-    int     win_width;
-    int     win_height;
-
-    win_width = ft_strlen(var()->map.cmap[0]) * CELL_SIZE;
-    win_height = get_2d_len(var()->map.cmap) * CELL_SIZE;
-
-	var()->mlx = mlx_init();
-	if (!var()->mlx)
+	disp->width = ft_strlen(var()->map.cmap[0]) * CELL_SIZE;
+	disp->height = get_2d_len(var()->map.cmap) * CELL_SIZE;
+	disp->bit_pix = sizeof(int);
+	disp->mlx = mlx_init();
+	if (!disp->mlx)
 		clean_exit(WIN_ERR, 3);
-	var()->win = mlx_new_window(var()->mlx, win_width, win_height, "cub3D");
-	if (!var()->win)
+	disp->win = mlx_new_window(disp->mlx, disp->width, disp->height, "cub3D");
+	if (!disp->win)
 		clean_exit(WIN_ERR, 3);
-    render_map(var());
-	mlx_hook(var()->win, 2, 1L << 0, key_press, var());
-	mlx_hook(var()->win, 17, 1L << 17, mlx_loop_end, var()->mlx);
-	mlx_loop(var()->mlx);
-	return (0);
+	init_img(disp);
+}
+
+void	init_img(t_disp *disp)
+{
+	disp->img = mlx_new_image(disp->mlx, disp->width, disp->height);
+	if (!disp->img)
+		clean_exit(IMG_ERR, 3);
+	disp->img_addr = NULL;
 }

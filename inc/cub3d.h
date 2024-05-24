@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 17:50:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:08:25 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define BAD_MAP		"Invalid map"
 // Display err - 3
 # define WIN_ERR		"Display or window failure"
+# define IMG_ERR		"Image rendering failure"
 // 2D display
 # define SCREENWIDTH 800
 # define SCREENHEIGHT 800
@@ -69,9 +70,9 @@ typedef struct s_disp
 	void	*mlx;
 	void	*win;
 	void	*img;
-	void	*nxt_img;
 	char	*img_addr;
-	char	*nxt_img_addr;
+	int		bit_pix;
+	int		endian;
 	int		width;
 	int		height;
 
@@ -126,11 +127,14 @@ int		check_down(char **map, int i, int j);
 void	init_player(char **map);
 void	define_facing(t_player *player, char facing);
 // Display
-int		display_win(void);
+void	init_display(t_disp *disp);
+void	init_img(t_disp *disp);
+void	cube_mker(char **map);
+void	draw_cell(t_disp *disp, int x, int y, int clr);
 // 2D Display
 void	render_map(t_var *data);
 // Hooks & Events
-int		key_press(int code, t_var *data);
+int		key_press(int code);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
@@ -139,5 +143,6 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
+void	put_player(t_disp *disp, int x, int y, int clr);
 
 #endif
