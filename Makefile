@@ -7,6 +7,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 SRC =	src/main.c \
 		src/parser.c		src/data_parser.c		src/map_parser.c \
 		src/data_utils.c	src/map_utils.c \
+		src/player.c \
 		src/display.c \
 		src/hooks.c \
 		src/clean_exit.c \

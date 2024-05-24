@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 16:43:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:50:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	clean_exit(char *err_msg, int err_code)
 		fd_printf(2, "Error\n%s\n", err_msg);
 	if (err_code != 1)
 		free_map(&var()->map);
+	if (err_code >= 3)
+		free_display(&var()->disp);
 	exit(err_code);
 }
 
@@ -41,6 +43,23 @@ void	free_map(t_map *map)
 		free_imatrix(map->imap, get_2d_len(map->cmap));
 	if (map->cmap)
 		free_cmatrix(map->cmap);
+}
+
+// Frees disp struct contents
+void	free_display(t_disp *disp)
+{
+	if (disp->mlx)
+		free(disp->mlx);
+	if (disp->win)
+		free(disp->win);
+	if (disp->img)
+		free(disp->img);
+	if (disp->nxt_img)
+		free(disp->nxt_img);
+	if (disp->img_addr)
+		free(disp->img_addr);
+	if (disp->nxt_img_addr)
+		free(disp->nxt_img_addr);
 }
 
 // Frees matrix of ints

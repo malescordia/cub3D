@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 16:42:34 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/24 17:50:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,30 @@ typedef struct s_player
 	double	plane[2]; // <- camera plane vector - always perpendicular to the direction vector
 	double	fov; // <- field of view
 }	t_player;
+// Display struct
+typedef struct s_disp
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	void	*nxt_img;
+	char	*img_addr;
+	char	*nxt_img_addr;
+	int		width;
+	int		height;
+
+}	t_disp;
+
 // All-encompassing struct
 typedef struct s_var
 {
-	void		*mlx;
-	void		*win;
+	t_map		map;
 	t_player	player;
+	t_disp		disp;
 	bool		north;
 	bool		east;
 	bool		west;
 	bool		south;
-	t_map		map;
 }	t_var;
 
 // -FUNCTIONS-
@@ -109,18 +122,19 @@ int		strlen_until_newline(char *str);
 int		check_borders(char **map, int i);
 int		check_up(char **map, int i, int j);
 int		check_down(char **map, int i, int j);
+// Player
+void	init_player(char **map);
+void	define_facing(t_player *player, char facing);
 // Display
 int		display_win(void);
 // 2D Display
 void	render_map(t_var *data);
 // Hooks & Events
 int		key_press(int code, t_var *data);
-// Player
-void	init_player(char **map);
-void	define_facing(t_player *player, char facing);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
+void	free_display(t_disp *disp);
 void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
