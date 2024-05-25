@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 21:25:41 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:57:53 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	free_display(t_disp *disp)
 {
 	if (disp->img)
 		mlx_destroy_image(disp->mlx, disp->img);
-	if (disp->img_addr)
-		free(disp->img_addr);
 	if (disp->win)
 	{
 		mlx_clear_window(disp->mlx, disp->win);

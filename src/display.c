@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 21:43:35 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:56:27 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ void	init_img(t_disp *disp)
 	disp->img = mlx_new_image(disp->mlx, disp->width, disp->height);
 	if (!disp->img)
 		clean_exit(IMG_ERR, 3);
-	disp->img_addr = NULL;
+	if (disp->img_addr)
+	{
+		free(disp->img_addr);
+		disp->img_addr = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 22:08:25 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 18:38:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 // 2D display
 # define SCREENWIDTH 800
 # define SCREENHEIGHT 800
-# define CELL_SIZE 32
+# define CELL_SIZE 95
 // Speed
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
@@ -144,5 +144,6 @@ void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 void	put_player(t_disp *disp, int x, int y, int clr);
+void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 
 #endif
