@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:31:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 17:32:25 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 21:34:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_player(char **map)
 		{
 			if (ft_strchr("NEWS", map[i][j]))
 			{
-				var()->player.pos[0] = j +1;
-				var()->player.pos[1] = i +1;
+				var()->player.pos[0] = j +0.5;
+				var()->player.pos[1] = i +0.5;
 				define_facing(&var()->player, map[i][j]);
 				return ;
 			}

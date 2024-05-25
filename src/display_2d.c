@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 20:01:08 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 21:37:57 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,12 @@ void	cube_mker(char **map)
 			if (map[i][j] == '1')
 				draw_cell(&var()->disp, j, i, 0x00002F);
 			else if (map[i][j] == '0' || ft_strchr("NEWS", map[i][j]))
-			{
 				draw_cell(&var()->disp, j, i, 0x808080);
-				if (ft_strchr("NEWS", map[i][j]))
-					put_player(&var()->disp, j, i, 0x00FF00);
-			}
 			j++;
 		}
 		i++;
 	}
+	put_player(&var()->disp, var()->player.pos[0], var()->player.pos[1]);
 	mlx_put_image_to_window(var()->disp.mlx, var()->disp.win, \
 	var()->disp.img, 0, 0);
 }
@@ -63,21 +60,20 @@ void	draw_cell(t_disp *disp, int x, int y, int clr)
 	}
 }
 
-void	put_player(t_disp *disp, int x, int y, int clr)
+void	put_player(t_disp *disp, double x, double y)
 {
 	int		i;
 	int		j;
 
-	i = -1;
+	i = -3;
 	x *= CELL_SIZE;
 	y *= CELL_SIZE;
-	while (i < 5)
+	while (i < 4)
 	{
-		j = -1;
-		while (j < 5)
+		j = -3;
+		while (j < 4)
 		{
-			my_pixel_put(disp, x + j + (CELL_SIZE / 2), \
-			y + i + (CELL_SIZE / 2), clr);
+			my_pixel_put(disp, x + j, y + i, 0x00FF00);
 			j++;
 		}
 		i++;

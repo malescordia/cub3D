@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 20:47:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 21:23:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,29 +111,29 @@ void	map_parser(char **txt, int i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
 	free_cmatrix(txt);
 	check_characters(var()->map.cmap);
-	create_dmap(&var()->map);
+	create_imap(&var()->map);
 }
 
 // Converts map into a int **matrix
-void	create_dmap(t_map *map)
+void	create_imap(t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	map->dmap = ft_calloc(get_2d_len(map->cmap), sizeof(int *));
+	map->imap = ft_calloc(get_2d_len(map->cmap), sizeof(int *));
 	while (map->cmap[i])
 	{
 		j = 0;
-		map->dmap[i] = ft_calloc(ft_strlen(map->cmap[i]), sizeof(int));
+		map->imap[i] = ft_calloc(ft_strlen(map->cmap[i]), sizeof(int));
 		while (map->cmap[i][j])
 		{
 			if (map->cmap[i][j] == '1' || map->cmap[i][j] == '0')
-				map->dmap[i][j] = (int)map->cmap[i][j] - '0';
+				map->imap[i][j] = (int)map->cmap[i][j] - '0';
 			else if (map->cmap[i][j] == ' ' || (map->cmap[i][j] >= 9 && map->cmap[i][j] <= 13))
-				map->dmap[i][j] = -1;
+				map->imap[i][j] = -1;
 			else if (ft_strchr("NEWS", map->cmap[i][j]))
-				map->dmap[i][j] = (int)map->cmap[i][j];
+				map->imap[i][j] = (int)map->cmap[i][j];
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 20:48:22 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 21:33:22 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_map
 	char	*fhex;
 	char	*chex;
 	char	**cmap;
-	double	**dmap;
+	int		**imap;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -98,7 +98,7 @@ void	parser(char **av);
 char	**store_mapfile(int fd);
 int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
-void	create_dmap(t_map *map);
+void	create_imap(t_map *map);
 // Data parser
 void	check_dup(char **txt, int lines);
 char	*tx_error(char **txt, int i);
@@ -143,7 +143,7 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-void	put_player(t_disp *disp, int x, int y, int clr);
+void	put_player(t_disp *disp, double x, double y);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 
 #endif
