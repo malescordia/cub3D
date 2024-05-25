@@ -6,8 +6,14 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 19:58:09 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 20:50:31 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
+
+// make primary map + save it
+
+// put player
+
+// pixel put

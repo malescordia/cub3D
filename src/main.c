@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 22:02:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 20:47:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	print_tests(void)
 		printf("%i	", i);
 		while (var()->map.cmap[i][j])
 		{
-			if (var()->map.imap[i][j] >= 0)
-				printf("%i", var()->map.imap[i][j]);
+			if (var()->map.dmap[i][j] >= 0)
+				printf("%i", var()->map.dmap[i][j]);
 			else
 				printf(" ");
 			j++;

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 18:38:37 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/25 20:48:22 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 // 2D display
 # define SCREENWIDTH 800
 # define SCREENHEIGHT 800
-# define CELL_SIZE 95
+# define CELL_SIZE 100
 // Speed
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
@@ -54,7 +54,7 @@ typedef struct s_map
 	char	*fhex;
 	char	*chex;
 	char	**cmap;
-	int		**imap;
+	double	**dmap;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -98,7 +98,7 @@ void	parser(char **av);
 char	**store_mapfile(int fd);
 int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
-void	create_imap(t_map *map);
+void	create_dmap(t_map *map);
 // Data parser
 void	check_dup(char **txt, int lines);
 char	*tx_error(char **txt, int i);
