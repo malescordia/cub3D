@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 20:55:34 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:27:38 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char **av)
 	cube_mker(var()->map.cmap);
 	mlx_hook(var()->disp.win, 2, 1L << 0, key_press, NULL);
 	mlx_hook(var()->disp.win, 17, 1L << 17, mlx_loop_end, var()->disp.mlx);
+	mlx_loop_hook(var()->disp.mlx, hooks_handler, NULL);
 	mlx_loop(var()->disp.mlx);
 	//print_tests();
 
@@ -39,7 +40,7 @@ int	main(int ac, char **av)
 }
 
 // Prints various tests
-/* void	print_tests(void)
+void	print_tests(void)
 {
 	int	i;
 
@@ -61,11 +62,11 @@ int	main(int ac, char **av)
 	while (var()->map.cmap[i])
 	{
 		j = 0;
-		printf("%f	", i);
+		printf("%d	", i);
 		while (var()->map.cmap[i][j])
 		{
-			if (var()->map.dmap[i][j] >= 0)
-				printf("%f", var()->map.dmap[i][j]);
+			if (var()->map.imap[i][j] >= 0)
+				printf("%d", var()->map.imap[i][j]);
 			else
 				printf(" ");
 			j++;
@@ -78,4 +79,4 @@ int	main(int ac, char **av)
 	printf("player facing: %f - %f\n", var()->player.dir[0], var()->player.dir[1]);
 	printf("camera plane: %f - %f\n", var()->player.plane[0], var()->player.plane[1]);
 	printf("FOV: %f\n", var()->player.fov);
-} */
+}
