@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/27 17:08:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/27 19:03:08 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	hooks_handler(void)
 {
+	double	target[2];
+
+	target[0] = var()->player.pos[0];
+	target[1] = var()->player.pos[1];
 	if (var()->left)
 		var()->left = false;
 	if (var()->right)
@@ -21,42 +25,48 @@ int	hooks_handler(void)
 	if (var()->w_key)
 	{
 		var()->w_key = false;
-		bound_checker(1, var()->disp.height, var()->player.pos[1] - 0.1);
+		target[1] -= 0.1;
+		bound_checker(target);
 	}
 	if (var()->a_key)
 	{
 		var()->a_key = false;
-		bound_checker(0, var()->disp.width, var()->player.pos[0] - 0.1);
+		target[0] -= 0.1;
+		bound_checker(target);
 	}
 	if (var()->s_key)
 	{
 		var()->s_key = false;
-		bound_checker(1, var()->disp.height, var()->player.pos[1] + 0.1);
+		target[1] += 0.1;
+		bound_checker(target);
 	}
 	if (var()->d_key)
 	{
 		var()->d_key = false;
-		bound_checker(0, var()->disp.width, var()->player.pos[0] + 0.1);
+		target[0] += 0.1;
+		bound_checker(target);
 	}
 	return (0);
 }
 
-void	bound_checker(int index, int axis, double target_pos)
+void	bound_checker(double target[2])
 {
-	int	fl;
-	int	cl;
+	int	x;
+	int	y;
+	int	x_target;
+	int	y_target;
 
-	fl = floor(var()->player.pos[index]);
-	cl = ceil(var()->player.pos[index]);
-	printf("cl %i | content %i | pos %f | target %f\n", fl, var()->map.imap[index][cl], var()->player.pos[index], target_pos);
-	if (target_pos <= 0 || target_pos >= axis)
+	x = floor(var()->player.pos[0]);
+	y = floor(var()->player.pos[1]);
+	x_target = floor(target[0]);
+	y_target = floor(target[1]);
+	if (target[0] <= 0 || target[0] >= var()->disp.width || target[1] <= 0 || target[1] >= var()->disp.height)
 		return ;
-	if (!var()->map.imap[index][fl] || !var()->map.cmap[index][cl])
+	if (!var()->map.cmap[y_target] || !var()->map.cmap[y_target][x_target])
 		return ;
-	if (var()->map.imap[index][fl] == 1 && target_pos <= fl)
+	if (var()->map.cmap[y_target][x_target] == '1')
 		return ;
-	if (var()->map.imap[index][cl] == 1 && target_pos >= cl)
-		return ;
-	var()->player.pos[index] = target_pos;
+	var()->player.pos[0] = target[0];
+	var()->player.pos[1] = target[1];
 	cube_mker(var()->map.cmap);
 }

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/27 16:51:48 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/27 18:53:35 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Hooks & Events
 int		key_press(int code);
 int		hooks_handler(void);
-void	bound_checker(int index, int axis, double target_pos);
+void	bound_checker(double target[2]);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
