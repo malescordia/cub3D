@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/27 18:53:35 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/27 19:46:29 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ typedef struct s_map
 // Player struct
 typedef struct s_player
 {
-	double	pos[2]; // <- Player position on map
-	double	dir[2]; // <- direction player is facing
-	double	plane[2]; // <- camera plane vector - always perpendicular to the direction vector
-	double	fov; // <- field of view
+	double	pos[2];
+	double	dir[2];
+	double	plane[2];
+	double	fov;
 }	t_player;
 // Display struct
 typedef struct s_disp
@@ -139,7 +139,7 @@ void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Hooks & Events
 int		key_press(int code);
 int		hooks_handler(void);
-void	bound_checker(double target[2]);
+void	bound_checker(t_player *player);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
