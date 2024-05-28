@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 21:37:57 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:23:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	cube_mker(char **map)
 	var()->disp.img, 0, 0);
 }
 
+// Draws each cell and its bounds
 void	draw_cell(t_disp *disp, int x, int y, int clr)
 {
 	int	i;
@@ -60,6 +61,7 @@ void	draw_cell(t_disp *disp, int x, int y, int clr)
 	}
 }
 
+// Puts the player in the map
 void	put_player(t_disp *disp, double x, double y)
 {
 	int		i;
@@ -78,8 +80,37 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
+	i = 1;
+	if (!var()->player.dir[0])
+	{
+		if (var()->player.dir[1] > 0)
+			i *= -1;
+		draw_line(disp, x, y, 0, i);
+	}
+	else if (!var()->player.dir[1])
+	{
+		if (var()->player.dir[0] < 0)
+			i *= -1;
+		draw_line(disp, x, y, i, 0);
+	}
 }
 
+// Draws line showing rotation direction
+void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv)
+{
+	int	i;
+
+	i = 0;
+	while (i < 40)
+	{
+		x += x_mv;
+		y += y_mv;
+		my_pixel_put(disp, x, y, 0x00FF00);
+		i++;
+	}
+}
+
+// Puts each pixel to the img address
 void	my_pixel_put(t_disp *disp, int x, int y, int clr)
 {
 	char	*pxl;

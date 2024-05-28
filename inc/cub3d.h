@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/27 20:41:23 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:16:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_player
 {
 	double	pos[2];
 	double	dir[2];
-	double	rot[2];
 	double	plane[2];
 	double	fov;
 }	t_player;
@@ -136,11 +135,12 @@ void	cube_mker(char **map);
 // 2D
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
+void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Hooks & Events
 int		key_press(int code);
 int		hooks_handler(void);
-void	bound_checker(t_player *player);
+void	bound_checker(double dest_x, double dest_y);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);

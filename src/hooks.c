@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/27 19:49:03 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:21:27 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,27 @@ int	key_press(int code)
 // Creates destination according to true bool + sends to checker
 int	hooks_handler(void)
 {
-	var()->player.dir[0] = var()->player.pos[0];
-	var()->player.dir[1] = var()->player.pos[1];
+	double	dest[2];
+	dest[0] = var()->player.pos[0];
+	dest[1] = var()->player.pos[1];
 	if (var()->left)
 		var()->left = false;
 	if (var()->right)
 		var()->left = false;
 	if (var()->w_key)
-		var()->player.dir[1] -= 0.1;
+		dest[1] -= 0.1;
 	if (var()->a_key)
-		var()->player.dir[0] -= 0.1;
+		dest[0] -= 0.1;
 	if (var()->s_key)
-		var()->player.dir[1] += 0.1;
+		dest[1] += 0.1;
 	if (var()->d_key)
-		var()->player.dir[0] += 0.1;
-	bound_checker(&var()->player);
+		dest[0] += 0.1;
+	bound_checker(dest[0], dest[1]);
 	return (0);
 }
 
 // Checks if destination is within bounds + creates new image
-void	bound_checker(t_player *player)
+void	bound_checker(double dest_x, double dest_y)
 {
 	int	x;
 	int	y;
@@ -63,16 +64,16 @@ void	bound_checker(t_player *player)
 	var()->a_key = false;
 	var()->s_key = false;
 	var()->d_key = false;
-	x = floor(player->dir[0]);
-	y = floor(player->dir[1]);
-	if (player->dir[0] <= 0 || player->dir[0] >= var()->disp.width \
-	|| player->dir[1] <= 0 || player->dir[1] >= var()->disp.height)
+	x = floor(dest_x);
+	y = floor(dest_y);
+	if (dest_x <= 0 || dest_x >= var()->disp.width \
+	|| dest_y <= 0 || dest_y >= var()->disp.height)
 		return ;
 	if (!var()->map.cmap[y] || !var()->map.cmap[y][x])
 		return ;
 	if (var()->map.cmap[y][x] == '1')
 		return ;
-	var()->player.pos[0] = player->dir[0];
-	var()->player.pos[1] = player->dir[1];
+	var()->player.pos[0] = dest_x;
+	var()->player.pos[1] = dest_y;
 	cube_mker(var()->map.cmap);
 }
