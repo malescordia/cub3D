@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 14:17:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:11:23 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 // Speed
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
+# define PI 3.14159265358979323846
 
 // -STRUCTS-
 // Map struct
@@ -149,5 +150,6 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
+int	hooks_test(void);
 
 #endif
