@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 15:02:51 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:21:09 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	key_press(int code)
 // Creates destination according to true bool + sends to checker
 int	hooks_handler(void)
 {
-	double	dest[2];
+/* 	double	dest[2];
 	dest[0] = var()->player.pos[0];
 	dest[1] = var()->player.pos[1];
 	if (var()->left)
@@ -49,7 +49,7 @@ int	hooks_handler(void)
 	if (var()->s_key)
 		dest[1] += 0.1;
 	if (var()->d_key)
-		dest[0] += 0.1;
+		dest[0] += 0.1; */
 	//bound_checker(dest[0], dest[1]);
 	hooks_test();
 	return (0);

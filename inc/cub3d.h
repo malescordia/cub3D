@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 15:11:23 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:46:01 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,6 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-int	hooks_test(void);
+void	hooks_test(void);
 
 #endif
