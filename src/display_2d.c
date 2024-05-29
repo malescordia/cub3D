@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/28 15:23:48 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:21:05 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,17 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	i = 1;
-	if (!var()->player.dir[0])
-	{
-		if (var()->player.dir[1] > 0)
-			i *= -1;
-		draw_line(disp, x, y, 0, i);
-	}
-	else if (!var()->player.dir[1])
-	{
-		if (var()->player.dir[0] < 0)
-			i *= -1;
-		draw_line(disp, x, y, i, 0);
-	}
+	i = 0;
+	j = 0;
+	if (!var()->player.dir)
+		i = -1;
+	else if (var()->player.dir == 180)
+		i = 1;
+	else if (var()->player.dir == 90)
+		j = 1;
+	else if (var()->player.dir == 270)
+		j = -1;
+	draw_line(disp, x, y, j, i);
 }
 
 // Draws line showing rotation direction

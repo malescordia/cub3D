@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:31:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/28 14:56:24 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:17:06 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ void	init_player(char **map)
 // Define facing direction vector
 void	define_facing(t_player *player, char facing)
 {
-	if (ft_strchr("NS", facing))
-		player->dir[0] = 0.0;
-	else if (ft_strchr("EW", facing))
-		player->dir[1] = 0.0;
 	if (facing == 'N')
-		player->dir[1] = 1.0;
-	else if (facing == 'S')
-		player->dir[1] = -1.0;
+		player->dir = 0.0;
 	else if (facing == 'E')
-		player->dir[0] = 1.0;
+		player->dir = 90.0;
+	else if (facing == 'S')
+		player->dir = 180.0;
 	else if (facing == 'W')
-		player->dir[0] = -1.0;
+		player->dir = 270.0;
 }

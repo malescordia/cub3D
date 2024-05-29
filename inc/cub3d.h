@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/28 15:16:48 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:17:07 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	double	pos[2];
-	double	dir[2];
+	double	dir;
 	double	plane[2];
 	double	fov;
 }	t_player;
