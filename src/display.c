@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 19:19:00 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:34:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_display(t_disp *disp)
 	init_img(disp);
 }
 
+// Initialises new image
 void	init_img(t_disp *disp)
 {
 	disp->img = mlx_new_image(disp->mlx, disp->width, disp->height);
@@ -37,4 +38,18 @@ void	init_img(t_disp *disp)
 		free(disp->img_addr);
 		disp->img_addr = NULL;
 	}
+}
+
+// Puts each pixel to the img address
+void	my_pixel_put(t_disp *disp, int x, int y, int clr)
+{
+	char	*pxl;
+
+	if (x < 0 || x >= disp->width || y < 0 || y >= disp->height)
+		return ;
+	disp->img_addr = mlx_get_data_addr(disp->img, &disp->bit_pix, \
+	&disp->width, &disp->endian);
+	pxl = disp->img_addr + (y * disp->width + x * (disp->bit_pix / 8));
+	if (pxl)
+		*(unsigned int *)pxl = clr;
 }

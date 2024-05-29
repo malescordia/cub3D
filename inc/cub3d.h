@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 17:16:30 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:33:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 // Speed
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
+# define ROT_DEG	10
 # define PI 3.14159265358979323846
 
 // -STRUCTS-
@@ -133,7 +134,7 @@ void	define_facing(t_player *player, char facing);
 void	init_display(t_disp *disp);
 void	init_img(t_disp *disp);
 void	cube_mker(char **map);
-// 2D
+// 2D Display
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_line(t_disp *disp, double x, double y);
@@ -141,6 +142,8 @@ void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Hooks & Events
 int		key_press(int code);
 int		hooks_handler(void);
+void	hooks_mvt(double x_dest, double y_dest);
+void	hooks_rot(void);
 void	bound_checker(double dest_x, double dest_y);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
@@ -150,7 +153,6 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-void	hooks_test(void);
-void	hooks_test_rot(void);
+void	make_all_false(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 17:16:45 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:35:12 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,6 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-/* 	i = 0;
-	j = 0;
-	if (!var()->player.dir)
-		i = -1;
-	else if (var()->player.dir == 180)
-		i = 1;
-	else if (var()->player.dir == 90)
-		j = 1;
-	else if (var()->player.dir == 270)
-		j = -1; */
-	/* j = sin(var()->player.dir * PI / 180);
-	i =	-cos(var()->player.dir * PI / 180); */
 	draw_line(disp, x, y);
 }
 
@@ -108,18 +96,4 @@ void	draw_line(t_disp *disp, double x, double y)
 		my_pixel_put(disp, x, y, 0x00FF00);
 		i++;
 	}
-}
-
-// Puts each pixel to the img address
-void	my_pixel_put(t_disp *disp, int x, int y, int clr)
-{
-	char	*pxl;
-
-	if (x < 0 || x >= disp->width || y < 0 || y >= disp->height)
-		return ;
-	disp->img_addr = mlx_get_data_addr(disp->img, &disp->bit_pix, \
-	&disp->width, &disp->endian);
-	pxl = disp->img_addr + (y * disp->width + x * (disp->bit_pix / 8));
-	if (pxl)
-		*(unsigned int *)pxl = clr;
 }
