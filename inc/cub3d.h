@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 16:37:43 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:16:30 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	cube_mker(char **map);
 // 2D
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
-void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv);
+void	draw_line(t_disp *disp, double x, double y);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Hooks & Events
 int		key_press(int code);

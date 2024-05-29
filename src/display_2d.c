@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 14:21:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:16:45 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	i = 0;
+/* 	i = 0;
 	j = 0;
 	if (!var()->player.dir)
 		i = -1;
@@ -89,20 +89,22 @@ void	put_player(t_disp *disp, double x, double y)
 	else if (var()->player.dir == 90)
 		j = 1;
 	else if (var()->player.dir == 270)
-		j = -1;
-	draw_line(disp, x, y, j, i);
+		j = -1; */
+	/* j = sin(var()->player.dir * PI / 180);
+	i =	-cos(var()->player.dir * PI / 180); */
+	draw_line(disp, x, y);
 }
 
 // Draws line showing rotation direction
-void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv)
+void	draw_line(t_disp *disp, double x, double y)
 {
 	int	i;
 
 	i = 0;
 	while (i < 40)
 	{
-		x += x_mv;
-		y += y_mv;
+		x += sin(var()->player.dir * PI / 180);
+		y += -cos(var()->player.dir * PI / 180);
 		my_pixel_put(disp, x, y, 0x00FF00);
 		i++;
 	}
