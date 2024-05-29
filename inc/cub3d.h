@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 18:33:16 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 20:08:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,14 @@
 # include "minilibx/mlx.h"
 
 // -MACROS-
-// Param err - 1
+// Errors
 # define PARAM_NB		"Incorrect number of parameters"
 # define EMPTY_PARAM	"Empty parameter"
 # define WRONG_EXT		"Wrong file extension"
-// File err - 2
 # define WRONG_DATA		"Incorrect file data"
 # define MALLOC_ERR		"Memory allocation failed"
 # define DUP_ERR		"Duplicate data in file"
 # define BAD_MAP		"Invalid map"
-// Display err - 3
 # define WIN_ERR		"Display or window failure"
 # define IMG_ERR		"Image rendering failure"
 // 2D display
@@ -43,7 +41,8 @@
 # define MV_SPEED	0.05
 # define ROT_SPEED	0.03
 # define ROT_DEG	10
-# define PI 3.14159265358979323846
+// Maths
+# define PI 		3.14159265358979323846
 
 // -STRUCTS-
 // Map struct
