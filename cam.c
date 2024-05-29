@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 15:46:02 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:54:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,33 @@ void	hooks_test(void)
 		dest[1] += sin(var()->player.dir * PI / 180) * MV_SPEED;
 	}
 	bound_checker(dest[0], dest[1]);
+}
+
+
+void	hooks_test_rot(void)
+{
+	double	new_dir;
+
+	if (var()->left)
+	{
+		var()->left = false;
+		var()->player.dir -= 30;
+		new_dir = var()->player.dir;
+		printf("new dir is %f\n", var()->player.dir);
+		if (new_dir < 0)
+			var()->player.dir = 360 - (new_dir * (-1));
+		printf("new dir is %f\n", var()->player.dir);
+	}
+	if (var()->right)
+	{
+		var()->right = false;
+		var()->player.dir += 30;
+		new_dir = var()->player.dir;
+		if (new_dir > 360)
+			var()->player.dir = (360 - new_dir) * (-1);
+		printf("new dir is %f\n", var()->player.dir);
+	}
+	if (var()->player.dir == 360)
+		var()->player.dir = 0;
+	cube_mker(var()->map.cmap);
 }

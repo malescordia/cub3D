@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 15:21:09 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:19:11 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	hooks_handler(void)
 		dest[0] += 0.1; */
 	//bound_checker(dest[0], dest[1]);
 	hooks_test();
+	hooks_test_rot();
 	return (0);
 }
 
