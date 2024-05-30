@@ -1,8 +1,8 @@
 
-NO textures/Microscheme_0.xpm
-SO textures/painting-21.xpm
-WE textures/publicdomainpictures.net-zebra-skin-11297062987mjt.xpm
-EA textures/wash_a-new.xpm
+NO textures/blue.xpm
+SO textures/red.xpm
+WE textures/yellow.xpm
+EA textures/green.xpm
 
 F 220,100,0
 C 225,30,0
