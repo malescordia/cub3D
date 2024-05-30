@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 14:53:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:34:15 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	hooks_handler(void)
 		return (0);
 	hooks_mvt(var()->player.pos[0], var()->player.pos[1]);
 	hooks_rot();
-	//make_all_false();
 	return (0);
 }
 

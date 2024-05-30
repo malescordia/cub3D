@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 15:00:27 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:46:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	draw_line(t_disp *disp, double x, double y)
 		x += sin(var()->player.dir * PI / 180);
 		y += -cos(var()->player.dir * PI / 180);
 		if (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] == '1')
-			break;
+			break ;
 		my_pixel_put(disp, x, y, 0x00FF00);
 	}
 }
@@ -105,13 +105,19 @@ void	bound_checker(double dest_x, double dest_y)
 	x = floor(dest_x);
 	y = floor(dest_y);
 	if (dest_x <= 0 || dest_x >= var()->disp.width \
-	|| dest_y <= 0 || dest_y >= var()->disp.height)
+	|| dest_y <= 0 || dest_y >= var()->disp.height \
+	|| !var()->map.cmap[y] || !var()->map.cmap[y][x])
 		return ;
-	if (!var()->map.cmap[y] || !var()->map.cmap[y][x])
+	if (var()->map.cmap[y][x] != '1')
+    {
+        var()->player.pos[0] = dest_x;
+        var()->player.pos[1] = dest_y;
+    }
+	else if (var()->map.cmap[y][(int)floor(var()->player.pos[0])] != '1')
+		var()->player.pos[1] = dest_y;
+	else if (var()->map.cmap[(int)floor(var()->player.pos[1])][x] != '1')
+		var()->player.pos[0] = dest_x;
+	else
 		return ;
-	if (var()->map.cmap[y][x] == '1')
-		return ;
-	var()->player.pos[0] = dest_x;
-	var()->player.pos[1] = dest_y;
 	cube_mker(var()->map.cmap);
 }
