@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 14:00:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:46:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@
 # define CELL_SIZE 100
 // Speed
 # define MV_SPEED	0.05
-# define ROT_SPEED	0.03
-# define ROT_DEG	10
+# define ROT_DEG	1.5
 // Maths
 # define PI 		3.14159265358979323846
 
@@ -167,5 +166,6 @@ void	free_cmatrix(char **matrix);
 void	print_tests(void);
 void	make_all_false(void);
 int		init_textures(void);
+int		key_release(int code);
 
 #endif

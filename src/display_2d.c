@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 18:35:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:54:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,24 @@ void	draw_line(t_disp *disp, double x, double y)
 		my_pixel_put(disp, x, y, 0x00FF00);
 		i++;
 	}
+}
+
+// Checks if destination is within bounds + creates new image
+void	bound_checker(double dest_x, double dest_y)
+{
+	int	x;
+	int	y;
+
+	x = floor(dest_x);
+	y = floor(dest_y);
+	if (dest_x <= 0 || dest_x >= var()->disp.width \
+	|| dest_y <= 0 || dest_y >= var()->disp.height)
+		return ;
+	if (!var()->map.cmap[y] || !var()->map.cmap[y][x])
+		return ;
+	if (var()->map.cmap[y][x] == '1')
+		return ;
+	var()->player.pos[0] = dest_x;
+	var()->player.pos[1] = dest_y;
+	cube_mker(var()->map.cmap);
 }
