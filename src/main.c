@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 18:28:38 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 13:55:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 	mlx_hook(var()->disp.win, 17, 1L << 17, mlx_loop_end, var()->disp.mlx);
 	mlx_loop_hook(var()->disp.mlx, hooks_handler, NULL);
 	mlx_loop(var()->disp.mlx);
-	print_tests();
+	//print_tests();
 
 	//display_win();
 	clean_exit(NULL, 0);

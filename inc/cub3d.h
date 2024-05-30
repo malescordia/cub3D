@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 13:14:45 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:00:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # define WIN_ERR		"Display or window failure"
 # define IMG_ERR		"Image rendering failure"
 // 2D display
-# define SCREENWIDTH 800
-# define SCREENHEIGHT 800
 # define CELL_SIZE 100
 // Speed
 # define MV_SPEED	0.05
@@ -45,6 +43,17 @@
 # define PI 		3.14159265358979323846
 
 // -STRUCTS-
+// Texture struct
+// typedef struct s_tex
+// {
+// 	void			*img;
+// 	int				height;
+// 	int				width;
+// 	unsigned int	*addr;
+// 	int				bit_pix;
+// 	int				endian;
+// 	int				line_len;
+// }	t_tex;
 // Map struct
 typedef struct s_map
 {
@@ -54,6 +63,11 @@ typedef struct s_map
 	char	*stx;
 	char	*fhex;
 	char	*chex;
+	// t_tex		n_wall;
+	// t_tex		e_wall;
+	// t_tex		w_wall;
+	// t_tex		s_wall;
+	// t_tex		render;
 	char	**cmap;
 	int		**imap;
 }	t_map;
@@ -78,28 +92,12 @@ typedef struct s_disp
 	int		height;
 
 }	t_disp;
-// Texture struct
-// typedef struct s_tex
-// {
-// 	void			*img;
-// 	int				height;
-// 	int				width;
-// 	unsigned int	*addr;
-// 	int				bit_pix;
-// 	int				endian;
-// 	int				line_len;
-// }	t_tex;
 // All-encompassing struct
 typedef struct s_var
 {
 	t_map		map;
 	t_player	player;
 	t_disp		disp;
-	// t_tex		n_wall;
-	// t_tex		e_wall;
-	// t_tex		w_wall;
-	// t_tex		s_wall;
-	// t_tex		render;
 	bool		w_key;
 	bool		a_key;
 	bool		s_key;
