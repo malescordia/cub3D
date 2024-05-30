@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 11:30:00 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:14:45 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,27 @@ typedef struct s_disp
 
 }	t_disp;
 // Texture struct
-typedef struct s_tex
-{
-	void			*img;
-	int				height;
-	int				width;
-	unsigned int	*addr;
-	int				bit_pix;
-	int				endian;
-	int				line_len;
-}	t_tex;
+// typedef struct s_tex
+// {
+// 	void			*img;
+// 	int				height;
+// 	int				width;
+// 	unsigned int	*addr;
+// 	int				bit_pix;
+// 	int				endian;
+// 	int				line_len;
+// }	t_tex;
 // All-encompassing struct
 typedef struct s_var
 {
 	t_map		map;
 	t_player	player;
 	t_disp		disp;
-	t_tex		n_wall;
-	t_tex		e_wall;
-	t_tex		w_wall;
-	t_tex		s_wall;
-	t_tex		render;
+	// t_tex		n_wall;
+	// t_tex		e_wall;
+	// t_tex		w_wall;
+	// t_tex		s_wall;
+	// t_tex		render;
 	bool		w_key;
 	bool		a_key;
 	bool		s_key;
@@ -168,5 +168,6 @@ void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 void	make_all_false(void);
+int		init_textures(void);
 
 #endif
