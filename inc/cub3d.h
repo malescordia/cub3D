@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:32:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:51:02 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define CELL_SIZE 100
 // Speed
 # define MV_SPEED	0.05
-# define ROT_DEG	1.5
+# define ROT_DEG	8
 // Maths
 # define PI 		3.14159265358979323846
 
@@ -77,6 +77,7 @@ typedef struct s_player
 	double	dir;
 	double	plane[2];
 	double	fov;
+	double  fov_dir;
 }	t_player;
 // Display struct
 typedef struct s_disp

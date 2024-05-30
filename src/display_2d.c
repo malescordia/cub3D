@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:46:16 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:50:54 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	put_player(t_disp *disp, double x, double y)
 {
 	int		i;
 	int		j;
+	double	k;
 
 	i = -3;
 	x *= CELL_SIZE;
@@ -80,7 +81,13 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	draw_line(disp, x, y);
+	k = 0;
+	while (k < 30)
+	{
+		var()->player.fov_dir = var()->player.dir - 15 + k;
+		draw_line(disp, x, y);
+		k += 0.1;
+	}
 }
 
 // Draws line showing rotation direction
@@ -88,10 +95,10 @@ void	draw_line(t_disp *disp, double x, double y)
 {
 	while (42)
 	{
-		x += sin(var()->player.dir * PI / 180);
-		y += -cos(var()->player.dir * PI / 180);
+		x += sin(var()->player.fov_dir * PI / 180);
+		y += -cos(var()->player.fov_dir * PI / 180);
 		if (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] == '1')
-			break ;
+			break  ;
 		my_pixel_put(disp, x, y, 0x00FF00);
 	}
 }
