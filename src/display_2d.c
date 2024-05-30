@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_2d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 18:35:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:40:33 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,12 @@ void	put_player(t_disp *disp, double x, double y)
 // Draws line showing rotation direction
 void	draw_line(t_disp *disp, double x, double y)
 {
-	int	i;
-
-	i = 0;
-	while (i < 40)
+	while (42)
 	{
 		x += sin(var()->player.dir * PI / 180);
 		y += -cos(var()->player.dir * PI / 180);
+		if (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] == '1')
+			break;
 		my_pixel_put(disp, x, y, 0x00FF00);
-		i++;
 	}
 }

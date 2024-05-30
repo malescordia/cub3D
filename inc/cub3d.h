@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 14:00:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:22:56 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@
 
 // -STRUCTS-
 // Texture struct
-// typedef struct s_tex
-// {
-// 	void			*img;
-// 	int				height;
-// 	int				width;
-// 	unsigned int	*addr;
-// 	int				bit_pix;
-// 	int				endian;
-// 	int				line_len;
-// }	t_tex;
+typedef struct s_tex
+{
+	void			*img;
+	int				height;
+	int				width;
+	unsigned int	*addr;
+	int				bit_pix;
+	int				endian;
+	int				line_len;
+}	t_tex;
 // Map struct
 typedef struct s_map
 {
@@ -63,11 +63,11 @@ typedef struct s_map
 	char	*stx;
 	char	*fhex;
 	char	*chex;
-	// t_tex		n_wall;
-	// t_tex		e_wall;
-	// t_tex		w_wall;
-	// t_tex		s_wall;
-	// t_tex		render;
+	t_tex		n_wall;
+	t_tex		e_wall;
+	t_tex		w_wall;
+	t_tex		s_wall;
+	t_tex		render;
 	char	**cmap;
 	int		**imap;
 }	t_map;
@@ -166,6 +166,6 @@ void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 void	make_all_false(void);
-int		init_textures(void);
+int		init_textures(t_map *map);
 
 #endif
