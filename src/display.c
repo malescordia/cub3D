@@ -6,31 +6,37 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/29 20:03:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:59:27 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 // Initialises mlx & window
-void	init_display(t_disp *disp)
+void	init_display(t_disp *disp, int code, char *name)
 {
-	disp->width = ft_strlen(var()->map.cmap[0]) * CELL_SIZE;
-	disp->height = get_2d_len(var()->map.cmap) * CELL_SIZE;
+	disp->width = WIDTH;
+	disp->height = HEIGHT;
 	disp->bit_pix = sizeof(int);
-	disp->mlx = mlx_init();
-	if (!disp->mlx)
+	if (!code)
+	{
+		disp->width = ft_strlen(var()->map.cmap[0]) * CELL_SIZE;
+		disp->height = get_2d_len(var()->map.cmap) * CELL_SIZE;
+	}
+	var()->mlx = mlx_init();
+	if (!var()->mlx)
 		clean_exit(WIN_ERR, 3);
-	disp->win = mlx_new_window(disp->mlx, disp->width, disp->height, "cub3D");
+	disp->win = mlx_new_window(var()->mlx, disp->width, disp->height, name);
 	if (!disp->win)
 		clean_exit(WIN_ERR, 3);
 	init_img(disp);
+	init_hooks(disp);
 }
 
 // Initialises new image
 void	init_img(t_disp *disp)
 {
-	disp->img = mlx_new_image(disp->mlx, disp->width, disp->height);
+	disp->img = mlx_new_image(var()->mlx, disp->width, disp->height);
 	if (!disp->img)
 		clean_exit(IMG_ERR, 3);
 	if (disp->img_addr)
@@ -38,6 +44,14 @@ void	init_img(t_disp *disp)
 		free(disp->img_addr);
 		disp->img_addr = NULL;
 	}
+}
+
+// Sets hooks for window
+void	init_hooks(t_disp *disp)
+{
+	mlx_hook(disp->win, 2, 1L << 0, key_press, NULL);
+	mlx_hook(disp->win, 3, 1L << 1, key_release, NULL);
+	mlx_hook(disp->win, 17, 1L << 17, mlx_loop_end, var()->mlx);
 }
 
 // Puts each pixel to the img address

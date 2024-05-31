@@ -6,14 +6,14 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:50:54 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:58:27 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 // Recreate the display functions to see if they work out
-void	cube_mker(char **map)
+void	cub2d_maker(char **map)
 {
 	int	i;
 	int	j;
@@ -25,16 +25,16 @@ void	cube_mker(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] == '1')
-				draw_cell(&var()->disp, j, i, 0x00002F);
+				draw_cell(&var()->disp_2d, j, i, 0x00002F);
 			else if (map[i][j] == '0' || ft_strchr("NEWS", map[i][j]))
-				draw_cell(&var()->disp, j, i, 0x808080);
+				draw_cell(&var()->disp_2d, j, i, 0x808080);
 			j++;
 		}
 		i++;
 	}
-	put_player(&var()->disp, var()->player.pos[0], var()->player.pos[1]);
-	mlx_put_image_to_window(var()->disp.mlx, var()->disp.win, \
-	var()->disp.img, 0, 0);
+	put_player(&var()->disp_2d, var()->player.pos[0], var()->player.pos[1]);
+	mlx_put_image_to_window(var()->mlx, var()->disp_2d.win, \
+	var()->disp_2d.img, 0, 0);
 }
 
 // Draws each cell and its bounds
@@ -111,8 +111,8 @@ void	bound_checker(double dest_x, double dest_y)
 
 	x = floor(dest_x);
 	y = floor(dest_y);
-	if (dest_x <= 0 || dest_x >= var()->disp.width \
-	|| dest_y <= 0 || dest_y >= var()->disp.height \
+	if (dest_x <= 0 || dest_x >= var()->disp_2d.width \
+	|| dest_y <= 0 || dest_y >= var()->disp_2d.height \
 	|| !var()->map.cmap[y] || !var()->map.cmap[y][x])
 		return ;
 	if (var()->map.cmap[y][x] != '1')
@@ -126,5 +126,7 @@ void	bound_checker(double dest_x, double dest_y)
 		var()->player.pos[0] = dest_x;
 	else
 		return ;
-	cube_mker(var()->map.cmap);
+	if (var()->disp_2d.win)
+		cub2d_maker(var()->map.cmap);
+	cub3d_maker(0xFFC0CB);
 }

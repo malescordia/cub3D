@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:51:02 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:56:40 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@
 # define WIN_ERR		"Display or window failure"
 # define IMG_ERR		"Image rendering failure"
 // 2D display
-# define CELL_SIZE 100
+# define CELL_SIZE 		100
+// 3D display
+# define HEIGHT			800
+# define WIDTH			800
 // Speed
-# define MV_SPEED	0.05
-# define ROT_DEG	8
+# define MV_SPEED		0.05
+# define ROT_DEG		8
 // Maths
-# define PI 		3.14159265358979323846
+# define PI 			3.14159265358979323846
 
 // -STRUCTS-
 // Texture struct
@@ -62,11 +65,11 @@ typedef struct s_map
 	char	*stx;
 	char	*fhex;
 	char	*chex;
-	t_tex		n_wall;
-	t_tex		e_wall;
-	t_tex		w_wall;
-	t_tex		s_wall;
-	t_tex		render;
+	t_tex	n_wall;
+	t_tex	e_wall;
+	t_tex	w_wall;
+	t_tex	s_wall;
+	t_tex	render;
 	char	**cmap;
 	int		**imap;
 }	t_map;
@@ -82,7 +85,7 @@ typedef struct s_player
 // Display struct
 typedef struct s_disp
 {
-	void	*mlx;
+	char	*name;
 	void	*win;
 	void	*img;
 	char	*img_addr;
@@ -97,7 +100,9 @@ typedef struct s_var
 {
 	t_map		map;
 	t_player	player;
-	t_disp		disp;
+	void		*mlx;
+	t_disp		disp_2d;
+	t_disp		disp_3d;
 	bool		w_key;
 	bool		a_key;
 	bool		s_key;
@@ -143,14 +148,17 @@ int		check_down(char **map, int i, int j);
 void	init_player(char **map);
 void	define_facing(t_player *player, char facing);
 // Display
-void	init_display(t_disp *disp);
+void	init_display(t_disp *disp, int code, char *name);
 void	init_img(t_disp *disp);
-void	cube_mker(char **map);
+void	my_pixel_put(t_disp *disp, int x, int y, int clr);
+void	init_hooks(t_disp *disp);
 // 2D Display
+void	cub2d_maker(char **map);
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_line(t_disp *disp, double x, double y);
-void	my_pixel_put(t_disp *disp, int x, int y, int clr);
+// 3D Display
+void	cub3d_maker(int clr);
 // Hooks & Events
 int		key_press(int code);
 int		hooks_handler(void);

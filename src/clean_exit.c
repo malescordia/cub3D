@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 21:22:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:20:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ void	clean_exit(char *err_msg, int err_code)
 	if (err_code != 1)
 		free_map(&var()->map);
 	if (err_code >= 3 || !err_code)
-		free_display(&var()->disp);
+		free_display(&var()->disp_2d);
+	if (var()->mlx)
+	{
+		mlx_destroy_display(var()->mlx);
+		mlx_loop_end(var()->mlx);
+		free(var()->mlx);
+	}
 	exit(err_code);
 }
 
@@ -49,17 +55,11 @@ void	free_map(t_map *map)
 void	free_display(t_disp *disp)
 {
 	if (disp->img)
-		mlx_destroy_image(disp->mlx, disp->img);
+		mlx_destroy_image(var()->mlx, disp->img);
 	if (disp->win)
 	{
-		mlx_clear_window(disp->mlx, disp->win);
-		mlx_destroy_window(disp->mlx, disp->win);
-	}
-	if (disp->mlx)
-	{
-		mlx_destroy_display(disp->mlx);
-		mlx_loop_end(disp->mlx);
-		free(disp->mlx);
+		mlx_clear_window(var()->mlx, disp->win);
+		mlx_destroy_window(var()->mlx, disp->win);
 	}
 }
 

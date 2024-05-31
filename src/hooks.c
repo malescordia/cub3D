@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:34:15 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:59:11 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ void	hooks_rot(void)
 		if (var()->player.dir > 360)
 			var()->player.dir = (360 - var()->player.dir) * (-1);
 	}
-	cube_mker(var()->map.cmap);
+	if (var()->disp_2d.win)
+		cub2d_maker(var()->map.cmap);
+	cub3d_maker(0xFFC0CB);
 }
