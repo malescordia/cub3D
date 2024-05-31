@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/31 15:56:40 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:09:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_player
 	double	dir;
 	double	plane[2];
 	double	fov;
-	double  fov_dir;
+	double	fov_dir;
 }	t_player;
 // Display struct
 typedef struct s_disp
@@ -127,7 +127,6 @@ char	*clr_to_hex(char **txt, int i);
 int		check_rgb(char **rgb);
 char	*hex_str(int res);
 // Data parser utils
-int		get_line_nb(char *filename);
 int		tx_complete(t_map *map);
 int		skip_sep(char *str, int i);
 int		is_separator(char *buff);
@@ -157,14 +156,15 @@ void	cub2d_maker(char **map);
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_line(t_disp *disp, double x, double y);
+void	bound_checker(double dest_x, double dest_y);
 // 3D Display
 void	cub3d_maker(int clr);
 // Hooks & Events
 int		key_press(int code);
+int		key_release(int code);
 int		hooks_handler(void);
 void	hooks_mvt(double x_dest, double y_dest);
 void	hooks_rot(void);
-void	bound_checker(double dest_x, double dest_y);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
@@ -173,8 +173,6 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-void	make_all_false(void);
 int		init_textures(t_map *map);
-int		key_release(int code);
 
 #endif
