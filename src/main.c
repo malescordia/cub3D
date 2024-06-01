@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/31 18:25:47 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:59:52 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int ac, char **av)
 	cub3d_maker(0xFFC0CB);
 	mlx_loop_hook(var()->mlx, hooks_handler, NULL);
 	mlx_loop(var()->mlx);
-	//printf("YOLO\n");
 	//print_tests();
 
 	//display_win();
@@ -79,6 +78,6 @@ void	print_tests(void)
 	printf("\n");
 	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
 	printf("player facing: %f\n", var()->player.dir);
-	printf("camera plane: %f - %f\n", var()->player.plane[0], var()->player.plane[1]);
+	printf("camera plane: %f\n", var()->player.plane);
 	printf("FOV: %f\n", var()->player.fov);
 }

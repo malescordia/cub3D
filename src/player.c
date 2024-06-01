@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:31:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:46 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:37:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	init_player(char **map)
 	int	j;
 
 	var()->player.fov = 60.0;
-	var()->player.plane[0] = 0.0;
-	var()->player.plane[1] = var()->player.fov / 100;
+	var()->player.plane = var()->player.dir - 90;
+	if (var()->player.plane < 0)
+		var()->player.plane = 360 - (var()->player.plane * (-1));
 	i = 0;
 	while (map[i])
 	{

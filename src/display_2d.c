@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/31 16:11:38 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:42:41 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	cub2d_maker(char **map)
 	int	j;
 
 	i = 0;
+	var()->player.plane = var()->player.dir - 90;
+	if (var()->player.plane < 0)
+		var()->player.plane = 360 - (var()->player.plane * (-1));
 	while (map[i])
 	{
 		j = 0;
@@ -81,6 +84,7 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
+	draw_camera_plane(x, y);
 	k = 0;
 	while (k < 30)
 	{
@@ -88,6 +92,7 @@ void	put_player(t_disp *disp, double x, double y)
 		draw_line(disp, x, y);
 		k += 0.1;
 	}
+
 }
 
 // Draws line showing rotation direction

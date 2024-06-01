@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/31 16:09:18 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:34:32 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 // 3D display
 # define HEIGHT			800
 # define WIDTH			800
+# define FOV			40
 // Speed
 # define MV_SPEED		0.05
 # define ROT_DEG		8
@@ -78,7 +79,7 @@ typedef struct s_player
 {
 	double	pos[2];
 	double	dir;
-	double	plane[2];
+	double	plane;
 	double	fov;
 	double	fov_dir;
 }	t_player;
@@ -174,5 +175,6 @@ void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 int		init_textures(t_map *map);
+void	draw_camera_plane(double x, double y);
 
 #endif
