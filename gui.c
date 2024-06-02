@@ -6,7 +6,7 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/05/31 18:59:12 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:49:40 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@
 // 	double ray_dir_x;
 // 	double ray_dir_y;
 
-// 	double s_dist_x;
-// 	double s_dist_y;
+// 	double side_dist_x;
+// 	double side_dist_y;
 	
 // 	double delta_dist_x;
 // 	double delta_dist_y;
@@ -141,22 +141,22 @@
 // 	if(var()->ray_dir_x < 0)
 // 	{
 // 		var()->step_x = -1;
-// 		var()->s_dist_x = (var()->player.pos[0] - var()->map_x) * var()->delta_dist_x;
+// 		var()->side_dist_x = (var()->player.pos[0] - var()->map_x) * var()->delta_dist_x;
 // 	}
 // 	else
 // 	{
 // 		var()->step_x = 1;
-// 		var()->s_dist_x = (var()->map_x + 1.0 - var()->player.pos[0]) * var()->delta_dist_x;
+// 		var()->side_dist_x = (var()->map_x + 1.0 - var()->player.pos[0]) * var()->delta_dist_x;
 // 	}
 // 	if(var()->ray_dir_y < 0)
 // 	{
 // 		var()->step_y = -1;
-// 		var()->s_dist_y = (var()->player.pos[1] - var()->map_y) * var()->delta_dist_y;
+// 		var()->side_dist_y = (var()->player.pos[1] - var()->map_y) * var()->delta_dist_y;
 // 	}
 // 	else
 // 	{
 // 		var()->step_y = 1;
-// 		var()->s_dist_y = (var()->map_y + 1.0 - var()->player.pos[1]) * var()->delta_dist_y;
+// 		var()->side_dist_y = (var()->map_y + 1.0 - var()->player.pos[1]) * var()->delta_dist_y;
 // 	}
 // }
 
@@ -165,15 +165,15 @@
 // 	var()->collision = 0;
 // 	while(var()->collision == 0)
 // 	{
-// 		if(var()->s_dist_x < var()->s_dist_y)
+// 		if(var()->side_dist_x < var()->side_dist_y)
 // 		{
-// 			var()->s_dist_x += var()->delta_dist_x;
+// 			var()->side_dist_x += var()->delta_dist_x;
 // 			var()->map_x += var()->step_x;
 // 			var()->side = 0;
 // 		}
 // 		else
 // 		{
-// 			var()->s_dist_y += var()->delta_dist_y;
+// 			var()->side_dist_y += var()->delta_dist_y;
 // 			var()->map_y += var()->step_y;
 // 			var()->side = 1;
 // 		}
@@ -181,7 +181,7 @@
 // 			var()->collision = 1;
 // 	}
 // 	if(var()->side == 0)
-// 		var()->perp_wall_dist = (var()->s_dist_x - var()->delta_dist_x);
+// 		var()->perp_wall_dist = (var()->side_dist_x - var()->delta_dist_x);
 // 	else
-// 		var()->perp_wall_dist = (var()->s_dist_y - var()->delta_dist_y);
+// 		var()->perp_wall_dist = (var()->side_dist_y - var()->delta_dist_y);
 // }
