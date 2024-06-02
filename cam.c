@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/01 16:43:50 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/02 13:55:14 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cub3d_maker(int clr)
 	int	j;
 
 	i = 0;
-	//camera_plane();
+	// camera_plane();
 	var()->player.plane = var()->player.dir - 90;
 	if (var()->player.plane < 0)
 		var()->player.plane = 360 - (var()->player.plane * (-1));

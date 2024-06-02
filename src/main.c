@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/01 14:59:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/02 16:28:46 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ int	main(int ac, char **av)
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
 	cub3d_maker(0xFFC0CB);
+	print_tests();
 	mlx_loop_hook(var()->mlx, hooks_handler, NULL);
 	mlx_loop(var()->mlx);
-	//print_tests();
-
-	//display_win();
 	clean_exit(NULL, 0);
 }
 
@@ -44,6 +42,7 @@ int	main(int ac, char **av)
 void	print_tests(void)
 {
 	int	i;
+	int	j;
 
 	printf("NORTH: %s\n", var()->map.ntx);
 	printf("EAST: %s\n", var()->map.etx);
@@ -58,7 +57,6 @@ void	print_tests(void)
 		i++;
 	}
 	i = 0;
-	int j;
 	printf("\n");
 	while (var()->map.cmap[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/01 16:34:32 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/02 16:45:48 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_map
 	t_tex	render;
 	char	**cmap;
 	int		**imap;
+	int		floor;
+	int		ceiling;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -80,6 +82,7 @@ typedef struct s_player
 	double	pos[2];
 	double	dir;
 	double	plane;
+	double	plane_cor[2];
 	double	fov;
 	double	fov_dir;
 }	t_player;
@@ -110,6 +113,27 @@ typedef struct s_var
 	bool		d_key;
 	bool		left;
 	bool		right;
+
+	int			tex_point;
+	double		wall_point;
+
+	int			side;
+	int			collision;
+	int			step[2];
+	int			map_pos[2];
+
+	double		cam;
+	double		dir[2];
+	double		ray_dir[2];
+	double		side_dist[2];
+	double		delta_dist[2];
+	double		perp_wall_dist;
+
+	int			clr;
+	int			line_heigth;
+	int			draw_start;
+	int			draw_end;
+
 }	t_var;
 
 // -FUNCTIONS-
@@ -174,7 +198,15 @@ void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-int		init_textures(t_map *map);
 void	draw_camera_plane(double x, double y);
+// Gui
+void	draw(void);
+void	draw_image(int x, int start, int end);
+t_tex	get_texture(void);
+void	dda(void);
+void	before_dda(void);
+void	load_all_textures(void *mlx, t_tex textures[4]);
+void	load_texture(void *mlx, t_tex *tex, char *path);
+int		init_textures(t_map *map);
 
 #endif

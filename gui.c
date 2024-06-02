@@ -6,182 +6,209 @@
 /*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/06/02 13:49:40 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:41:50 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-///////////////////////////////////////////
-//               TEXTURES                //
-///////////////////////////////////////////
+/* FUNCTION THAT GIVES ACCESS TO ALL OTHERS 
+    render the entire screen by raycasting for each column. */
+void    draw(void)
+{
+    int x;
 
-// int	init_textures(t_map *map)
-// {
-// 	map->n_wall.img = mlx_xpm_file_to_image(var()->disp.mlx, map->ntx, \
-// 		&map->n_wall.width, &map->n_wall.height);
-// 	map->e_wall.img = mlx_xpm_file_to_image(var()->disp.mlx, map->etx, \
-// 		&map->e_wall.width, &map->e_wall.height);
-// 	map->w_wall.img = mlx_xpm_file_to_image(var()->disp.mlx, map->wtx, \
-// 		&map->w_wall.width, &map->w_wall.height);
-// 	map->s_wall.img = mlx_xpm_file_to_image(var()->disp.mlx, map->stx, \
-// 		&map->s_wall.width, &map->s_wall.height);
-// 	map->render.img = mlx_new_image(var()->disp.mlx, \
-// 		var()->disp.width, var()->disp.height);
-// 	if (!map->n_wall.img || !map->e_wall.img || !map->w_wall.img || \
-// 		!map->s_wall.img || !map->render.img)
-// 		clean_exit(IMG_ERR, 3);
-// 	map->render.addr = (unsigned int *)mlx_get_data_addr(map->render.img, \
-// 		&map->render.bit_pix, &map->render.line_len, &map->render.endian);
-// 	map->n_wall.addr = (unsigned int *)mlx_get_data_addr(map->n_wall.img, \
-// 		&map->n_wall.bit_pix, &map->n_wall.line_len, &map->n_wall.endian);
-// 	map->e_wall.addr = (unsigned int *)mlx_get_data_addr(map->e_wall.img, \
-// 		&map->e_wall.bit_pix, &map->e_wall.line_len, &map->e_wall.endian);
-// 	map->w_wall.addr = (unsigned int *)mlx_get_data_addr(map->w_wall.img, \
-// 		&map->w_wall.bit_pix, &map->w_wall.line_len, &map->w_wall.endian);
-// 	map->s_wall.addr = (unsigned int *)mlx_get_data_addr(map->s_wall.img, \
-// 		&map->s_wall.bit_pix, &map->s_wall.line_len, &map->s_wall.endian);
-// 	return (0);
-// }
+    x = 0;
+    while (x < WIDTH)
+    {
+        var()->cam = 2 * x / (double)WIDTH - 1; 
+        var()->ray_dir[0] = var()->dir[0] + var()->player.plane_cor[0] * var()->cam;
+        var()->ray_dir[1] = var()->dir[1] + var()->player.plane_cor[1] * var()->cam;
+        before_dda();
+        dda();
+        var()->line_heigth = (int)(HEIGHT / var()->perp_wall_dist);
+        var()->draw_start = -var()->line_heigth / 2 + HEIGHT / 2;
+        if (var()->draw_start < 0)
+            var()->draw_start = 0;
+        var()->draw_end = var()->line_heigth / 2 + HEIGHT / 2;
+        if (var()->draw_end >= HEIGHT)
+            var()->draw_end = HEIGHT - 1;
+        if (var()->side == 0)
+            var()->wall_point = var()->player.pos[1] + var()->perp_wall_dist \
+                * var()->ray_dir[1];
+        else
+            var()->wall_point = var()->player.pos[0] + var()->perp_wall_dist \
+                * var()->ray_dir[0];
+        var()->wall_point -= floor(var()->wall_point);
+        draw_image(x, var()->draw_start, var()->draw_end);
+        x++;
+    }
+}
 
-// void load_texture(void *mlx, t_tex *tex, char *path)
-// {
-// 	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
-// 	if (!tex->img)
-// 		clean_exit(IMG_ERR, 3);
-// 	tex->addr = (unsigned int *)mlx_get_data_addr(tex->img, \
-// 		&tex->bit_pix, &tex->line_len, &tex->endian);
-// }
+/* ugly way to initialize textures */
+int init_textures(t_map *map)
+{
+    map->n_wall.img = mlx_xpm_file_to_image(var()->mlx, map->ntx, \
+        &map->n_wall.width, &map->n_wall.height);
+    map->e_wall.img = mlx_xpm_file_to_image(var()->mlx, map->etx, \
+        &map->e_wall.width, &map->e_wall.height);
+    map->w_wall.img = mlx_xpm_file_to_image(var()->mlx, map->wtx, \
+        &map->w_wall.width, &map->w_wall.height);
+    map->s_wall.img = mlx_xpm_file_to_image(var()->mlx, map->stx, \
+        &map->s_wall.width, &map->s_wall.height);
+    map->render.img = mlx_new_image(var()->mlx, WIDTH, HEIGHT);
+    if (!map->n_wall.img || !map->e_wall.img || !map->w_wall.img || \
+        !map->s_wall.img || !map->render.img)
+        clean_exit(IMG_ERR, 3);
+    map->render.addr = (unsigned int *)mlx_get_data_addr(map->render.img, \
+        &map->render.bit_pix, &map->render.line_len, &map->render.endian);
+    map->n_wall.addr = (unsigned int *)mlx_get_data_addr(map->n_wall.img, \
+        &map->n_wall.bit_pix, &map->n_wall.line_len, &map->n_wall.endian);
+    map->e_wall.addr = (unsigned int *)mlx_get_data_addr(map->e_wall.img, \
+        &map->e_wall.bit_pix, &map->e_wall.line_len, &map->e_wall.endian);
+    map->w_wall.addr = (unsigned int *)mlx_get_data_addr(map->w_wall.img, \
+        &map->w_wall.bit_pix, &map->w_wall.line_len, &map->w_wall.endian);
+    map->s_wall.addr = (unsigned int *)mlx_get_data_addr(map->s_wall.img, \
+        &map->s_wall.bit_pix, &map->s_wall.line_len, &map->s_wall.endian);
+    return (0);
+}
 
-// void load_all_textures(void *mlx, t_tex textures[4])
-// {
-// 	load_texture(mlx, &textures[0], "textures/blue.xpm");
-// 	load_texture(mlx, &textures[1], "textures/grey.xpm");
-// 	load_texture(mlx, &textures[2], "textures/yellow.xpm");
-// 	load_texture(mlx, &textures[3], "textures/red.xpm");
-// }
+/* helper for 'load_all_textures' */
+void    load_texture(void *mlx, t_tex *tex, char *path)
+{
+    tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
+    if (!tex->img)
+        clean_exit(IMG_ERR, 3);
+    tex->addr = (unsigned int *)mlx_get_data_addr(tex->img, \
+        &tex->bit_pix, &tex->line_len, &tex->endian);
+}
 
-///////////////////////////////////////////
-//             DDA                       //
-///////////////////////////////////////////
+/* pretty way to initialize textures */
+void    load_all_textures(void *mlx, t_tex textures[4])
+{
+    load_texture(mlx, &textures[0], "textures/blue.xpm");
+    load_texture(mlx, &textures[1], "textures/grey.xpm");
+    load_texture(mlx, &textures[2], "textures/yellow.xpm");
+    load_texture(mlx, &textures[3], "textures/red.xpm");
+}
 
-// typedef struct s_map
-// {
-// 	char	*ntx;
-// 	char	*etx;
-// 	char	*wtx;
-// 	char	*stx;
-// 	char	*fhex;
-// 	char	*chex;
-// 	t_tex	n_wall;
-// 	t_tex	e_wall;
-// 	t_tex	w_wall;
-// 	t_tex	s_wall;
-// 	t_tex	render;
-// 	char	**cmap;
-// 	int		**imap;
-// }	t_map;
+/* prepares variables for dda implementation, it calculates the initial side distances
+    and step directions based on the ray direction */
+void    before_dda(void)
+{
+    var()->map_pos[0] = (int)var()->player.pos[0];
+    var()->map_pos[1] = (int)var()->player.pos[1];
+    var()->delta_dist[0] = fabs(1 / var()->ray_dir[0]);
+    var()->delta_dist[1] = fabs(1 / var()->ray_dir[1]);
+    if (var()->ray_dir[0] < 0)
+    {
+        var()->step[0] = -1;
+        var()->side_dist[0] = (var()->player.pos[0] - var()->map_pos[0]) \
+            * var()->delta_dist[0];
+    }
+    else
+    {
+        var()->step[0] = 1;
+        var()->side_dist[0] = (var()->map_pos[0] + 1.0 - var()->player.pos[0]) \
+            * var()->delta_dist[0];
+    }
+    if (var()->ray_dir[1] < 0)
+    {
+        var()->step[1] = -1;
+        var()->side_dist[1]= (var()->player.pos[1] - var()->map_pos[1]) \
+            * var()->delta_dist[1];
+    }
+    else
+    {
+        var()->step[1] = 1;
+        var()->side_dist[1]= (var()->map_pos[1] + 1.0 - var()->player.pos[1]) \
+            * var()->delta_dist[1];
+    }
+}
 
-// typedef struct s_player
-// {
-// 	double	pos[2];
-// 	double	dir;
-// 	double	plane[2];
-// 	double	fov;
-// 	double	fov_dir;
-// }	t_player;
+/* perform the algorithm to detect collisions with walls. It iterates through the grid, 
+    updating side distances and map positions until a collision is detected. It then
+    calculates the perpendicular wall distance based on which side of the wall was hit. */
+void	dda(void)
+{
+	var()->collision = 0;
+	while (var()->collision == 0)
+	{
+		if (var()->side_dist[0] < var()->side_dist[1])
+		{
+			var()->side_dist[0] += var()->delta_dist[0];
+			var()->map_pos[0] += var()->step[0];
+			var()->side = 0;
+		}
+		else
+		{
+			var()->side_dist[1] += var()->delta_dist[1];
+			var()->map_pos[1] += var()->step[1];
+			var()->side = 1;
+		}
+		if (var()->map.imap[var()->map_pos[0]][var()->map_pos[1]] > 0)
+			var()->collision = 1;
+	}
+	if (var()->side == 0)
+		var()->perp_wall_dist = (var()->side_dist[0] - var()->delta_dist[0]);
+	else
+		var()->perp_wall_dist = (var()->side_dist[1] - var()->delta_dist[1]);
+}
 
-// typedef struct s_var
-// {
-// 	t_map		map;
-// 	t_player	player;
-// 	void		*mlx;
-// 	t_disp		disp_2d;
-// 	t_disp		disp_3d;
-// 	bool		w_key;
-// 	bool		a_key;
-// 	bool		s_key;
-// 	bool		d_key;
-// 	bool		left;
-// 	bool		right;
-	
-// 	int collision;
-// 	int side;
-	
-// 	int map_x;
-// 	int map_y;
-	
-// 	int step_x;
-// 	int step_y;
-	
-// 	double ray_dir_x;
-// 	double ray_dir_y;
+/* determines which texture to use based on the side of the wall hit and the ray direction.
+    It also calculates the texture coordinate(tex_point) to use for rendering the wall. */
+t_tex   get_texture(void)
+{
+    t_tex current;
 
-// 	double side_dist_x;
-// 	double side_dist_y;
-	
-// 	double delta_dist_x;
-// 	double delta_dist_y;
-// 	double perp_wall_dist;
-// }	t_var;
+    if (var()->side == 0 && var()->ray_dir[0] < 0)
+        current = var()->map.n_wall;
+    else if (var()->side == 1 && var()->ray_dir[1] > 0)
+        current = var()->map.e_wall;
+    else if (var()->side == 1 && var()->ray_dir[1] < 0)
+        current = var()->map.w_wall;
+    else
+        current = var()->map.s_wall;
+    var()->tex_point = (int)var()->wall_point * (double)(current.width);
+    if (var()->side == 0 && var()->ray_dir[0] > 0)
+        var()->tex_point = current.width - var()->tex_point - 1;
+    if (var()->side == 1 && var()->ray_dir[1] < 0)
+        var()->tex_point = current.width - var()->tex_point - 1;
+    return (current);
+}
 
-// t_var	*var(void)
-// {
-// 	static t_var	var;
-
-// 	return (&var);
-// }
-
-// void	before_dda(void)
-// {
-// 	var()->map_x = (int)var()->player.pos[0];
-// 	var()->map_y = (int)var()->player.pos[1];
-// 	var()->delta_dist_x = fabs(1 / var()->ray_dir_x);
-// 	var()->delta_dist_y = fabs(1 / var()->ray_dir_y);
-// 	if(var()->ray_dir_x < 0)
-// 	{
-// 		var()->step_x = -1;
-// 		var()->side_dist_x = (var()->player.pos[0] - var()->map_x) * var()->delta_dist_x;
-// 	}
-// 	else
-// 	{
-// 		var()->step_x = 1;
-// 		var()->side_dist_x = (var()->map_x + 1.0 - var()->player.pos[0]) * var()->delta_dist_x;
-// 	}
-// 	if(var()->ray_dir_y < 0)
-// 	{
-// 		var()->step_y = -1;
-// 		var()->side_dist_y = (var()->player.pos[1] - var()->map_y) * var()->delta_dist_y;
-// 	}
-// 	else
-// 	{
-// 		var()->step_y = 1;
-// 		var()->side_dist_y = (var()->map_y + 1.0 - var()->player.pos[1]) * var()->delta_dist_y;
-// 	}
-// }
-
-// void	dda(void)
-// {
-// 	var()->collision = 0;
-// 	while(var()->collision == 0)
-// 	{
-// 		if(var()->side_dist_x < var()->side_dist_y)
-// 		{
-// 			var()->side_dist_x += var()->delta_dist_x;
-// 			var()->map_x += var()->step_x;
-// 			var()->side = 0;
-// 		}
-// 		else
-// 		{
-// 			var()->side_dist_y += var()->delta_dist_y;
-// 			var()->map_y += var()->step_y;
-// 			var()->side = 1;
-// 		}
-// 		if(var()->map.imap[var()->map_x][var()->map_y] > 0)
-// 			var()->collision = 1;
-// 	}
-// 	if(var()->side == 0)
-// 		var()->perp_wall_dist = (var()->side_dist_x - var()->delta_dist_x);
-// 	else
-// 		var()->perp_wall_dist = (var()->side_dist_y - var()->delta_dist_y);
-// }
+/* draws a vertical stripe of the wall at column 'x' from 'start' to 'end' on the screen.
+    It also draws the ceiling and floor colors. */
+void    draw_image(int x, int start, int end)
+{
+    t_tex   current;
+    int y;
+    int tex_y;
+    double step;
+    double tex_pos;
+    
+    y = 0;
+    current = get_texture();
+    step = 1.0 * current.height / var()->line_heigth;
+    tex_pos = (start - HEIGHT / 2 + var()->line_heigth / 2) * step;
+    while (y < start)
+    {
+        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->map.ceiling;
+        y++;
+    }
+    y = start - 1;
+    while (y <= end)
+    {
+        tex_y = (int)tex_pos & (current.height - 1);
+        tex_pos += step;
+        var()->clr = current.addr[tex_y * current.line_len / 4 + var()->tex_point];
+        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->clr;
+        y++;
+    }
+    y = end;
+    while (y < HEIGHT)
+    {
+        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->map.floor;
+        y++;
+    }
+}
