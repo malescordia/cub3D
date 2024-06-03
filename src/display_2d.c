@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/01 16:42:41 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:46:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	put_player(t_disp *disp, double x, double y)
 	}
 	draw_camera_plane(x, y);
 	k = 0;
-	while (k < 30)
+	while (k < FOV)
 	{
 		var()->player.fov_dir = var()->player.dir - 15 + k;
 		draw_line(disp, x, y);
