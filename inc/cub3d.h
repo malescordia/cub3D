@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 16:56:48 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 18:55:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,8 @@ void	free_cmatrix(char **matrix);
 void	print_tests(void);
 void	draw_camera_plane(double x, double y);
 void	camera_plane(t_player *player);
-void	cast_ray(t_player *player);
+double	cast_ray(t_player *player);
+void	draw_wall(int x, int y);
 // Gui
 void	draw(void);
 void	draw_image(int x, int start, int end);

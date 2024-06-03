@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 17:07:17 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:05:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,70 @@ void	cub3d_maker(int clr)
 
 void	camera_plane(t_player *player)
 {
-	int	i;
+	int		i;
+	int		wall;
 	double	cam;
+	double	dist;
+	double	ray_angle;
 
 	i = 0;
 	while (i < var()->disp_3d.width)
 	{
 		cam = 2 * i / (double)var()->disp_3d.width -1;
-		player->ray[0] = cos(player->dir * PI / 180) + \
-		cos(player->plane * PI / 180) * cam;
-		player->ray[1] = sin(player->dir * PI / 180) + \
-		sin(player->plane * PI / 180) * cam;
-		cast_ray(player);
+		ray_angle = player->dir + player->plane * cam;
+		player->ray[0] = cos(ray_angle * PI / 180);
+		player->ray[1] = sin(ray_angle * PI / 180);
+		dist = cast_ray(player);
+		if (dist == -1)
+		{
+			i++;
+			continue;
+		}
+		wall = (int)(var()->disp_3d.height / dist);
+		draw_wall(i, wall);
 		i++;
 	}
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
 	var()->disp_3d.img, 0, 0);
 }
 
-void	cast_ray(t_player *player)
+double	cast_ray(t_player *player)
 {
+	double	pos[2];
+	double	delta[2];
+
+	pos[0] = player->pos[0];
+	pos[1] = player->pos[1];
+	while (1)
+	{
+		pos[0] += player->ray[0];
+		pos[1] += player->ray[1];
+		if (pos[1] < 0 || pos[1] > get_2d_len(var()->map.cmap) || \
+		pos[0] < 0 || pos[0] > ft_strlen(var()->map.cmap[(int)pos[1]]))
+			break ;
+		if (var()->map.cmap[(int)pos[1]][(int)pos[0]] == '1')
+		{
+			delta[0] = pos[0] - player->pos[0];
+			delta[1] = pos[1] - player->pos[1];
+			return (sqrt(delta[0] * delta[0] + delta[1] * delta[1]));
+		}
+	}
+	return (-1);
+}
+
+void	draw_wall(int x, int wall)
+{
+	int	start;
+	int	end;
+
+	start = -wall / 2 + HEIGHT / 2;
+	if (start < 0)
+		start = 0;
+	end = wall / 2 + HEIGHT / 2;
+	if (end >= HEIGHT)
+		end = HEIGHT;
+	while (start < end)
+		my_pixel_put(&var()->disp_3d, x, start++, 0x00FF00);
 }
 
 void	draw_camera_plane(double x, double y)
