@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/01 16:46:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:37:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	put_player(t_disp *disp, double x, double y)
 		draw_line(disp, x, y);
 		k += 0.1;
 	}
-
 }
 
 // Draws line showing rotation direction
