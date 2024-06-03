@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 14:37:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:31:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	draw_camera_plane(x, y);
+	//draw_camera_plane(x, y);
 	k = 0;
 	while (k < FOV)
 	{
@@ -132,5 +132,5 @@ void	bound_checker(double dest_x, double dest_y)
 		return ;
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	cub3d_maker(0xFFC0CB);
+	camera_plane(&var()->player);
 }

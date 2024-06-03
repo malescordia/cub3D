@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/02 16:28:46 by gude-cas         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:30:50 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int ac, char **av)
 	init_display(&var()->disp_3d, 1, "cub3d");
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	cub3d_maker(0xFFC0CB);
-	print_tests();
+	//cub3d_maker(0xFFC0CB);
+	camera_plane(&var()->player);
 	mlx_loop_hook(var()->mlx, hooks_handler, NULL);
 	mlx_loop(var()->mlx);
 	clean_exit(NULL, 0);

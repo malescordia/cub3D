@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 14:36:57 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:07:17 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,30 @@ void	cub3d_maker(int clr)
 			my_pixel_put(&var()->disp_3d, j++, i, clr);
 		i++;
 	}
+}
+
+void	camera_plane(t_player *player)
+{
+	int	i;
+	double	cam;
+
+	i = 0;
+	while (i < var()->disp_3d.width)
+	{
+		cam = 2 * i / (double)var()->disp_3d.width -1;
+		player->ray[0] = cos(player->dir * PI / 180) + \
+		cos(player->plane * PI / 180) * cam;
+		player->ray[1] = sin(player->dir * PI / 180) + \
+		sin(player->plane * PI / 180) * cam;
+		cast_ray(player);
+		i++;
+	}
+	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
+	var()->disp_3d.img, 0, 0);
+}
+
+void	cast_ray(t_player *player)
+{
 }
 
 void	draw_camera_plane(double x, double y)

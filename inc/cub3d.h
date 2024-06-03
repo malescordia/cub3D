@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 14:36:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:56:48 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ typedef struct s_map
 	t_tex	render;
 	char	**cmap;
 	int		**imap;
-	int		floor;
-	int		ceiling;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -82,7 +80,7 @@ typedef struct s_player
 	double	pos[2];
 	double	dir;
 	double	plane;
-	double	plane_cor[2];
+	double	ray[2];
 	double	fov;
 	double	fov_dir;
 }	t_player;
@@ -113,27 +111,6 @@ typedef struct s_var
 	bool		d_key;
 	bool		left;
 	bool		right;
-
-	int			tex_point;
-	double		wall_point;
-
-	int			side;
-	int			collision;
-	int			step[2];
-	int			map_pos[2];
-
-	double		cam;
-	double		dir[2];
-	double		ray_dir[2];
-	double		side_dist[2];
-	double		delta_dist[2];
-	double		perp_wall_dist;
-
-	int			clr;
-	int			line_heigth;
-	int			draw_start;
-	int			draw_end;
-
 }	t_var;
 
 // -FUNCTIONS-
@@ -199,6 +176,8 @@ void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
 void	draw_camera_plane(double x, double y);
+void	camera_plane(t_player *player);
+void	cast_ray(t_player *player);
 // Gui
 void	draw(void);
 void	draw_image(int x, int start, int end);
