@@ -6,13 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 19:05:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:11:54 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-void	cub3d_maker(int clr)
+/* void	cub3d_maker(int clr)
 {
 	int	i;
 	int	j;
@@ -29,31 +29,32 @@ void	cub3d_maker(int clr)
 			my_pixel_put(&var()->disp_3d, j++, i, clr);
 		i++;
 	}
-}
+} */
 
-void	camera_plane(t_player *player)
+void	cub3d_maker(t_player *player)
 {
 	int		i;
-	int		wall;
+	int		wall_height;
 	double	cam;
-	double	dist;
+	double	wall_dist;
 	double	ray_angle;
 
 	i = 0;
 	while (i < var()->disp_3d.width)
 	{
-		cam = 2 * i / (double)var()->disp_3d.width -1;
+		cam = 2 * i / (double)WIDTH -1;
 		ray_angle = player->dir + player->plane * cam;
 		player->ray[0] = cos(ray_angle * PI / 180);
 		player->ray[1] = sin(ray_angle * PI / 180);
-		dist = cast_ray(player);
-		if (dist == -1)
+		set_variables();
+		wall_dist = cast_ray(player);
+		if (wall_dist == -1)
 		{
 			i++;
 			continue;
 		}
-		wall = (int)(var()->disp_3d.height / dist);
-		draw_wall(i, wall);
+		wall_height = (int)(HEIGHT / wall_dist);
+		draw_wall(i, wall_height);
 		i++;
 	}
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
@@ -84,17 +85,19 @@ double	cast_ray(t_player *player)
 	return (-1);
 }
 
-void	draw_wall(int x, int wall)
+// Add side hit
+void	draw_wall(int x, int wall_height)
 {
 	int	start;
 	int	end;
+	int	side;
 
-	start = -wall / 2 + HEIGHT / 2;
+	start = -wall_height / 2 + HEIGHT / 2;
 	if (start < 0)
 		start = 0;
-	end = wall / 2 + HEIGHT / 2;
+	end = wall_height / 2 + HEIGHT / 2;
 	if (end >= HEIGHT)
-		end = HEIGHT;
+		end = HEIGHT -1;
 	while (start < end)
 		my_pixel_put(&var()->disp_3d, x, start++, 0x00FF00);
 }

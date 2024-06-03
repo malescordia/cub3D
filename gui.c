@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/06/03 15:57:48 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:50:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* FUNCTION THAT GIVES ACCESS TO ALL OTHERS
     render the entire screen by raycasting for each column. */
-/* void    draw(void)
+void    draw(void)
 {
     int x;
 
@@ -44,7 +44,7 @@
         x++;
     }
 }
- */
+
 /* ugly way to initialize textures */
 /* int init_textures(t_map *map)
 {
@@ -94,7 +94,7 @@
 
 /* prepares variables for dda implementation, it calculates the initial side distances
     and step directions based on the ray direction */
-/* void    before_dda(void)
+void    before_dda(void)
 {
     var()->map_pos[0] = (int)var()->player.pos[0];
     var()->map_pos[1] = (int)var()->player.pos[1];
@@ -124,12 +124,12 @@
         var()->side_dist[1]= (var()->map_pos[1] + 1.0 - var()->player.pos[1]) \
             * var()->delta_dist[1];
     }
-} */
+}
 
 /* perform the algorithm to detect collisions with walls. It iterates through the grid,
     updating side distances and map positions until a collision is detected. It then
     calculates the perpendicular wall distance based on which side of the wall was hit. */
-/* void	dda(void)
+void	dda(void)
 {
 	var()->collision = 0;
 	while (var()->collision == 0)
@@ -153,7 +153,7 @@
 		var()->perp_wall_dist = (var()->side_dist[0] - var()->delta_dist[0]);
 	else
 		var()->perp_wall_dist = (var()->side_dist[1] - var()->delta_dist[1]);
-} */
+}
 
 /* determines which texture to use based on the side of the wall hit and the ray direction.
     It also calculates the texture coordinate(tex_point) to use for rendering the wall. */
