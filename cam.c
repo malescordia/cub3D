@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 20:11:54 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:59:57 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@
 	}
 } */
 
-void	cub3d_maker(t_player *player)
+void	camera_plane(t_player *player)
 {
 	int		i;
+	int		side;
 	int		wall_height;
 	double	cam;
 	double	wall_dist;
 	double	ray_angle;
+	double	hit_pt;
 
 	i = 0;
 	while (i < var()->disp_3d.width)
@@ -46,7 +48,6 @@ void	cub3d_maker(t_player *player)
 		ray_angle = player->dir + player->plane * cam;
 		player->ray[0] = cos(ray_angle * PI / 180);
 		player->ray[1] = sin(ray_angle * PI / 180);
-		set_variables();
 		wall_dist = cast_ray(player);
 		if (wall_dist == -1)
 		{
@@ -54,9 +55,21 @@ void	cub3d_maker(t_player *player)
 			continue;
 		}
 		wall_height = (int)(HEIGHT / wall_dist);
+		if (player->ray[0] < 0)
+		{
+			side = 0;
+			hit_pt = player->pos[1] + wall_dist * player->ray[1];
+		}
+		else
+		{
+			side = 1;
+			hit_pt = player->pos[0] + wall_dist * player->ray[0];
+		}
+		hit_pt -= floor(hit_pt);
 		draw_wall(i, wall_height);
 		i++;
 	}
+	mlx_clear_window(var()->mlx, var()->disp_3d.win);
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
 	var()->disp_3d.img, 0, 0);
 }
@@ -88,9 +101,9 @@ double	cast_ray(t_player *player)
 // Add side hit
 void	draw_wall(int x, int wall_height)
 {
+	int	i;
 	int	start;
 	int	end;
-	int	side;
 
 	start = -wall_height / 2 + HEIGHT / 2;
 	if (start < 0)
@@ -98,8 +111,13 @@ void	draw_wall(int x, int wall_height)
 	end = wall_height / 2 + HEIGHT / 2;
 	if (end >= HEIGHT)
 		end = HEIGHT -1;
+	i = 0;
+	while (i < start)
+		my_pixel_put(&var()->disp_3d, x, i++, 0x000000);
 	while (start < end)
 		my_pixel_put(&var()->disp_3d, x, start++, 0x00FF00);
+	while (end < HEIGHT)
+		my_pixel_put(&var()->disp_3d, x, end++, 0xFFFFFF);
 }
 
 void	draw_camera_plane(double x, double y)
