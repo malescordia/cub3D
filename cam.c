@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 22:20:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 23:20:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,8 @@ void	draw_wall(int x, int start, int end)
 		start = 0;
 	if (end > HEIGHT)
 		end = HEIGHT;
-	printf("START: %i\n", start);
-	printf("END: %i\n", end);
+/* 	printf("START: %i\n", start);
+	printf("END: %i\n", end); */
 	while (i < start)
 		my_pixel_put(&var()->disp_3d, x, i++, 0x000000);
 	while (start < end)
@@ -317,8 +317,8 @@ void camera_plane(t_player *player)
 
     for (int x = 0; x < WIDTH; x++) {
         // Calculate ray direction without the fishbowl effect
-        rayDirX = cos(player->dir * PI / 180) + player->plane[0] * (2 * x / (double)WIDTH - 1);
-        rayDirY = sin(player->dir * PI / 180) + player->plane[1] * (2 * x / (double)WIDTH - 1);
+        rayDirX = cos((player->dir * PI / 180) + player->plane[0]) * (2 * x / (double)WIDTH - 1);
+        rayDirY = sin((player->dir * PI / 180) + player->plane[1]) * (2 * x / (double)WIDTH - 1);
 
         // Calculate map position
         mapX = (int)player->pos[0];
@@ -331,25 +331,26 @@ void camera_plane(t_player *player)
         // Calculate step and initial sideDist
         int stepX, stepY;
         if (rayDirX < 0) {
-            stepX = 1;
-            sideDistX = (player->pos[0] - mapX) * deltaDistX;
-        } else {
             stepX = -1;
+			sideDistX = (player->pos[0] - mapX) * deltaDistX;
+        } else {
+            stepX = 1;
             sideDistX = (mapX + 1.0 - player->pos[0]) * deltaDistX;
         }
         if (rayDirY < 0) {
-            stepY = 1;
-            sideDistY = (player->pos[1] - mapY) * deltaDistY;
-        } else {
             stepY = -1;
-            sideDistY = (mapY + 1.0 - player->pos[1]) * deltaDistY;
+			sideDistY = (player->pos[1] - mapY) * deltaDistY;
+        } else {
+            stepY = 1;
+			sideDistY = (mapY + 1.0 - player->pos[1]) * deltaDistY;
         }
 
         // Perform DDA
         int hit = 0;
+		printf("stepx: %f\nstepy: %f\n", sideDistX, sideDistY);
         while (!hit) {
             // Jump to next map square, either in x-direction or y-direction
-            if (sideDistX < sideDistY) {
+       		if (sideDistX < sideDistY) {
                 sideDistX += deltaDistX;
                 mapX += stepX;
                 player->side = 0;
@@ -363,7 +364,7 @@ void camera_plane(t_player *player)
                 mapX >= 0 && mapX < (int)ft_strlen(var()->map.cmap[mapY]) &&
                 var()->map.cmap[mapY][mapX] == '1') {
                 hit = 1;
-				//printf("mapX: %i\n", mapY);
+				printf("X: %i | Y: %i\n", mapX, mapY);
             }
         }
 
@@ -388,7 +389,7 @@ void camera_plane(t_player *player)
         draw_wall(x, drawStart, drawEnd);
     }
 	//mlx_clear_window(var()->mlx, var()->disp_3d.win);
-    mlx_put_image_to_window(var()->mlx, var()->disp_3d.img, var()->disp_3d.img, 0, 0);
+    mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 21:50:56 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 22:45:55 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 // 2D display
 # define CELL_SIZE 		100
 // 3D display
-# define HEIGHT			600
-# define WIDTH			600
+# define HEIGHT			800
+# define WIDTH			800
 # define FOV			60
 // Speed
 # define MV_SPEED		0.05
