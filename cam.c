@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 18:38:58 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 22:20:07 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 	}
 } */
 
-void	camera_plane(t_player *player)
+/* void	camera_plane(t_player *player)
 {
 	int		i;
 	int		wall_height;
@@ -54,12 +54,12 @@ void	camera_plane(t_player *player)
 		printf("0.86602540378 - %f\n", player->ray[0]);
 		printf(" 0.5 - %f\n", player->ray[1]);
 		wall_dist = cast_ray(player);
-		printf(" 4.5 - %f\n", wall_dist);
+		printf("0.707 - %f\n", wall_dist);
 		if (wall_dist != -1)
 		{
-			wall_height = (int)(HEIGHT / wall_dist);
-			printf("133 - %i\n", wall_height);
-			exit(0);
+			wall_height = (HEIGHT / wall_dist);
+			//printf("848 - %i\n", wall_height);
+			//exit(0);
 			//set_variables(player);
 			draw_wall(i, wall_height);
 		}
@@ -68,7 +68,7 @@ void	camera_plane(t_player *player)
 	mlx_clear_window(var()->mlx, var()->disp_3d.win);
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
 	var()->disp_3d.img, 0, 0);
-}
+} */
 
 /* void	camera_plane(t_player *player)
 {
@@ -97,7 +97,7 @@ void	camera_plane(t_player *player)
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
 	var()->disp_3d.img, 0, 0);
 } */
-
+/*
  double	cast_ray(t_player *player)
 {
 	double	pos[2];
@@ -114,13 +114,17 @@ void	camera_plane(t_player *player)
 			break ;
 		if (var()->map.cmap[(int)pos[1]][(int)pos[0]] == '1')
 		{
-			delta[0] = pos[0] - player->pos[0];
-			delta[1] = pos[1] - player->pos[1];
+			printf("8 - %f\n",pos[0]);
+			printf("3 - %f\n", pos[1]);
+			delta[0] = (int)pos[0] - player->pos[0];
+			delta[1] = (int)pos[1] - player->pos[1];
+			printf("0.5 - %f\n",delta[0]);
+			printf("0.5 - %f\n", delta[1]);
 			return (sqrt(delta[0] * delta[0] + delta[1] * delta[1]));
 		}
 	}
 	return (-1);
-}
+} */
 
 
 
@@ -237,19 +241,17 @@ void	camera_plane(t_player *player)
 } */
 
 // Add side hit
-void	draw_wall(int x, int wall_height)
+void	draw_wall(int x, int start, int end)
 {
 	int	i;
-	int	start;
-	int	end;
 
-	start = -wall_height / 2 + HEIGHT / 2;
+	i = 0;
 	if (start < 0)
 		start = 0;
-	end = wall_height / 2 + HEIGHT / 2;
-	if (end >= HEIGHT)
-		end = HEIGHT -1;
-	i = 0;
+	if (end > HEIGHT)
+		end = HEIGHT;
+	printf("START: %i\n", start);
+	printf("END: %i\n", end);
 	while (i < start)
 		my_pixel_put(&var()->disp_3d, x, i++, 0x000000);
 	while (start < end)
@@ -301,3 +303,107 @@ void	draw_wall(int x, int wall_height)
 		my_pixel_put(&var()->disp_2d, j, i, 0x00FF00);
 	}
 } */
+
+void camera_plane(t_player *player)
+{
+    double rayDirX, rayDirY;
+    int mapX, mapY;
+    double sideDistX, sideDistY;
+    double perpWallDist;
+    int lineHeight;
+    int drawStart, drawEnd;
+
+    initialize_plane();
+
+    for (int x = 0; x < WIDTH; x++) {
+        // Calculate ray direction without the fishbowl effect
+        rayDirX = cos(player->dir * PI / 180) + player->plane[0] * (2 * x / (double)WIDTH - 1);
+        rayDirY = sin(player->dir * PI / 180) + player->plane[1] * (2 * x / (double)WIDTH - 1);
+
+        // Calculate map position
+        mapX = (int)player->pos[0];
+        mapY = (int)player->pos[1];
+
+        // Length of ray from one x or y-side to next x or y-side
+        double deltaDistX = fabs(1 / rayDirX);
+        double deltaDistY = fabs(1 / rayDirY);
+
+        // Calculate step and initial sideDist
+        int stepX, stepY;
+        if (rayDirX < 0) {
+            stepX = 1;
+            sideDistX = (player->pos[0] - mapX) * deltaDistX;
+        } else {
+            stepX = -1;
+            sideDistX = (mapX + 1.0 - player->pos[0]) * deltaDistX;
+        }
+        if (rayDirY < 0) {
+            stepY = 1;
+            sideDistY = (player->pos[1] - mapY) * deltaDistY;
+        } else {
+            stepY = -1;
+            sideDistY = (mapY + 1.0 - player->pos[1]) * deltaDistY;
+        }
+
+        // Perform DDA
+        int hit = 0;
+        while (!hit) {
+            // Jump to next map square, either in x-direction or y-direction
+            if (sideDistX < sideDistY) {
+                sideDistX += deltaDistX;
+                mapX += stepX;
+                player->side = 0;
+            } else {
+                sideDistY += deltaDistY;
+                mapY += stepY;
+                player->side = 1;
+            }
+            // Check if ray has hit a wall
+            if (mapY >= 0 && mapY < get_2d_len(var()->map.cmap) &&
+                mapX >= 0 && mapX < (int)ft_strlen(var()->map.cmap[mapY]) &&
+                var()->map.cmap[mapY][mapX] == '1') {
+                hit = 1;
+				//printf("mapX: %i\n", mapY);
+            }
+        }
+
+        // Calculate distance projected on camera direction
+        if (player->side == 0)
+            perpWallDist = (mapX - player->pos[0] + (1 - stepX) / 2) / rayDirX;
+        else
+            perpWallDist = (mapY - player->pos[1] + (1 - stepY) / 2) / rayDirY;
+
+        // Calculate height of line to draw on screen
+        lineHeight = (int)(HEIGHT / perpWallDist);
+
+        // Calculate lowest and highest pixel to fill in current stripe
+        drawStart = -lineHeight / 2 + HEIGHT / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        drawEnd = lineHeight / 2 + HEIGHT / 2;
+        if (drawEnd >= HEIGHT)
+            drawEnd = HEIGHT - 1;
+
+        // Draw the wall for the current column
+        draw_wall(x, drawStart, drawEnd);
+    }
+	//mlx_clear_window(var()->mlx, var()->disp_3d.win);
+    mlx_put_image_to_window(var()->mlx, var()->disp_3d.img, var()->disp_3d.img, 0, 0);
+}
+
+
+void	initialize_plane(void)
+{
+    double rad = var()->player.dir * PI / 180;
+
+    // Initialize direction vector
+    double dirX = cos(rad);
+    double dirY = sin(rad);
+
+    // Initialize camera plane
+    double planeX = -dirY * FOV;
+    double planeY = dirX * FOV;
+
+    var()->player.plane[0] = planeX;
+    var()->player.plane[1] = planeY;
+}

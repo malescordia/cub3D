@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 16:30:50 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 20:40:58 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	print_tests(void)
 	printf("\n");
 	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
 	printf("player facing: %f\n", var()->player.dir);
-	printf("camera plane: %f\n", var()->player.plane);
+	//printf("camera plane: %f\n", var()->player.plane);
 	printf("FOV: %f\n", var()->player.fov);
 }

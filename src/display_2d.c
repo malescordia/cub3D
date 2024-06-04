@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 18:50:42 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 20:42:08 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	cub2d_maker(char **map)
 	int	j;
 
 	i = 0;
-	var()->player.plane = var()->player.dir - 90;
+	/* var()->player.plane = var()->player.dir - 90;
 	if (var()->player.plane < 0)
-		var()->player.plane = 360 - (var()->player.plane * (-1));
+		var()->player.plane = 360 - (var()->player.plane * (-1)); */
 	while (map[i])
 	{
 		j = 0;

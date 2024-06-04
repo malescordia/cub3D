@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 18:17:14 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 21:50:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 // 2D display
 # define CELL_SIZE 		100
 // 3D display
-# define HEIGHT			800
-# define WIDTH			800
+# define HEIGHT			600
+# define WIDTH			600
 # define FOV			60
 // Speed
 # define MV_SPEED		0.05
@@ -78,14 +78,12 @@ typedef struct s_map
 typedef struct s_player
 {
 	int		side;
-	int		step[2];
+	double	step[2];
 	double	pos[2];
 	double	dir;
-	double	plane;
+	double	plane[2];
 	double	ray[2];
 	double	delta[2];
-	double	side_dist[2];
-	double	perp_dist[2];
 	double	fov;
 	double	fov_dir;
 }	t_player;
@@ -183,8 +181,9 @@ void	print_tests(void);
 void	draw_camera_plane(double x, double y);
 void	camera_plane(t_player *player);
 double	cast_ray(t_player *player);
-void	draw_wall(int x, int y);
+void	draw_wall(int x, int start, int end);
 void	set_variables(t_player *player);
+void	initialize_plane(void);
 // Gui
 void	draw(void);
 void	draw_image(int x, int start, int end);
