@@ -11,7 +11,7 @@ SRC =	src/main.c \
 		src/display.c src/display_2d.c \
 		src/hooks.c \
 		src/clean_exit.c \
-		cam.c gui.c
+		cam.c
 
 
 OBJ = $(SRC:.c=.o)

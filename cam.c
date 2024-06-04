@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 15:59:57 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/04 18:38:58 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,35 @@
 void	camera_plane(t_player *player)
 {
 	int		i;
-	int		side;
 	int		wall_height;
 	double	cam;
 	double	wall_dist;
 	double	ray_angle;
-	double	hit_pt;
 
 	i = 0;
+	printf("90: %.2f\n", player->dir);
+	printf("7.5: %.2f\n", player->pos[0]);
+	printf("2.5: %.2f\n", player->pos[1]);
 	while (i < var()->disp_3d.width)
 	{
 		cam = 2 * i / (double)WIDTH -1;
-		ray_angle = player->dir + player->plane * cam;
+		ray_angle = player->dir + FOV * cam;
 		player->ray[0] = cos(ray_angle * PI / 180);
 		player->ray[1] = sin(ray_angle * PI / 180);
+		printf("-1.0 - %f\n", cam);
+		printf("30 - %f\n", ray_angle);
+		printf("0.86602540378 - %f\n", player->ray[0]);
+		printf(" 0.5 - %f\n", player->ray[1]);
 		wall_dist = cast_ray(player);
-		if (wall_dist == -1)
+		printf(" 4.5 - %f\n", wall_dist);
+		if (wall_dist != -1)
 		{
-			i++;
-			continue;
+			wall_height = (int)(HEIGHT / wall_dist);
+			printf("133 - %i\n", wall_height);
+			exit(0);
+			//set_variables(player);
+			draw_wall(i, wall_height);
 		}
-		wall_height = (int)(HEIGHT / wall_dist);
-		if (player->ray[0] < 0)
-		{
-			side = 0;
-			hit_pt = player->pos[1] + wall_dist * player->ray[1];
-		}
-		else
-		{
-			side = 1;
-			hit_pt = player->pos[0] + wall_dist * player->ray[0];
-		}
-		hit_pt -= floor(hit_pt);
-		draw_wall(i, wall_height);
 		i++;
 	}
 	mlx_clear_window(var()->mlx, var()->disp_3d.win);
@@ -74,13 +70,41 @@ void	camera_plane(t_player *player)
 	var()->disp_3d.img, 0, 0);
 }
 
-double	cast_ray(t_player *player)
+/* void	camera_plane(t_player *player)
+{
+	int		i;
+	int		wall_height;
+	double	cam;
+	double	wall_dist;
+	double	ray_angle;
+
+	i = 0;
+	while (i < var()->disp_3d.width)
+	{
+		cam = 2 * i / (double)WIDTH -1;
+		ray_angle = player->dir + (player->plane * PI / 180) * cam;
+		player->ray[0] = cos(ray_angle);
+		player->ray[1] = sin(ray_angle);
+		wall_dist = cast_ray(player, ray_angle);
+		if (wall_dist != -1)
+		{
+			wall_height = (int)(HEIGHT / wall_dist);
+			draw_wall(i, wall_height);
+		}
+		i++;
+	}
+	mlx_clear_window(var()->mlx, var()->disp_3d.win);
+	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, \
+	var()->disp_3d.img, 0, 0);
+} */
+
+ double	cast_ray(t_player *player)
 {
 	double	pos[2];
 	double	delta[2];
 
-	pos[0] = player->pos[0];
-	pos[1] = player->pos[1];
+	pos[0] = (int)player->pos[0];
+	pos[1] = (int)player->pos[1];
 	while (1)
 	{
 		pos[0] += player->ray[0];
@@ -97,6 +121,120 @@ double	cast_ray(t_player *player)
 	}
 	return (-1);
 }
+
+
+
+/* double	cast_ray(t_player *player, double ray_angle)
+{
+    int		map_pos[2];
+    double	side_dist[2];
+    double	delta_dist[2];
+    int		step[2];
+    int		hit;
+    int		side;
+
+	(void)ray_angle;
+    map_pos[0] = (int)player->pos[0];
+    map_pos[1] = (int)player->pos[1];
+
+    delta_dist[0] = fabs(1 / player->ray[0]);
+    delta_dist[1] = fabs(1 / player->ray[1]);
+
+    if (player->ray[0] < 0)
+    {
+        step[0] = -1;
+        side_dist[0] = (player->pos[0] - map_pos[0]) * delta_dist[0];
+    }
+    else
+    {
+        step[0] = 1;
+        side_dist[0] = (map_pos[0] + 1.0 - player->pos[0]) * delta_dist[0];
+    }
+
+    if (player->ray[1] < 0)
+    {
+        step[1] = -1;
+        side_dist[1] = (player->pos[1] - map_pos[1]) * delta_dist[1];
+    }
+    else
+    {
+        step[1] = 1;
+        side_dist[1] = (map_pos[1] + 1.0 - player->pos[1]) * delta_dist[1];
+    }
+
+    hit = 0;
+    while (!hit)
+    {
+        if (side_dist[0] < side_dist[1])
+        {
+            side_dist[0] += delta_dist[0];
+            map_pos[0] += step[0];
+            side = 0;
+        }
+        else
+        {
+            side_dist[1] += delta_dist[1];
+            map_pos[1] += step[1];
+            side = 1;
+        }
+
+        if (var()->map.cmap[map_pos[1]][map_pos[0]] == '1')
+            hit = 1;
+    }
+
+    if (side == 0)
+        return ((map_pos[0] - player->pos[0] + (1 - step[0]) / 2) / player->ray[0]);
+    else
+        return ((map_pos[1] - player->pos[1] + (1 - step[1]) / 2) / player->ray[1]);
+} */
+
+/* void	set_variables(t_player *player)
+{
+
+	step[0] = 1;
+	step[1] = 1;
+	collision = 0;
+	delta[0] = fabs(1 / player->ray[0]);
+	delta[1] = fabs(1 / player->ray[1]);
+	pos[0] = (int)player->pos[0];
+	pos[1] = (int)player->pos[1];
+	if (player->ray[0] < 0)
+	{
+		step[0] *= -1;
+		side_dist[0] = (player->pos[0] - pos[0]) * delta[0];
+	}
+	else
+		side_dist[0] = (pos[0] + 1.0 - player->pos[0]) * delta[0];
+	if (player->ray[1] < 0)
+	{
+		step[1] *= -1;
+		side_dist[1] = (player->pos[1] - pos[1]) * delta[1];
+	}
+	else
+		side_dist[1] = (pos[1] + 1.0 - player->pos[1]) * delta[1];
+
+	while (!collision)
+	{
+		if (side_dist[0] < side_dist[1])
+		{
+			side_dist[0] += delta[0];
+			pos[0] += step[0];
+			side = 0;
+		}
+		else
+		{
+			side_dist[1] += delta[1];
+			pos[1] += step[1];
+			side = 1;
+		}
+		if (var()->map.imap[pos[0]][pos[1]] > 0)
+			collision = 1;
+	}
+	if (!side)
+		perp_dist = side_dist[0] - delta[0];
+	else
+		perp_dist = side_dist[1] - delta[1];
+} */
 
 // Add side hit
 void	draw_wall(int x, int wall_height)
@@ -120,7 +258,30 @@ void	draw_wall(int x, int wall_height)
 		my_pixel_put(&var()->disp_3d, x, end++, 0xFFFFFF);
 }
 
-void	draw_camera_plane(double x, double y)
+/* void	draw_wall(int x, int wall_height)
+{
+    int	i;
+    int	start;
+    int	end;
+
+    if (wall_height > HEIGHT)
+        wall_height = HEIGHT;
+    start = -wall_height / 2 + HEIGHT / 2;
+    if (start < 0)
+        start = 0;
+    end = wall_height / 2 + HEIGHT / 2;
+    if (end >= HEIGHT)
+        end = HEIGHT - 1;
+    i = 0;
+    while (i < start)
+        my_pixel_put(&var()->disp_3d, x, i++, 0x000000);
+    while (start < end)
+        my_pixel_put(&var()->disp_3d, x, start++, 0x00FF00);
+    while (end < HEIGHT)
+        my_pixel_put(&var()->disp_3d, x, end++, 0xFFFFFF);
+} */
+
+/* void	draw_camera_plane(double x, double y)
 {
 	double	i;
 	double	j;
@@ -139,4 +300,4 @@ void	draw_camera_plane(double x, double y)
 		i -= -cos(var()->player.plane * PI / 180);
 		my_pixel_put(&var()->disp_2d, j, i, 0x00FF00);
 	}
-}
+} */
