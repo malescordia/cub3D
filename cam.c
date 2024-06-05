@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 23:20:21 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:18:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@
 } */
 
 // Add side hit
-void	draw_wall(int x, int start, int end)
+/* void	draw_wall(int x, int start, int end)
 {
 	int	i;
 
@@ -250,15 +250,15 @@ void	draw_wall(int x, int start, int end)
 		start = 0;
 	if (end > HEIGHT)
 		end = HEIGHT;
-/* 	printf("START: %i\n", start);
-	printf("END: %i\n", end); */
+	printf("START: %i\n", start);
+	printf("END: %i\n", end);
 	while (i < start)
 		my_pixel_put(&var()->disp_3d, x, i++, 0x000000);
 	while (start < end)
 		my_pixel_put(&var()->disp_3d, x, start++, 0x00FF00);
 	while (end < HEIGHT)
 		my_pixel_put(&var()->disp_3d, x, end++, 0xFFFFFF);
-}
+} */
 
 /* void	draw_wall(int x, int wall_height)
 {
@@ -304,7 +304,7 @@ void	draw_wall(int x, int start, int end)
 	}
 } */
 
-void camera_plane(t_player *player)
+/* void camera_plane(t_player *player)
 {
     double rayDirX, rayDirY;
     int mapX, mapY;
@@ -386,11 +386,39 @@ void camera_plane(t_player *player)
             drawEnd = HEIGHT - 1;
 
         // Draw the wall for the current column
-        draw_wall(x, drawStart, drawEnd);
+        		double	wall_x;
+		if (!player->side)
+			wall_x = player->pos[1] + perpWallDist * rayDirY;
+		else
+			wall_x = player->pos[0] + perpWallDist * rayDirX;
+		wall_x -= floor(wall_x);
+
+		int i  = 0;
+		while (i < HEIGHT)
+		{
+			if (i < drawStart)
+				my_pixel_put(&var()->disp_3d, x, i, 0x000000);
+			else if (i < drawEnd)
+			{
+				int	clr;
+				if (player->side && mapY < player->pos[1])
+					clr = 0xFF0000; // south
+				else if (player->side && mapY > player->pos[1])
+					clr = 0x0000FF; // north
+				else if (!player->side && mapX < player->pos[0])
+					clr = 0xA52A2A; // east
+				else
+					clr = 0x00FF00; // west
+				my_pixel_put(&var()->disp_3d, x, i, clr);
+			}
+			else
+				my_pixel_put(&var()->disp_3d, x, i, 0xFFFFFF);
+			i++;
+		}
     }
 	//mlx_clear_window(var()->mlx, var()->disp_3d.win);
     mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
-}
+} */
 
 
 void	initialize_plane(void)
@@ -408,3 +436,133 @@ void	initialize_plane(void)
     var()->player.plane[0] = planeX;
     var()->player.plane[1] = planeY;
 }
+
+void camera_plane(t_player *player)
+{
+    double rayDirX, rayDirY;
+    int mapX, mapY;
+    double sideDistX, sideDistY;
+    double perpWallDist;
+    int lineHeight;
+    int drawStart, drawEnd;
+
+	double rad = var()->player.dir * PI / 180;
+	double dirX = cos(rad);
+    double dirY = sin(rad);
+	double	camera_x;
+
+    initialize_plane();
+
+    for (int x = 0; x < WIDTH; x++) {
+        // Calculate ray direction without the fishbowl effect
+		camera_x = (((double)(2 * x)) / (double)(WIDTH)) - 1;
+		rayDirX = dirX + player->plane[0] * camera_x;
+        rayDirY = dirY + player->plane[1] * camera_x;
+
+        // Calculate map position
+        mapX = (int)player->pos[0];
+        mapY = (int)player->pos[1];
+
+		 double deltaDistX;
+		if (!rayDirX)
+			deltaDistX = 1e30;
+		else
+     		deltaDistX = fabs(1.0 / rayDirX);
+
+		double deltaDistY;
+		if (!rayDirY)
+			deltaDistY = 1e30;
+		else
+     		deltaDistY = fabs(1.0 / rayDirY);
+
+
+        // Calculate step and initial sideDist
+        int stepX, stepY;
+        if (rayDirX < 0) {
+            stepX = -1;
+			sideDistX = (player->pos[0] - (double)mapX) * deltaDistX;
+        } else {
+            stepX = 1;
+            sideDistX = ((double)mapX + 1.0 - player->pos[0]) * deltaDistX;
+        }
+        if (rayDirY < 0) {
+            stepY = -1;
+			sideDistY = (player->pos[1] - (double)mapY) * deltaDistY;
+        } else {
+            stepY = 1;
+			sideDistY = ((double)mapY + 1.0 - player->pos[1]) * deltaDistY;
+        }
+
+        // Perform DDA
+        int hit = 0;
+        while (!hit) {
+            // Jump to next map square, either in x-direction or y-direction
+       		if (sideDistX < sideDistY) {
+                sideDistX += deltaDistX;
+                mapX += stepX;
+                player->side = 0;
+            } else {
+                sideDistY += deltaDistY;
+                mapY += stepY;
+                player->side = 1;
+            }
+            // Check if ray has hit a wall
+            if (var()->map.cmap[mapY][mapX] == '1') {
+                hit = 1;
+            }
+        }
+
+        // Calculate distance projected on camera direction
+        if (player->side == 0)
+			perpWallDist = sideDistX - deltaDistX;
+        else
+            perpWallDist = sideDistY - deltaDistY;
+
+        // Calculate height of line to draw on screen
+        lineHeight = (int)((double)HEIGHT / perpWallDist);
+
+        // Calculate lowest and highest pixel to fill in current stripe
+        drawStart = (-lineHeight + HEIGHT) / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        drawEnd = (lineHeight + HEIGHT) / 2;
+        if (drawEnd >= HEIGHT)
+            drawEnd = HEIGHT;
+
+        // Draw the wall for the current column
+		double	wall_x;
+		if (!player->side)
+			wall_x = player->pos[1] + perpWallDist * rayDirY;
+		else
+			wall_x = player->pos[0] + perpWallDist * rayDirX;
+		wall_x -= floor(wall_x);
+
+		int i  = 0;
+		while (i < HEIGHT)
+		{
+			if (i < drawStart)
+				my_pixel_put(&var()->disp_3d, x, i, 0x000000);
+			else if (i < drawEnd)
+			{
+				int	clr;
+				if (player->side && mapY < player->pos[1])
+					clr = 0xFF0000; // south
+				else if (player->side && mapY > player->pos[1])
+					clr = 0x0000FF; // north
+				else if (!player->side && mapX < player->pos[0])
+					clr = 0xFFFF00; // east
+				else
+					clr = 0x00FF00; // west
+				my_pixel_put(&var()->disp_3d, x, i, clr);
+			}
+			else
+				my_pixel_put(&var()->disp_3d, x, i, 0xFFFFFF);
+			i++;
+		}
+
+
+    }
+	//mlx_clear_window(var()->mlx, var()->disp_3d.win);
+    mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
+}
+

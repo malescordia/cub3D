@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 22:45:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 15:13:35 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 // 3D display
 # define HEIGHT			800
 # define WIDTH			800
-# define FOV			60
+# define FOV			0.66
 // Speed
 # define MV_SPEED		0.05
 # define ROT_DEG		8
