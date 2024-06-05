@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 16:14:50 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:11:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,34 +446,39 @@ void camera_plane(t_player *player)
     int lineHeight;
     int drawStart, drawEnd;
 
-	double rad = var()->player.dir * PI / 180;
-	double dirX = cos(rad);
-    double dirY = sin(rad);
-	double	camera_x;
-
-    initialize_plane();
+   // initialize_plane();
 
     for (int x = 0; x < WIDTH; x++) {
         // Calculate ray direction without the fishbowl effect
-		camera_x = (((double)(2 * x)) / (double)(WIDTH)) - 1;
-		rayDirX = dirX + player->plane[0] * camera_x;
-        rayDirY = dirY + player->plane[1] * camera_x;
+/* 		rayDirX = cos(player->dir * PI / 180) + player->plane[0] * (2 * x / (double)WIDTH - 1);
+        rayDirY = sin(player->dir * PI / 180) + player->plane[1] * (2 * x / (double)WIDTH - 1); */
+	/* 	double plane = player->dir - 90;
+		if (plane < 0)
+			plane = 360 - (plane * (-1));
+		rayDirX = cos(player->dir * PI / 180) + cos(plane * PI / 180) * (2 * x / (double)WIDTH - 1);
+        rayDirY = sin(player->dir * PI / 180) + sin(plane * PI / 180) * (2 * x / (double)WIDTH - 1); */
+		double adjusted_dir = player->dir + 270;
+		if (adjusted_dir > 360)
+			adjusted_dir -= 360;
+		double rad = adjusted_dir * PI / 180; // Convert direction from degrees to radian
+		double dirX = cos(rad);
+		double dirY = sin(rad);
+		var()->player.plane[0] = -dirY * FOV;
+   		 var()->player.plane[1] = dirX * FOV;
+		double cameraX = 2 * x / (double)WIDTH - 1;
+		rayDirX = dirX + player->plane[0] * cameraX;
+        rayDirY = dirY + player->plane[1] * cameraX;
+
 
         // Calculate map position
         mapX = (int)player->pos[0];
         mapY = (int)player->pos[1];
 
-		 double deltaDistX;
-		if (!rayDirX)
-			deltaDistX = 1e30;
-		else
-     		deltaDistX = fabs(1.0 / rayDirX);
+		double deltaDistX;
+     	deltaDistX = fabs(1.0 / rayDirX);
 
 		double deltaDistY;
-		if (!rayDirY)
-			deltaDistY = 1e30;
-		else
-     		deltaDistY = fabs(1.0 / rayDirY);
+     	deltaDistY = fabs(1.0 / rayDirY);
 
 
         // Calculate step and initial sideDist

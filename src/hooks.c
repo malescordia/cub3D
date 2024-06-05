@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/03 18:51:13 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:03:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ void	hooks_mvt(double x_dest, double y_dest)
 // Rotates direction + caps rotation + creates new image
 void	hooks_rot(void)
 {
-	if (var()->left)
+	if (var()->right)
 	{
 		var()->player.dir -= ROT_DEG;
 		if (var()->player.dir < 0)
 			var()->player.dir = 360 - (var()->player.dir * (-1));
 	}
-	if (var()->right)
+	if (var()->left)
 	{
 		var()->player.dir += ROT_DEG;
 		if (var()->player.dir > 360)
