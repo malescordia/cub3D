@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 20:42:08 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:40:01 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,17 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	//draw_camera_plane(x, y);
 	k = 0;
-	while (k < FOV)
+	while (k <= (FOV * 50) / 2)
 	{
-		var()->player.fov_dir = var()->player.dir - 15 + k;
+		var()->player.fov_dir = var()->player.dir - k;
+		draw_line(disp, x, y);
+		k += 0.1;
+	}
+	k = 0;
+	while (k < (FOV * 50) / 2)
+	{
+		var()->player.fov_dir = var()->player.dir + k;
 		draw_line(disp, x, y);
 		k += 0.1;
 	}
@@ -96,6 +102,16 @@ void	put_player(t_disp *disp, double x, double y)
 
 // Draws line showing rotation direction
 void	draw_line(t_disp *disp, double x, double y)
+{
+	while (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] != '1')
+	{
+		x += sin(var()->player.fov_dir * PI / 180);
+		y += -cos(var()->player.fov_dir * PI / 180);
+		my_pixel_put(disp, x, y, 0x00FF00);
+	}
+}
+
+/* void	draw_line(t_disp *disp, double x, double y)
 {
 	while (42)
 	{
@@ -105,7 +121,51 @@ void	draw_line(t_disp *disp, double x, double y)
 			break ;
 		my_pixel_put(disp, x, y, 0x00FF00);
 	}
-}
+} */
+/* void	put_player(t_disp *disp, double x, double y)
+{
+	int		i;
+	int		j;
+
+	i = -3;
+	x *= CELL_SIZE;
+	y *= CELL_SIZE;
+	while (i < 4)
+	{
+		j = -3;
+		while (j < 4)
+		{
+			my_pixel_put(disp, x + j, y + i, 0x00FF00);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	j = 0;
+	if (!var()->player.dir)
+		i = -1;
+	else if (var()->player.dir == 180)
+		i = 1;
+	else if (var()->player.dir == 90)
+		j = 1;
+	else if (var()->player.dir == 270)
+		j = -1;
+	draw_line(disp, x, y, j, i);
+} */
+
+/* void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv)
+{
+	int	i;
+
+	i = 0;
+	while (i < 40)
+	{
+		x += x_mv;
+		y += y_mv;
+		my_pixel_put(disp, x, y, 0x00FF00);
+		i++;
+	}
+} */
 
 // Checks if destination is within bounds + creates new image
 void	bound_checker(double dest_x, double dest_y)
