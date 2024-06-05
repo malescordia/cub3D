@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:15:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 21:20:53 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 22:16:19 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void	cub3d_maker(t_player *player)
 
 void	set_variables(t_player *player, double cam)
 {
+	double	rad;
 	double	new_dir;
 
-	new_dir = player->dir + 90;
+	new_dir = player->dir + 270;
 	if (new_dir >  360)
 		new_dir -= 360;
-	player->dir_arr[0] = cos(new_dir * PI / 180);
-	player->dir_arr[1] = sin(new_dir * PI /180);
+	rad = new_dir * PI / 180;
+	player->dir_arr[0] = cos(rad);
+	player->dir_arr[1] = sin(rad);
 	player->plane[0] = -player->dir_arr[1] * FOV;
 	player->plane[1] = player->dir_arr[0] * FOV;
 	player->ray[0] = player->dir_arr[0] + player->plane[0] * cam;
@@ -57,8 +59,8 @@ int	step_incr(t_player *player, int axis)
 {
 	if (player->ray[axis] < 0)
 	{
-		player->side_dist[axis] = player->pos[axis] - \
-		(double)player->wall[axis] * player->delta[axis];
+		player->side_dist[axis] = (player->pos[axis] - \
+		(double)player->wall[axis]) * player->delta[axis];
 		return (-1);
 	}
 	player->side_dist[axis] = ((double)player->wall[axis] + 1.0 - \

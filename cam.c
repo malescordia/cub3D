@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 18:11:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 22:21:07 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -447,7 +447,6 @@ void camera_plane(t_player *player)
     int drawStart, drawEnd;
 
    // initialize_plane();
-
     for (int x = 0; x < WIDTH; x++) {
         // Calculate ray direction without the fishbowl effect
 /* 		rayDirX = cos(player->dir * PI / 180) + player->plane[0] * (2 * x / (double)WIDTH - 1);
@@ -464,11 +463,10 @@ void camera_plane(t_player *player)
 		double dirX = cos(rad);
 		double dirY = sin(rad);
 		var()->player.plane[0] = -dirY * FOV;
-   		 var()->player.plane[1] = dirX * FOV;
+   		var()->player.plane[1] = dirX * FOV;
 		double cameraX = 2 * x / (double)WIDTH - 1;
 		rayDirX = dirX + player->plane[0] * cameraX;
         rayDirY = dirY + player->plane[1] * cameraX;
-
 
         // Calculate map position
         mapX = (int)player->pos[0];
@@ -534,14 +532,6 @@ void camera_plane(t_player *player)
         if (drawEnd >= HEIGHT)
             drawEnd = HEIGHT;
 
-        // Draw the wall for the current column
-		double	wall_x;
-		if (!player->side)
-			wall_x = player->pos[1] + perpWallDist * rayDirY;
-		else
-			wall_x = player->pos[0] + perpWallDist * rayDirX;
-		wall_x -= floor(wall_x);
-
 		int i  = 0;
 		while (i < HEIGHT)
 		{
@@ -551,20 +541,19 @@ void camera_plane(t_player *player)
 			{
 				int	clr;
 				if (player->side && mapY < player->pos[1])
-					clr = 0xFF0000; // south
+					clr = 0x0000FF; // north;
 				else if (player->side && mapY > player->pos[1])
-					clr = 0x0000FF; // north
+					clr = 0xFF0000; // south
 				else if (!player->side && mapX < player->pos[0])
-					clr = 0xFFFF00; // east
-				else
 					clr = 0x00FF00; // west
+				else
+					clr = 0xFFFF00;
 				my_pixel_put(&var()->disp_3d, x, i, clr);
 			}
 			else
 				my_pixel_put(&var()->disp_3d, x, i, 0xFFFFFF);
 			i++;
 		}
-
 
     }
 	//mlx_clear_window(var()->mlx, var()->disp_3d.win);

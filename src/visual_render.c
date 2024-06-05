@@ -6,13 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:55:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 21:20:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 22:21:08 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	visual_render(t_player *player, int i, double wall_height)
+void	visual_render(t_player *player, int i, int wall_height)
 {
 	int	j;
 	int	clr;

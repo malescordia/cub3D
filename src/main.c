@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 21:18:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 22:19:26 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	main(int ac, char **av)
 	init_display(&var()->disp_3d, 1, "cub3d");
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	cub3d_maker(&var()->player);
-	//camera_plane(&var()->player);
+
+	camera_plane(&var()->player);
+	//cub3d_maker(&var()->player);
+
 	mlx_loop_hook(var()->mlx, hooks_handler, NULL);
 	mlx_loop(var()->mlx);
 	clean_exit(NULL, 0);
