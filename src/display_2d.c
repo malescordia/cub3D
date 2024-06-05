@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 17:58:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 21:15:31 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,6 @@ void	bound_checker(double dest_x, double dest_y)
 		return ;
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	camera_plane(&var()->player);
+	/* camera_plane(&var()->player); */
+	cub3d_maker(&var()->player);
 }

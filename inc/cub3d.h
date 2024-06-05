@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 16:09:19 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 21:13:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,14 @@ typedef struct s_map
 typedef struct s_player
 {
 	int		side;
-	double	step[2];
-	double	pos[2];
+	int		wall[2];
 	double	dir;
-	double	plane[2];
+	double	dir_arr[2];
+	double	pos[2];
 	double	ray[2];
 	double	delta[2];
-	double	fov;
+	double	plane[2];
+	double	side_dist[0];
 	double	fov_dir;
 }	t_player;
 // Display struct
@@ -163,7 +164,7 @@ void	put_player(t_disp *disp, double x, double y);
 void	draw_line(t_disp *disp, double x, double y);
 void	bound_checker(double dest_x, double dest_y);
 // 3D Display
-void	cub3d_maker(int clr);
+
 // Hooks & Events
 int		key_press(int code);
 int		key_release(int code);
@@ -182,7 +183,6 @@ void	draw_camera_plane(double x, double y);
 void	camera_plane(t_player *player);
 double	cast_ray(t_player *player);
 void	draw_wall(int x, int start, int end);
-void	set_variables(t_player *player);
 void	initialize_plane(void);
 // Gui
 void	draw(void);
@@ -193,5 +193,11 @@ void	before_dda(void);
 void	load_all_textures(void *mlx, t_tex textures[4]);
 void	load_texture(void *mlx, t_tex *tex, char *path);
 int		init_textures(t_map *map);
+// TEST RAYCASTER
+void	cub3d_maker(t_player *player);
+void	set_variables(t_player *player, double cam);
+int	step_incr(t_player *player, int axis);
+double	raycaster(t_player *player, int step_x, int step_y);
+void	visual_render(t_player *player, int i, double wall_height);
 
 #endif

@@ -10,6 +10,7 @@ SRC =	src/main.c \
 		src/player.c \
 		src/display.c src/display_2d.c \
 		src/hooks.c \
+		src/raycaster.c	src/visual_render.c \
 		src/clean_exit.c \
 		cam.c
 

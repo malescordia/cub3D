@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/04 20:40:58 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/05 21:18:05 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int ac, char **av)
 	init_display(&var()->disp_3d, 1, "cub3d");
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	//cub3d_maker(0xFFC0CB);
-	camera_plane(&var()->player);
+	cub3d_maker(&var()->player);
+	//camera_plane(&var()->player);
 	mlx_loop_hook(var()->mlx, hooks_handler, NULL);
 	mlx_loop(var()->mlx);
 	clean_exit(NULL, 0);
@@ -77,5 +77,4 @@ void	print_tests(void)
 	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
 	printf("player facing: %f\n", var()->player.dir);
 	//printf("camera plane: %f\n", var()->player.plane);
-	printf("FOV: %f\n", var()->player.fov);
 }
