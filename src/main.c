@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 14:30:35 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:46:46 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,21 @@ int	main(int ac, char **av)
 void	print_tests(void)
 {
 	int	i;
-	int	j;
 
-	printf("NORTH: %s\n", var()->map.ntx);
-	printf("EAST: %s\n", var()->map.etx);
-	printf("WEST: %s\n", var()->map.wtx);
-	printf("SOUTH: %s\n", var()->map.stx);
-	printf("\nFLOOR: %s\n", var()->map.fhex);
-	printf("CEILING: %s\n\n", var()->map.chex);
+	printf("NORTH: %s\n", var()->map.ntx.name);
+	printf("EAST: %s\n", var()->map.etx.name);
+	printf("WEST: %s\n", var()->map.wtx.name);
+	printf("SOUTH: %s\n", var()->map.stx.name);
+	printf("\nFLOOR: %i\n", var()->map.f_clr);
+	printf("CEILING: %i\n\n", var()->map.c_clr);
 	i = 0;
 	while (var()->map.cmap[i])
 	{
 		printf("%i	%s\n", i, var()->map.cmap[i]);
 		i++;
 	}
-	i = 0;
 	printf("\n");
 	printf("\n");
 	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
 	printf("player facing: %f\n", var()->player.dir);
-	//printf("camera plane: %f\n", var()->player.plane);
 }

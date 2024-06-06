@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 16:34:39 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:44:12 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*tx_error(char **txt, int i)
 }
 
 // Performs verifications on RGB values
-char	*clr_to_hex(char **txt, int i)
+int	clr_to_hex(char **txt, int i)
 {
 	int		res;
 	char	**rgb;
@@ -71,7 +71,7 @@ char	*clr_to_hex(char **txt, int i)
 	}
 	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
 	free_cmatrix(rgb);
-	return (hex_str(res));
+	return (res);
 }
 
 // Checks if RGB values are valid
@@ -85,7 +85,10 @@ int	check_rgb(char **rgb)
 	while (i < 3)
 	{
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
+		{
+			free_cmatrix(rgb);
 			return (0);
+		}
 		i++;
 	}
 	return (1);

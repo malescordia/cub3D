@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:55:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 11:57:01 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:46:20 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	visual_render(t_player *player, int i, int wall_height)
 		while (j < HEIGHT)
 		{
 			if (j < up_pt)
-				my_pixel_put(&var()->disp_3d, i, j, 0x000000);
+				my_pixel_put(&var()->disp_3d, i, j, var()->map.c_clr);
 			else if (j < down_pt)
 			{
 				int	clr;
@@ -64,7 +64,7 @@ void	visual_render(t_player *player, int i, int wall_height)
 				my_pixel_put(&var()->disp_3d, i, j, clr);
 			}
 			else
-				my_pixel_put(&var()->disp_3d, i, j, 0xFFFFFF);
+				my_pixel_put(&var()->disp_3d, i, j, var()->map.f_clr);
 			j++;
 		}
 }

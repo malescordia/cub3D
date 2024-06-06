@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 14:31:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:27:19 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,14 @@ void	clean_exit(char *err_msg, int err_code)
 // Frees map components
 void	free_map(t_map *map)
 {
-	if (map->ntx)
-		free(map->ntx);
-	if (map->etx)
-		free(map->etx);
-	if (map->wtx)
-		free(map->wtx);
-	if (map->stx)
-		free(map->stx);
-	if (map->fhex)
-		free(map->fhex);
-	if (map->chex)
-		free(map->chex);
+	if (map->ntx.name)
+		free(map->ntx.name);
+	if (map->etx.name)
+		free(map->etx.name);
+	if (map->wtx.name)
+		free(map->wtx.name);
+	if (map->stx.name)
+		free(map->stx.name);
 	if (map->cmap)
 		free_cmatrix(map->cmap);
 }

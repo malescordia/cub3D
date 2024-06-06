@@ -1,11 +1,11 @@
 
 NO textures/blue.xpm
 SO textures/red.xpm
-WE textures/yellow.xpm
-EA textures/green.xpm
+WE textures/green.xpm
+EA textures/yellow.xpm
 
-F 220,100,0
-C 225,30,0
+F 225,225,225
+C 0,0,0
 
 11111111111111111
 11110011100001111

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 14:32:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:34:59 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,26 @@ int	data_parser(char **txt)
 	int	i;
 
 	i = 0;
+	var()->map.f_clr = -1;
+	var()->map.c_clr = -1;
+	var()->map.ntx.name = NULL;
+	var()->map.etx.name = NULL;
+	var()->map.wtx.name = NULL;
+	var()->map.stx.name = NULL;
 	while (txt[i] && !tx_complete(&var()->map))
 	{
-		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx)
-			var()->map.ntx = tx_error(txt, i);
-		else if (!ft_strncmp(txt[i], "EA ", 3) && !var()->map.etx)
-			var()->map.etx = tx_error(txt, i);
-		else if (!ft_strncmp(txt[i], "WE ", 3) && !var()->map.wtx)
-			var()->map.wtx = tx_error(txt, i);
-		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx)
-			var()->map.stx = tx_error(txt, i);
-		else if (!ft_strncmp(txt[i], "F ", 2) && !var()->map.fhex)
-			var()->map.fhex = clr_to_hex(txt, i);
-		else if (!ft_strncmp(txt[i], "C ", 2) && !var()->map.chex)
-			var()->map.chex = clr_to_hex(txt, i);
+		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx.name)
+			var()->map.ntx.name = tx_error(txt, i);
+		else if (!ft_strncmp(txt[i], "EA ", 3) && !var()->map.etx.name)
+			var()->map.etx.name = tx_error(txt, i);
+		else if (!ft_strncmp(txt[i], "WE ", 3) && !var()->map.wtx.name)
+			var()->map.wtx.name = tx_error(txt, i);
+		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx.name)
+			var()->map.stx.name = tx_error(txt, i);
+		else if (!ft_strncmp(txt[i], "F ", 2) && var()->map.f_clr == -1)
+			var()->map.f_clr = clr_to_hex(txt, i);
+		else if (!ft_strncmp(txt[i], "C ", 2) && var()->map.c_clr == -1)
+			var()->map.c_clr = clr_to_hex(txt, i);
 		else if (!is_separator(txt[i]))
 			clean_exit(WRONG_DATA, 2);
 		i++;

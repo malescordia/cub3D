@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/24 16:37:39 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:35:43 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 // Checks if each texture/clr has already been attributed
 int	tx_complete(t_map *map)
 {
-	if (!map->ntx || !map->etx || !map->wtx || !map->stx
-		|| !map->fhex || !map->chex)
+	if (!map->ntx.name || !map->etx.name || !map->wtx.name || !map->stx.name
+		|| map->f_clr == -1 || map->c_clr == -1)
 		return (0);
 	return (1);
 }

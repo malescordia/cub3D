@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 14:31:47 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 15:46:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ typedef struct s_map
 	char	**cmap;
 	int		height;
 	int		width;
-	int		fhex;
-	int		chex;
-	t_tex	n_wall;
-	t_tex	e_wall;
-	t_tex	w_wall;
-	t_tex	s_wall;
+	int		f_clr;
+	int		c_clr;
+	t_tex	ntx;
+	t_tex	etx;
+	t_tex	wtx;
+	t_tex	stx;
 	t_tex	render;
 }	t_map;
 // Player struct
@@ -127,7 +127,7 @@ void	map_parser(char **txt, int i);
 // Data parser
 void	check_dup(char **txt, int lines);
 char	*tx_error(char **txt, int i);
-char	*clr_to_hex(char **txt, int i);
+int		clr_to_hex(char **txt, int i);
 int		check_rgb(char **rgb);
 char	*hex_str(int res);
 // Data parser utils
