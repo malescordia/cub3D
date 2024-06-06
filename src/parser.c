@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 15:34:59 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:49:50 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,16 @@ int	data_parser(char **txt)
 	i = 0;
 	var()->map.f_clr = -1;
 	var()->map.c_clr = -1;
-	var()->map.ntx.name = NULL;
-	var()->map.etx.name = NULL;
-	var()->map.wtx.name = NULL;
-	var()->map.stx.name = NULL;
 	while (txt[i] && !tx_complete(&var()->map))
 	{
 		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx.name)
-			var()->map.ntx.name = tx_error(txt, i);
+			set_texture(&var()->map.ntx, txt, i);
 		else if (!ft_strncmp(txt[i], "EA ", 3) && !var()->map.etx.name)
-			var()->map.etx.name = tx_error(txt, i);
+			set_texture(&var()->map.etx, txt, i);
 		else if (!ft_strncmp(txt[i], "WE ", 3) && !var()->map.wtx.name)
-			var()->map.wtx.name = tx_error(txt, i);
+			set_texture(&var()->map.wtx, txt, i);
 		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx.name)
-			var()->map.stx.name = tx_error(txt, i);
+			set_texture(&var()->map.stx, txt, i);
 		else if (!ft_strncmp(txt[i], "F ", 2) && var()->map.f_clr == -1)
 			var()->map.f_clr = clr_to_hex(txt, i);
 		else if (!ft_strncmp(txt[i], "C ", 2) && var()->map.c_clr == -1)

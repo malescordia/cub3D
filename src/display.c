@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:43:47 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:58:56 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	init_display(t_disp *disp, int code, char *name)
 		disp->width = var()->map.width * CELL_SIZE;
 		disp->height = var()->map.height * CELL_SIZE;
 	}
-	var()->mlx = mlx_init();
-	if (!var()->mlx)
-		clean_exit(WIN_ERR, 3);
 	disp->win = mlx_new_window(var()->mlx, disp->width, disp->height, name);
 	if (!disp->win)
 		clean_exit(WIN_ERR, 3);

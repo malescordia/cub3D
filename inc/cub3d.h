@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 15:46:47 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:59:05 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_tex
 {
 	char			*name;
 	void			*img;
-	unsigned int	*addr;
+	char			*addr;
 	int				width;
 	int				height;
 	int				bit_pix;
@@ -71,7 +71,6 @@ typedef struct s_map
 	t_tex	etx;
 	t_tex	wtx;
 	t_tex	stx;
-	t_tex	render;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -90,7 +89,6 @@ typedef struct s_player
 // Display struct
 typedef struct s_disp
 {
-	char	*name;
 	void	*win;
 	void	*img;
 	char	*img_addr;
@@ -98,7 +96,6 @@ typedef struct s_disp
 	int		endian;
 	int		width;
 	int		height;
-
 }	t_disp;
 // All-encompassing struct
 typedef struct s_var
@@ -198,5 +195,6 @@ int	step_incr(t_player *player, int axis);
 double	raycaster(t_player *player, int step_x, int step_y);
 void	visual_render(t_player *player, int i, int wall_height);
 void	map_dimensions(char **map);
+void	set_texture(t_tex *tex, char **txt, int i);
 
 #endif

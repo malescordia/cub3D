@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 15:46:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:31:14 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	main(int ac, char **av)
 {
 	if (ac != 2)
 		clean_exit(PARAM_NB, 1);
+	var()->mlx = mlx_init();
+	if (!var()->mlx)
+		clean_exit(WIN_ERR, 3);
 	parser(av);
 	init_player(var()->map.cmap);
 	//init_display(&var()->disp_2d, 0, "cub2d");

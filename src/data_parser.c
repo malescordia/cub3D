@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 15:44:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:59:11 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ void	check_dup(char **txt, int lines)
 	}
 }
 
-// Checks if xml texture can be opened
-char	*tx_error(char **txt, int i)
+// Checks if xml texture can be opened + inits texture
+void	set_texture(t_tex *tex, char **txt, int i)
 {
 	int		tx_fd;
-	char	*tx;
 
 	tx_fd = open(&txt[i][skip_sep(txt[i], 3)], O_WRONLY);
 	if (tx_fd < 0)
@@ -53,8 +52,16 @@ char	*tx_error(char **txt, int i)
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
-	tx = ft_strdup(&txt[i][skip_sep(txt[i], 3)]);
-	return (tx);
+	tex->name = ft_strdup(&txt[i][skip_sep(txt[i], 3)]);
+	tex->bit_pix = sizeof(int);
+	tex->img = mlx_xpm_file_to_image(var()->mlx, tex->name, &tex->width, &tex->height);
+	if (!tex->img)
+	{
+		free_cmatrix(txt);
+		clean_exit(IMG_ERR, 3);
+	}
+	tex->addr = mlx_get_data_addr(tex->img, \
+    &tex->bit_pix, &tex->line_len, &tex->endian);
 }
 
 // Performs verifications on RGB values
