@@ -12,203 +12,92 @@
 
 #include "inc/cub3d.h"
 
-/* FUNCTION THAT GIVES ACCESS TO ALL OTHERS
-    render the entire screen by raycasting for each column. */
-/* void    draw(void)
-{
-    int x;
+// STEP 1: SUBSTITUTE THIS FOR LINE 199 IN CUB3D.H
 
-    x = 0;
-    while (x < WIDTH)
-    {
-        var()->cam = 2 * x / (double)WIDTH - 1;
-        var()->ray_dir[0] = var()->dir[0] + var()->player.plane_cor[0] * var()->cam;
-        var()->ray_dir[1] = var()->dir[1] + var()->player.plane_cor[1] * var()->cam;
-        before_dda();
-        dda();
-        var()->line_heigth = (int)(HEIGHT / var()->perp_wall_dist);
-        var()->draw_start = -var()->line_heigth / 2 + HEIGHT / 2;
-        if (var()->draw_start < 0)
-            var()->draw_start = 0;
-        var()->draw_end = var()->line_heigth / 2 + HEIGHT / 2;
-        if (var()->draw_end >= HEIGHT)
-            var()->draw_end = HEIGHT - 1;
-        if (var()->side == 0)
-            var()->wall_point = var()->player.pos[1] + var()->perp_wall_dist \
-                * var()->ray_dir[1];
-        else
-            var()->wall_point = var()->player.pos[0] + var()->perp_wall_dist \
-                * var()->ray_dir[0];
-        var()->wall_point -= floor(var()->wall_point);
-        draw_image(x, var()->draw_start, var()->draw_end);
-        x++;
-    }
-} */
+int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist, int j);
 
-/* ugly way to initialize textures */
-/* int init_textures(t_map *map)
-{
-    map->n_wall.img = mlx_xpm_file_to_image(var()->mlx, map->ntx, \
-        &map->n_wall.width, &map->n_wall.height);
-    map->e_wall.img = mlx_xpm_file_to_image(var()->mlx, map->etx, \
-        &map->e_wall.width, &map->e_wall.height);
-    map->w_wall.img = mlx_xpm_file_to_image(var()->mlx, map->wtx, \
-        &map->w_wall.width, &map->w_wall.height);
-    map->s_wall.img = mlx_xpm_file_to_image(var()->mlx, map->stx, \
-        &map->s_wall.width, &map->s_wall.height);
-    map->render.img = mlx_new_image(var()->mlx, WIDTH, HEIGHT);
-    if (!map->n_wall.img || !map->e_wall.img || !map->w_wall.img || \
-        !map->s_wall.img || !map->render.img)
-        clean_exit(IMG_ERR, 3);
-    map->render.addr = (unsigned int *)mlx_get_data_addr(map->render.img, \
-        &map->render.bit_pix, &map->render.line_len, &map->render.endian);
-    map->n_wall.addr = (unsigned int *)mlx_get_data_addr(map->n_wall.img, \
-        &map->n_wall.bit_pix, &map->n_wall.line_len, &map->n_wall.endian);
-    map->e_wall.addr = (unsigned int *)mlx_get_data_addr(map->e_wall.img, \
-        &map->e_wall.bit_pix, &map->e_wall.line_len, &map->e_wall.endian);
-    map->w_wall.addr = (unsigned int *)mlx_get_data_addr(map->w_wall.img, \
-        &map->w_wall.bit_pix, &map->w_wall.line_len, &map->w_wall.endian);
-    map->s_wall.addr = (unsigned int *)mlx_get_data_addr(map->s_wall.img, \
-        &map->s_wall.bit_pix, &map->s_wall.line_len, &map->s_wall.endian);
-    return (0);
-} */
+// STEP 2: COMMENT WHOLE CAM.C AND INSERT THIS THERE
 
-/* helper for 'load_all_textures' */
-void    load_texture(void *mlx, t_tex *tex, char *path)
+void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 {
-    tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
-    if (!tex->img)
-        clean_exit(IMG_ERR, 3);
-    tex->addr = (unsigned int *)mlx_get_data_addr(tex->img, \
-        &tex->bit_pix, &tex->line_len, &tex->endian);
-}
+	int	j;
+	//int	clr;
+	int	up_pt;
+	int	down_pt;
 
-/* pretty way to initialize textures */
-void    load_all_textures(void *mlx, t_tex textures[4])
-{
-    load_texture(mlx, &textures[0], "textures/blue.xpm");
-    load_texture(mlx, &textures[1], "textures/grey.xpm");
-    load_texture(mlx, &textures[2], "textures/yellow.xpm");
-    load_texture(mlx, &textures[3], "textures/red.xpm");
-}
+	up_pt = (-wall_height + HEIGHT) / 2;
+	if (up_pt < 0)
+		up_pt = 0;
+	down_pt = (wall_height + HEIGHT) / 2;
+	if (down_pt >= HEIGHT)
+		down_pt = HEIGHT;
 
-/* prepares variables for dda implementation, it calculates the initial side distances
-    and step directions based on the ray direction */
-/* void    before_dda(void)
-{
-    var()->map_pos[0] = (int)var()->player.pos[0];
-    var()->map_pos[1] = (int)var()->player.pos[1];
-    var()->delta_dist[0] = fabs(1 / var()->ray_dir[0]);
-    var()->delta_dist[1] = fabs(1 / var()->ray_dir[1]);
-    if (var()->ray_dir[0] < 0)
-    {
-        var()->step[0] = -1;
-        var()->side_dist[0] = (var()->player.pos[0] - var()->map_pos[0]) \
-            * var()->delta_dist[0];
-    }
-    else
-    {
-        var()->step[0] = 1;
-        var()->side_dist[0] = (var()->map_pos[0] + 1.0 - var()->player.pos[0]) \
-            * var()->delta_dist[0];
-    }
-    if (var()->ray_dir[1] < 0)
-    {
-        var()->step[1] = -1;
-        var()->side_dist[1]= (var()->player.pos[1] - var()->map_pos[1]) \
-            * var()->delta_dist[1];
-    }
-    else
-    {
-        var()->step[1] = 1;
-        var()->side_dist[1]= (var()->map_pos[1] + 1.0 - var()->player.pos[1]) \
-            * var()->delta_dist[1];
-    }
-} */
+	j = 0;
 
-/* perform the algorithm to detect collisions with walls. It iterates through the grid,
-    updating side distances and map positions until a collision is detected. It then
-    calculates the perpendicular wall distance based on which side of the wall was hit. */
-/* void	dda(void)
-{
-	var()->collision = 0;
-	while (var()->collision == 0)
+	while (j < HEIGHT)
 	{
-		if (var()->side_dist[0] < var()->side_dist[1])
+		if (j < up_pt)
+			my_pixel_put(&var()->disp_3d, i, j, var()->map.c_clr);
+		else if (j < down_pt)
 		{
-			var()->side_dist[0] += var()->delta_dist[0];
-			var()->map_pos[0] += var()->step[0];
-			var()->side = 0;
+			int	clr;
+			if (player->side && player->wall[1] < player->pos[1])
+				clr = draw_texture(player, &var()->map.ntx, wall_height, perp_dist, j); // north;
+			else if (player->side && player->wall[1] > player->pos[1])
+				clr = draw_texture(player, &var()->map.stx, wall_height, perp_dist, j);  // south
+			else if (!player->side && player->wall[0] < player->pos[0])
+				clr = draw_texture(player, &var()->map.wtx, wall_height, perp_dist, j); // west
+			else
+				clr = draw_texture(player, &var()->map.etx, wall_height, perp_dist, j);
+			if (clr != -1)
+				my_pixel_put(&var()->disp_3d, i, j, clr);
 		}
 		else
-		{
-			var()->side_dist[1] += var()->delta_dist[1];
-			var()->map_pos[1] += var()->step[1];
-			var()->side = 1;
-		}
-		if (var()->map.imap[var()->map_pos[0]][var()->map_pos[1]] > 0)
-			var()->collision = 1;
+			my_pixel_put(&var()->disp_3d, i, j, var()->map.f_clr);
+		j++;
 	}
-	if (var()->side == 0)
-		var()->perp_wall_dist = (var()->side_dist[0] - var()->delta_dist[0]);
-	else
-		var()->perp_wall_dist = (var()->side_dist[1] - var()->delta_dist[1]);
-} */
-
-/* determines which texture to use based on the side of the wall hit and the ray direction.
-    It also calculates the texture coordinate(tex_point) to use for rendering the wall. */
-/* t_tex   get_texture(void)
-{
-    t_tex current;
-
-    if (var()->side == 0 && var()->ray_dir[0] < 0)
-        current = var()->map.n_wall;
-    else if (var()->side == 1 && var()->ray_dir[1] > 0)
-        current = var()->map.e_wall;
-    else if (var()->side == 1 && var()->ray_dir[1] < 0)
-        current = var()->map.w_wall;
-    else
-        current = var()->map.s_wall;
-    var()->tex_point = (int)var()->wall_point * (double)(current.width);
-    if (var()->side == 0 && var()->ray_dir[0] > 0)
-        var()->tex_point = current.width - var()->tex_point - 1;
-    if (var()->side == 1 && var()->ray_dir[1] < 0)
-        var()->tex_point = current.width - var()->tex_point - 1;
-    return (current);
-} */
-
-/* draws a vertical stripe of the wall at column 'x' from 'start' to 'end' on the screen.
-    It also draws the ceiling and floor colors. */
-void    draw_image(int x, int start, int end)
-{
-    t_tex   current;
-    int y;
-    int tex_y;
-    double step;
-    double tex_pos;
-
-    y = 0;
-    current = get_texture();
-    step = 1.0 * current.height / var()->line_heigth;
-    tex_pos = (start - HEIGHT / 2 + var()->line_heigth / 2) * step;
-    while (y < start)
-    {
-        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->map.ceiling;
-        y++;
-    }
-    y = start - 1;
-    while (y <= end)
-    {
-        tex_y = (int)tex_pos & (current.height - 1);
-        tex_pos += step;
-        var()->clr = current.addr[tex_y * current.line_len / 4 + var()->tex_point];
-        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->clr;
-        y++;
-    }
-    y = end;
-    while (y < HEIGHT)
-    {
-        var()->map.render.addr[y * var()->map.render.line_len / 4 + x] = var()->map.floor;
-        y++;
-    }
 }
+
+int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist, int j)
+{
+    int tex_x, tex_y;
+    double wall_x;
+
+    // Determine position on the wall to map to the texture
+    if (player->side == 0)
+        wall_x = player->pos[1] + perp_dist * player->ray[1];
+    else
+        wall_x = player->pos[0] + perp_dist * player->ray[0];
+    wall_x -= floor(wall_x);
+
+    // X coordinate on the texture
+    tex_x = (int)(wall_x * (double)tex->width);
+    if (player->side == 0 && player->ray[0] > 0)
+		tex_x = tex->width - tex_x - 1;
+    if (player->side == 1 && player->ray[1] < 0)
+		tex_x = tex->width - tex_x - 1;
+
+	// Y coordinate on the texture
+    int d = j * 256 - HEIGHT * 128 + wall_height * 128;  // 256 and 128 factors to avoid floats
+    tex_y = ((d * tex->height) / wall_height) / 256;
+
+    // Ensure tex_x is within bounds
+    if (tex_x < 0)
+        tex_x = 0;
+    if (tex_x >= tex->width)
+        tex_x = tex->width - 1;
+    // Ensure tex_y is within bounds
+    if (tex_y < 0)
+        tex_y = 0;
+    if (tex_y >= tex->height)
+        tex_y = tex->height - 1;
+
+    // Get color from texture
+    int color = ((int *)tex->pixel)[tex->width * tex_y + tex_x];
+    // Return the color for the current row
+    return color;
+}
+
+// STEP 3: DID YOU KNOW YOU ARE NOT ABLE TO BREATH QUICKLY IF YOUR TONGUE IS OUTSIDE YOUR MOUTH?
+
+// STEP 4: YOU ARE THE SEXIEST DOG I EVER HAD THE PLEASURE TO PET
