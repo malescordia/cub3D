@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:55:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 18:01:20 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:41:12 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,29 @@ int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist
 
     // X coordinate on the texture
     tex_x = (int)(wall_x * (double)tex->width);
-    if(player->side == 0 && player->ray[0] > 0)
-        tex_x = tex->width - tex_x - 1;
-    if(player->side == 1 && player->ray[1] < 0)
-        tex_x = tex->width - tex_x - 1;
+    if (player->side == 0 && player->ray[0] > 0)
+		tex_x = tex->width - tex_x - 1;
+    if (player->side == 1 && player->ray[1] < 0)
+		tex_x = tex->width - tex_x - 1;
 
     // Y coordinate on the texture
     for(int y = 0; y < HEIGHT; y++)
     {
         int d = y * 256 - HEIGHT * 128 + wall_height * 128;  // 256 and 128 factors to avoid floats
         tex_y = ((d * tex->height) / wall_height) / 256;
+		// Ensure tex_x is within bounds
+		if (tex_x < 0)
+			tex_x = 0;
+		if (tex_x >= tex->width)
+			tex_x = tex->width - 1;
+		// Ensure tex_y is within bounds
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= tex->height)
+			tex_y = tex->height - 1;
         // Get color from texture
-        int color = ((int *)tex->addr)[tex->width * tex_y + tex_x];
+
+        int color = ((int *)tex->pixel)[tex->width * tex_y + tex_x];
         // Return the color
         return color;
     }

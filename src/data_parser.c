@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 18:00:17 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:30:04 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	check_dup(char **txt, int lines)
 // Checks if xml texture can be opened + inits texture
 void	set_texture(t_tex *tex, char **txt, int i)
 {
-	int		addr;
 	int		tx_fd;
 
 	tx_fd = open(&txt[i][skip_sep(txt[i], 3)], O_WRONLY);
@@ -61,9 +60,14 @@ void	set_texture(t_tex *tex, char **txt, int i)
 		free_cmatrix(txt);
 		clean_exit(IMG_ERR, 3);
 	}
-	addr = ft_atoi(mlx_get_data_addr(tex->img, \
-    &tex->bit_pix, &tex->line_len, &tex->endian));
-	tex->addr = &addr;
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bit_pix, &tex->line_len, &tex->endian);
+	tex->pixel = malloc(sizeof(int) * tex->width * tex->height);
+	if (!tex->pixel)
+	{
+		free_cmatrix(txt);
+		clean_exit(MALLOC_ERR, 3);
+	}
+	ft_memcpy(tex->pixel, tex->addr, tex->width * tex->height * sizeof(int));
 }
 
 // Performs verifications on RGB values

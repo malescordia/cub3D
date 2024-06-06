@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 18:00:14 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:28:46 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_tex
 	int				bit_pix;
 	int				endian;
 	int				line_len;
-	int				pixel[2];
+	int				*pixel;
 }	t_tex;
 // Map struct
 typedef struct s_map
