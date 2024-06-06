@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 21:58:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:35:14 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_player
 	double	ray[2];
 	double	delta[2];
 	double	plane[2];
-	double	side_dist[0];
+	double	side_dist[2];
 	double	fov_dir;
 }	t_player;
 // Display struct

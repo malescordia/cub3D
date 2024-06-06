@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:55:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 22:21:08 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 11:57:01 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	visual_render(t_player *player, int i, int wall_height)
 {
 	int	j;
-	int	clr;
+	//int	clr;
 	int	up_pt;
 	int	down_pt;
 
@@ -25,9 +25,13 @@ void	visual_render(t_player *player, int i, int wall_height)
 	down_pt = (wall_height + HEIGHT) / 2;
 	if (down_pt >= HEIGHT)
 		down_pt = HEIGHT;
+	/* printf("wall_height - %i\n", wall_height);
+	printf("up_pt - %i\n", up_pt);
+	printf("down_pt - %i\n", down_pt);
+	exit(0); */
 	j = 0;
-	clr = 0xFFFF00;
-	while (j < up_pt)
+	//clr = 0xFFFF00;
+/* 	while (j < up_pt)
 		my_pixel_put(&var()->disp_3d, i, j++, 0x000000);
 	while (j < down_pt)
 	{
@@ -40,5 +44,27 @@ void	visual_render(t_player *player, int i, int wall_height)
 		my_pixel_put(&var()->disp_3d, i, j++, clr);
 	}
 	while (j < HEIGHT)
-		my_pixel_put(&var()->disp_3d, i, j++, 0x000000);
+		my_pixel_put(&var()->disp_3d, i, j++, 0x000000); */
+
+		while (j < HEIGHT)
+		{
+			if (j < up_pt)
+				my_pixel_put(&var()->disp_3d, i, j, 0x000000);
+			else if (j < down_pt)
+			{
+				int	clr;
+				if (player->side && player->wall[1] < player->pos[1])
+					clr = 0x0000FF; // north;
+				else if (player->side && player->wall[1] > player->pos[1])
+					clr = 0xFF0000; // south
+				else if (!player->side && player->wall[0] < player->pos[0])
+					clr = 0x00FF00; // west
+				else
+					clr = 0xFFFF00;
+				my_pixel_put(&var()->disp_3d, i, j, clr);
+			}
+			else
+				my_pixel_put(&var()->disp_3d, i, j, 0xFFFFFF);
+			j++;
+		}
 }

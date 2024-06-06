@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:04 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 22:21:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 12:05:53 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,7 +477,18 @@ void camera_plane(t_player *player)
 
 		double deltaDistY;
      	deltaDistY = fabs(1.0 / rayDirY);
-
+		//printf("AVANT:\n");
+		/* printf("x - %i\n", x);
+		printf("dir - %f\n", player->dir);
+		printf("adjusted_dir - %f\n", adjusted_dir);
+		printf("rad - %f\n", rad);
+		printf("dirX - %f | dirY: %f\n", dirX, dirY);
+		printf("plane[0] - %f | plane[1]: %f\n", player->plane[0], player->plane[1]);
+		printf("cameraX: %f\n", cameraX);
+		printf("rayDirX - %f | rayDirY: %f\n", rayDirX, rayDirY);
+		printf("mapX - %i | mapY: %i\n", mapX, mapY);
+		printf("deltaDistX - %f | deltaDistY: %f\n", deltaDistX, deltaDistY);
+		return ; */
 
         // Calculate step and initial sideDist
         int stepX, stepY;
@@ -495,6 +506,9 @@ void camera_plane(t_player *player)
             stepY = 1;
 			sideDistY = ((double)mapY + 1.0 - player->pos[1]) * deltaDistY;
         }
+		/* printf("stepX - %i | stepY: %i\n", stepX, stepY);
+		printf("sideDistX - %f | sideDistY: %f\n", sideDistX, sideDistY);
+		return ; */
 
         // Perform DDA
         int hit = 0;
@@ -524,6 +538,13 @@ void camera_plane(t_player *player)
         // Calculate height of line to draw on screen
         lineHeight = (int)((double)HEIGHT / perpWallDist);
 
+		/* printf("sideDistX - %f | sideDistY: %f\n", sideDistX, sideDistY);
+		printf("mapX - %i | mapY: %i\n", mapX, mapY);
+		printf("side - %i\n", player->side);
+		printf("perpWallDist - %f\n", perpWallDist);
+		printf("lineHeight - %i\n", lineHeight);
+		return ; */
+
         // Calculate lowest and highest pixel to fill in current stripe
         drawStart = (-lineHeight + HEIGHT) / 2;
         if (drawStart < 0)
@@ -531,6 +552,10 @@ void camera_plane(t_player *player)
         drawEnd = (lineHeight + HEIGHT) / 2;
         if (drawEnd >= HEIGHT)
             drawEnd = HEIGHT;
+		/* printf("lineHeight - %i\n", lineHeight);
+		printf("drawStart - %i\n", drawStart);
+		printf("drawEnd - %i\n", drawEnd);
+		return; */
 
 		int i  = 0;
 		while (i < HEIGHT)
@@ -557,6 +582,7 @@ void camera_plane(t_player *player)
 
     }
 	//mlx_clear_window(var()->mlx, var()->disp_3d.win);
+	printf("%p | %p | %p\n", var()->mlx, var()->disp_3d.win, var()->disp_3d.img);
     mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
 }
 

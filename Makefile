@@ -9,10 +9,9 @@ SRC =	src/main.c \
 		src/data_utils.c	src/map_utils.c \
 		src/player.c \
 		src/display.c src/display_2d.c \
-		src/hooks.c \
 		src/raycaster.c	src/visual_render.c \
+		src/hooks.c \
 		src/clean_exit.c \
-		cam.c
 
 
 OBJ = $(SRC:.c=.o)
