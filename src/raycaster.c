@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:15:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:33:31 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:51:51 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,14 @@ void	cub3d_maker(t_player *player)
 	i = 0;
 	while (i < WIDTH)
 	{
-		//printf("----------------\nAPRES:\n");
-		//printf("i - %i\n", i);
 		set_variables(player, (double)(2 * i / (double)WIDTH -1));
 		step[0] = step_incr(player, 0);
 		step[1] = step_incr(player, 1);
-		/* printf("step[0] - %i | step[1]: %i\n", step[0], step[1]);
-		printf("side_dist[0] - %f | side_dist[1]: %f\n", player->side_dist[0], player->side_dist[1]);
-		exit(0); */
 		perp_dist = raycaster(player, step[0], step[1]);
 		wall_height = (int)((double)HEIGHT / perp_dist);
-		/* printf("side_dist[0] - %f | side_dist[1]: %f\n", player->side_dist[0], player->side_dist[1]);
-		printf("wall[0] - %i | wall[1]: %i\n", player->wall[0], player->wall[1]);
-		printf("side - %i\n", player->side);
-		printf("perp_dist - %f\n", perp_dist);
-		printf("wall_height - %i\n", wall_height);
-		exit (0); */
-		visual_render(player, i, wall_height);
+		visual_render(player, i, wall_height, perp_dist);
 		i++;
 	}
-	//exit(printf("EXITING\n"));
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
 }
 
@@ -64,17 +52,6 @@ void	set_variables(t_player *player, double cam)
 	player->wall[1] = (int)player->pos[1];
 	player->delta[0] = fabs(1.0 / player->ray[0]);
 	player->delta[1] = fabs(1.0 / player->ray[1]);
-
-	/* printf("dir - %f\n", player->dir);
-	printf("new_dir - %f\n", new_dir);
-	printf("rad - %f\n", rad);
-	printf("dir_arr[0] - %f | dir_arr[1]: %f\n", player->dir_arr[0], player->dir_arr[1]);
-	printf("plane[0] - %f | plane[1]: %f\n", player->plane[0], player->plane[1]);
-	printf("cam: %f\n", cam);
-	printf("ray[0] - %f | ray[1]: %f\n", player->ray[0], player->ray[1]);
-	printf("wall[0] - %i | wall[1]: %i\n", player->wall[0], player->wall[1]);
-	printf("delta[0] - %f | delta[1]: %f\n", player->delta[0], player->delta[1]);
-	exit(0); */
 }
 
 int	step_incr(t_player *player, int axis)

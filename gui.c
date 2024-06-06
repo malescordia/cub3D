@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:25:24 by gude-cas          #+#    #+#             */
-/*   Updated: 2024/06/06 16:21:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:40:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void    load_all_textures(void *mlx, t_tex textures[4])
 
 /* determines which texture to use based on the side of the wall hit and the ray direction.
     It also calculates the texture coordinate(tex_point) to use for rendering the wall. */
-t_tex   get_texture(void)
+/* t_tex   get_texture(void)
 {
     t_tex current;
 
@@ -175,7 +175,7 @@ t_tex   get_texture(void)
     if (var()->side == 1 && var()->ray_dir[1] < 0)
         var()->tex_point = current.width - var()->tex_point - 1;
     return (current);
-}
+} */
 
 /* draws a vertical stripe of the wall at column 'x' from 'start' to 'end' on the screen.
     It also draws the ceiling and floor colors. */

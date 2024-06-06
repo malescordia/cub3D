@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 16:59:05 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:00:14 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,11 @@ int		init_textures(t_map *map);
 // TEST RAYCASTER
 void	cub3d_maker(t_player *player);
 void	set_variables(t_player *player, double cam);
-int	step_incr(t_player *player, int axis);
+int		step_incr(t_player *player, int axis);
 double	raycaster(t_player *player, int step_x, int step_y);
-void	visual_render(t_player *player, int i, int wall_height);
+void	visual_render(t_player *player, int i, int wall_height, double	perp_dist);
 void	map_dimensions(char **map);
 void	set_texture(t_tex *tex, char **txt, int i);
+int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist);
 
 #endif
