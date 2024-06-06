@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:53:53 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:30:35 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,6 @@ void	print_tests(void)
 	}
 	i = 0;
 	printf("\n");
-	while (var()->map.cmap[i])
-	{
-		j = 0;
-		printf("%d	", i);
-		while (var()->map.cmap[i][j])
-		{
-			if (var()->map.imap[i][j] >= 0)
-				printf("%d", var()->map.imap[i][j]);
-			else
-				printf(" ");
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
 	printf("\n");
 	printf("Player pos: %f - %f\n", var()->player.pos[0], var()->player.pos[1]);
 	printf("player facing: %f\n", var()->player.dir);

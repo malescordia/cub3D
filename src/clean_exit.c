@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:46:47 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:31:52 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	free_map(t_map *map)
 		free(map->fhex);
 	if (map->chex)
 		free(map->chex);
-	if (map->imap)
-		free_imatrix(map->imap, map->height);
 	if (map->cmap)
 		free_cmatrix(map->cmap);
 }

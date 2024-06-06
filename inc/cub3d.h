@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:50:41 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 14:31:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,29 @@
 // Texture struct
 typedef struct s_tex
 {
+	char			*name;
 	void			*img;
-	int				height;
-	int				width;
 	unsigned int	*addr;
+	int				width;
+	int				height;
 	int				bit_pix;
 	int				endian;
 	int				line_len;
+	int				pixel[2];
 }	t_tex;
 // Map struct
 typedef struct s_map
 {
-	char	*ntx;
-	char	*etx;
-	char	*wtx;
-	char	*stx;
-	char	*fhex;
-	char	*chex;
+	char	**cmap;
+	int		height;
+	int		width;
+	int		fhex;
+	int		chex;
 	t_tex	n_wall;
 	t_tex	e_wall;
 	t_tex	w_wall;
 	t_tex	s_wall;
 	t_tex	render;
-	char	**cmap;
-	int		**imap;
-	int		height;
-	int		width;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -127,7 +124,6 @@ void	parser(char **av);
 char	**store_mapfile(int fd);
 int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
-void	create_imap(t_map *map);
 // Data parser
 void	check_dup(char **txt, int lines);
 char	*tx_error(char **txt, int i);
