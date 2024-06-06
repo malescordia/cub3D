@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/05/25 21:23:16 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 13:50:41 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	map_parser(char **txt, int i)
 	free_cmatrix(txt);
 	check_characters(var()->map.cmap);
 	create_imap(&var()->map);
+	map_dimensions(var()->map.cmap);
 }
 
 // Converts map into a int **matrix
@@ -138,4 +139,18 @@ void	create_imap(t_map *map)
 		}
 		i++;
 	}
+}
+
+void	map_dimensions(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if ((int)ft_strlen(map[i]) > var()->map.width)
+			var()->map.width = (int)ft_strlen(map[i]);
+		i++;
+	}
+	var()->map.height = i;
 }

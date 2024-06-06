@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:15:44 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 12:36:06 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 13:33:31 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	cub3d_maker(t_player *player)
 		i++;
 	}
 	//exit(printf("EXITING\n"));
-	printf("%p | %p | %p\n", var()->mlx, var()->disp_3d.win, var()->disp_3d.img);
 	mlx_put_image_to_window(var()->mlx, var()->disp_3d.win, var()->disp_3d.img, 0, 0);
 }
 

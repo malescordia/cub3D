@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 12:35:14 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 13:50:41 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_map
 	t_tex	render;
 	char	**cmap;
 	int		**imap;
+	int		height;
+	int		width;
 }	t_map;
 // Player struct
 typedef struct s_player
@@ -199,5 +201,6 @@ void	set_variables(t_player *player, double cam);
 int	step_incr(t_player *player, int axis);
 double	raycaster(t_player *player, int step_x, int step_y);
 void	visual_render(t_player *player, int i, int wall_height);
+void	map_dimensions(char **map);
 
 #endif

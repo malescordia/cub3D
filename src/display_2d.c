@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 12:17:04 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 13:53:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	cub2d_maker(char **map)
 		}
 		i++;
 	}
-	printf("%p \n", var()->mlx);
 	put_player(&var()->disp_2d, var()->player.pos[0], var()->player.pos[1]);
 	mlx_put_image_to_window(var()->mlx, var()->disp_2d.win, \
 	var()->disp_2d.img, 0, 0);
@@ -86,14 +85,14 @@ void	put_player(t_disp *disp, double x, double y)
 		i++;
 	}
 	k = 0;
-	while (k <= (FOV * 50) / 2)
+	while (k <= (FOV * 100) / 2)
 	{
 		var()->player.fov_dir = var()->player.dir - k;
 		draw_line(disp, x, y);
 		k += 0.1;
 	}
 	k = 0;
-	while (k < (FOV * 50) / 2)
+	while (k < (FOV * 100) / 2)
 	{
 		var()->player.fov_dir = var()->player.dir + k;
 		draw_line(disp, x, y);
@@ -176,8 +175,8 @@ void	bound_checker(double dest_x, double dest_y)
 
 	x = floor(dest_x);
 	y = floor(dest_y);
-	if (dest_x <= 0 || dest_x >= var()->disp_2d.width \
-	|| dest_y <= 0 || dest_y >= var()->disp_2d.height \
+	if (dest_x <= 0 || dest_x >= var()->map.width * CELL_SIZE \
+	|| dest_y <= 0 || dest_y >= var()->map.height * CELL_SIZE \
 	|| !var()->map.cmap[y] || !var()->map.cmap[y][x])
 		return ;
 	if (var()->map.cmap[y][x] != '1')

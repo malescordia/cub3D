@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 12:10:11 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/06 13:43:47 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	init_display(t_disp *disp, int code, char *name)
 	disp->bit_pix = sizeof(int);
 	if (!code)
 	{
-		disp->width = ft_strlen(var()->map.cmap[0]) * CELL_SIZE;
-		disp->height = get_2d_len(var()->map.cmap) * CELL_SIZE;
+		disp->width = var()->map.width * CELL_SIZE;
+		disp->height = var()->map.height * CELL_SIZE;
 	}
 	var()->mlx = mlx_init();
 	if (!var()->mlx)
