@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:23:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:03:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:45:10 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	rendering(t_player *player, int i, int top, int bottom)
 		my_pixel_put(&var()->disp_3d, i, j++, var()->map.f_clr);
 }
 
+// Calculates colour corresponding to appropriate texture pixel
 int	texture_clr(t_player *player, t_tex *tex, int j)
 {
 	int		tex_pos[2];
@@ -50,10 +51,9 @@ int	texture_clr(t_player *player, t_tex *tex, int j)
 	if (!player->side)
 		wall_x = player->pos[1] + player->perp_dist * player->ray[1];
 	wall_x -= floor(wall_x);
-	tex_pos[0] = (int)wall_x * (double)tex->width;
+	tex_pos[0] = (int)(wall_x * (double)tex->width);
 	if (!player->side && player->ray[0] > 0)
 		tex_pos[0] = tex->width - tex_pos[0] - 1;
-
 	if (player->side && player->ray[1] < 0)
 		tex_pos[0] = tex->width - tex_pos[0] - 1;
 	if (tex_pos[0] < 0)

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 18:58:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:43:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,19 +170,11 @@ int		step_incr(t_player *player, int axis);
 double	raycaster(t_player *player, int step_x, int step_y);
 // Texture & rendering
 void	rendering(t_player *player, int i, int top, int bottom);
-int	texture_clr(t_player *player, t_tex *tex, int j);
+int		texture_clr(t_player *player, t_tex *tex, int j);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_display(t_disp *disp);
-void	free_cmatrix(char **matrix);
-// Testing shite
-void	print_tests(void);
-void	camera_plane(t_player *player);
-void	initialize_plane(void);
-// TEST RAYCASTER
-void	visual_render(t_player *player, int i);
-void	map_dimensions(char **map);
-void	set_texture(t_tex *tex, char **txt, int i);
 void	free_texture(t_tex *tex);
+void	free_matrix(char **matrix);
 
 #endif

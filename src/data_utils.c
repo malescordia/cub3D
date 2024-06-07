@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 18:01:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:45:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_map(char *txt)
 
 	i = 0;
 	nl = ft_strlen(txt);
-	if (txt[nl-1] == '\n')
+	if (txt[nl -1] == '\n')
 		nl--;
 	while (txt[i] && i < nl)
 	{
@@ -79,4 +79,3 @@ int	map_empty_line(char *str, int map_start)
 		return (1);
 	return (0);
 }
-

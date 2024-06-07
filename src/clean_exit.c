@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 15:49:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:44:18 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clean_exit(char *err_msg, int err_code)
 	if (err_code != 1)
 	{
 		if (var()->map.cmap)
-			free_cmatrix(var()->map.cmap);
+			free_matrix(var()->map.cmap);
 		free_texture(&var()->map.ntx);
 		free_texture(&var()->map.etx);
 		free_texture(&var()->map.wtx);
@@ -62,8 +62,8 @@ void	free_texture(t_tex *tex)
 		mlx_destroy_image(var()->mlx, tex->img);
 }
 
-// Frees matrix of chars
-void	free_cmatrix(char **matrix)
+// Frees matrix
+void	free_matrix(char **matrix)
 {
 	int	i;
 

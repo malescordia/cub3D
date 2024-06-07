@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:33:16 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:43:36 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_dup(char **txt, int lines)
 			(!ft_strncmp(&txt[i][itx], &txt[j][skip_sep(txt[j], 3)], \
 			ft_strlen(&txt[i][itx]) + 1) && !is_map(&txt[i][itx])))
 			{
-				free_cmatrix(txt);
+				free_matrix(txt);
 				clean_exit(DUP_ERR, 2);
 			}
 			j++;
@@ -48,7 +48,7 @@ void	set_texture(t_tex *tex, char **txt, int i)
 	tx_fd = open(&txt[i][skip_sep(txt[i], 3)], O_WRONLY);
 	if (tx_fd < 0)
 	{
-		free_cmatrix(txt);
+		free_matrix(txt);
 		clean_exit(strerror(errno), 2);
 	}
 	close(tx_fd);
@@ -58,7 +58,7 @@ void	set_texture(t_tex *tex, char **txt, int i)
 		&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		free_cmatrix(txt);
+		free_matrix(txt);
 		clean_exit(IMG_ERR, 3);
 	}
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bit_pix, \
@@ -76,11 +76,11 @@ int	set_clr(char **txt, int i)
 	rgb = ft_split(&txt[i][skip_sep(txt[i], 2)], ',');
 	if (!check_rgb(rgb))
 	{
-		free_cmatrix(txt);
+		free_matrix(txt);
 		clean_exit(WRONG_DATA, 3);
 	}
 	res = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
-	free_cmatrix(rgb);
+	free_matrix(rgb);
 	return (res);
 }
 
@@ -96,7 +96,7 @@ int	check_rgb(char **rgb)
 	{
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
 		{
-			free_cmatrix(rgb);
+			free_matrix(rgb);
 			return (0);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 17:57:37 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:43:36 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parser(char **av)
 	close(fd);
 	if (!txt || !txt[0])
 	{
-		free_cmatrix(txt);
+		free_matrix(txt);
 		clean_exit(WRONG_DATA, 2);
 	}
 	check_dup(txt, get_2d_len(txt));
@@ -103,7 +103,7 @@ void	map_parser(char **txt, int i)
 
 	if (!tx_complete(&var()->map))
 	{
-		free_cmatrix(txt);
+		free_matrix(txt);
 		clean_exit(WRONG_DATA, 2);
 	}
 	while (txt[i] && is_separator(txt[i]))
@@ -115,7 +115,7 @@ void	map_parser(char **txt, int i)
 	j = 0;
 	while (start < i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
-	free_cmatrix(txt);
+	free_matrix(txt);
 	check_characters(var()->map.cmap);
 	map_dimensions(var()->map.cmap);
 }

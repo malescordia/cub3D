@@ -5,14 +5,12 @@ CC = @cc
 CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
 
 SRC =	src/main.c \
-		src/parser.c		src/data_parser.c		src/map_parser.c \
+		src/parser.c		src/data_parser.c	src/map_parser.c \
 		src/data_utils.c	src/map_utils.c \
 		src/init_player.c 	src/init_display.c \
 		src/hooks_mvts.c \
-		src/cub2d.c 			src/cub3d.c 		src/rendering.c \
-		src/clean_exit.c \
-		gui.c
-
+		src/cub2d.c 		src/cub3d.c 		src/rendering.c \
+		src/clean_exit.c
 
 OBJ = $(SRC:.c=.o)
 
