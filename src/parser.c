@@ -6,13 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 16:49:50 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:16:39 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Sends to parsing functions
+// Sends to parsing functions + checks map file
 void	parser(char **av)
 {
 	int		fd;
@@ -50,7 +50,7 @@ char	**store_mapfile(int fd)
 	{
 		buff = get_next_line(fd);
 		if (!buff)
-			break;
+			break ;
 		join = ft_strjoin(tmp, buff);
 		free(tmp);
 		free(buff);
@@ -81,9 +81,9 @@ int	data_parser(char **txt)
 		else if (!ft_strncmp(txt[i], "SO ", 3) && !var()->map.stx.name)
 			set_texture(&var()->map.stx, txt, i);
 		else if (!ft_strncmp(txt[i], "F ", 2) && var()->map.f_clr == -1)
-			var()->map.f_clr = clr_to_hex(txt, i);
+			(var())->map.f_clr = set_clr(txt, i);
 		else if (!ft_strncmp(txt[i], "C ", 2) && var()->map.c_clr == -1)
-			var()->map.c_clr = clr_to_hex(txt, i);
+			(var())->map.c_clr = set_clr(txt, i);
 		else if (!is_separator(txt[i]))
 			clean_exit(WRONG_DATA, 2);
 		i++;
@@ -107,25 +107,11 @@ void	map_parser(char **txt, int i)
 	start = i;
 	while (txt[i] && !is_separator(txt[i]))
 		i++;
-	var()->map.cmap = ft_calloc(i - start +1, (sizeof(char *)));
+	(var())->map.cmap = ft_calloc(sizeof(char *), (i - start +1));
 	j = 0;
 	while (start < i)
 		var()->map.cmap[j++] = ft_strdup(txt[start++]);
 	free_cmatrix(txt);
 	check_characters(var()->map.cmap);
 	map_dimensions(var()->map.cmap);
-}
-
-void	map_dimensions(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		if ((int)ft_strlen(map[i]) > var()->map.width)
-			var()->map.width = (int)ft_strlen(map[i]);
-		i++;
-	}
-	var()->map.height = i;
 }

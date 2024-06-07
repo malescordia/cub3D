@@ -6,13 +6,13 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:55:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 19:02:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:22:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
+/* void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 {
 	int	j;
 	//int	clr;
@@ -24,12 +24,12 @@ void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 		up_pt = 0;
 	down_pt = (wall_height + HEIGHT) / 2;
 	if (down_pt >= HEIGHT)
-		down_pt = HEIGHT;
+		down_pt = HEIGHT; */
 	/* printf("wall_height - %i\n", wall_height);s
 	printf("up_pt - %i\n", up_pt);
 	printf("down_pt - %i\n", down_pt);
 	exit(0); */
-	j = 0;
+/* 	j = 0; */
 	//clr = 0xFFFF00;
 /* 	while (j < up_pt)
 		my_pixel_put(&var()->disp_3d, i, j++, 0x000000);
@@ -46,7 +46,7 @@ void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 	while (j < HEIGHT)
 		my_pixel_put(&var()->disp_3d, i, j++, 0x000000); */
 
-		while (j < HEIGHT)
+	/* 	while (j < HEIGHT)
 		{
 			if (j < up_pt)
 				my_pixel_put(&var()->disp_3d, i, j, var()->map.c_clr);
@@ -68,9 +68,9 @@ void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 				my_pixel_put(&var()->disp_3d, i, j, var()->map.f_clr);
 			j++;
 		}
-}
+} */
 
-int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist)
+/* int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist)
 {
     int tex_x, tex_y;
     double wall_x;
@@ -111,4 +111,4 @@ int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist
         return color;
     }
 	return (-1);
-}
+} */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:31:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/05 20:18:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:41:40 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void	init_player(char **map)
 	int	i;
 	int	j;
 
-	/* var()->player.plane = var()->player.dir - 90;
-	if (var()->player.plane < 0)
-		var()->player.plane = 360 - (var()->player.plane * (-1)); */
 	i = 0;
 	while (map[i])
 	{
@@ -32,7 +29,6 @@ void	init_player(char **map)
 				var()->player.pos[0] = j +0.5;
 				var()->player.pos[1] = i +0.5;
 				define_facing(&var()->player, map[i][j]);
-				var()->player.fov_dir = var()->player.dir;
 				return ;
 			}
 			j++;

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 18:28:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:39:52 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,17 @@ typedef struct s_disp
 	void	*win;
 	void	*img;
 	char	*img_addr;
-	int		bit_pix;
-	int		endian;
 	int		width;
 	int		height;
+	int		bit_pix;
+	int		endian;
 }	t_disp;
 // All-encompassing struct
 typedef struct s_var
 {
+	void		*mlx;
 	t_map		map;
 	t_player	player;
-	void		*mlx;
 	t_disp		disp_2d;
 	t_disp		disp_3d;
 	bool		w_key;
@@ -123,10 +123,10 @@ int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
 // Data parser
 void	check_dup(char **txt, int lines);
-char	*tx_error(char **txt, int i);
-int		clr_to_hex(char **txt, int i);
+void	set_texture(t_tex *tex, char **txt, int i);
+int		set_clr(char **txt, int i);
 int		check_rgb(char **rgb);
-char	*hex_str(int res);
+void	map_dimensions(char **map);
 // Data parser utils
 int		tx_complete(t_map *map);
 int		skip_sep(char *str, int i);
@@ -147,7 +147,7 @@ int		check_down(char **map, int i, int j);
 // Player
 void	init_player(char **map);
 void	define_facing(t_player *player, char facing);
-// Display
+// Init Display
 void	init_display(t_disp *disp, int code, char *name);
 void	init_img(t_disp *disp);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
@@ -196,6 +196,6 @@ double	raycaster(t_player *player, int step_x, int step_y);
 void	visual_render(t_player *player, int i, int wall_height, double	perp_dist);
 void	map_dimensions(char **map);
 void	set_texture(t_tex *tex, char **txt, int i);
-int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist);
+//int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist);
 
 #endif

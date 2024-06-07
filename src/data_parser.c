@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 18:45:12 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:33:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,21 @@ void	set_texture(t_tex *tex, char **txt, int i)
 	close(tx_fd);
 	tex->name = ft_strdup(&txt[i][skip_sep(txt[i], 3)]);
 	tex->bit_pix = sizeof(int);
-	tex->img = mlx_xpm_file_to_image(var()->mlx, tex->name, &tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(var()->mlx, tex->name, \
+		&tex->width, &tex->height);
 	if (!tex->img)
 	{
 		free_cmatrix(txt);
 		clean_exit(IMG_ERR, 3);
 	}
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bit_pix, &tex->line_len, &tex->endian);
-	tex->pixel = malloc(sizeof(int) * tex->width * tex->height);
-	if (!tex->pixel)
-	{
-		free_cmatrix(txt);
-		clean_exit(MALLOC_ERR, 3);
-	}
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bit_pix, \
+		&tex->line_len, &tex->endian);
+	tex->pixel = ft_calloc(sizeof(int), tex->width * tex->height);
 	ft_memcpy(tex->pixel, tex->addr, tex->width * tex->height * sizeof(int));
 }
 
 // Performs verifications on RGB values
-int	clr_to_hex(char **txt, int i)
+int	set_clr(char **txt, int i)
 {
 	int		res;
 	char	**rgb;
@@ -107,31 +104,17 @@ int	check_rgb(char **rgb)
 	return (1);
 }
 
-// Converts RGB values into hex-format string
-char	*hex_str(int res)
+// sets width + height values of map
+void	map_dimensions(char **map)
 {
-	int		i;
-	int		j;
-	char	*base;
-	char	*hex;
+	int	i;
 
 	i = 0;
-	hex = ft_calloc(7, sizeof(char));
-	base = "0123456789ABCDEF";
-	while (res > 0)
+	while (map[i])
 	{
-		j = 0;
-		while (base[j])
-		{
-			if (res % 16 == j)
-			{
-				hex[5 - i] = base[j];
-				res /= 16;
-				i++;
-				break ;
-			}
-			j++;
-		}
+		if ((int)ft_strlen(map[i]) > var()->map.width)
+			var()->map.width = (int)ft_strlen(map[i]);
+		i++;
 	}
-	return (hex);
+	var()->map.height = i;
 }
