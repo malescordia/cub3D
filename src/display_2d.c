@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 13:53:39 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:26:33 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	cub2d_maker(char **map)
 	int	j;
 
 	i = 0;
-	/* var()->player.plane = var()->player.dir - 90;
-	if (var()->player.plane < 0)
-		var()->player.plane = 360 - (var()->player.plane * (-1)); */
 	while (map[i])
 	{
 		j = 0;
@@ -109,89 +106,4 @@ void	draw_line(t_disp *disp, double x, double y)
 		y += -cos(var()->player.fov_dir * PI / 180);
 		my_pixel_put(disp, x, y, 0x00FF00);
 	}
-}
-
-/* void	draw_line(t_disp *disp, double x, double y)
-{
-	while (42)
-	{
-		x += sin(var()->player.fov_dir * PI / 180);
-		y += -cos(var()->player.fov_dir * PI / 180);
-		if (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] == '1')
-			break ;
-		my_pixel_put(disp, x, y, 0x00FF00);
-	}
-} */
-/* void	put_player(t_disp *disp, double x, double y)
-{
-	int		i;
-	int		j;
-
-	i = -3;
-	x *= CELL_SIZE;
-	y *= CELL_SIZE;
-	while (i < 4)
-	{
-		j = -3;
-		while (j < 4)
-		{
-			my_pixel_put(disp, x + j, y + i, 0x00FF00);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	j = 0;
-	if (!var()->player.dir)
-		i = -1;
-	else if (var()->player.dir == 180)
-		i = 1;
-	else if (var()->player.dir == 90)
-		j = 1;
-	else if (var()->player.dir == 270)
-		j = -1;
-	draw_line(disp, x, y, j, i);
-} */
-
-/* void	draw_line(t_disp *disp, double x, double y, int x_mv, int y_mv)
-{
-	int	i;
-
-	i = 0;
-	while (i < 40)
-	{
-		x += x_mv;
-		y += y_mv;
-		my_pixel_put(disp, x, y, 0x00FF00);
-		i++;
-	}
-} */
-
-// Checks if destination is within bounds + creates new image
-void	bound_checker(double dest_x, double dest_y)
-{
-	int	x;
-	int	y;
-
-	x = floor(dest_x);
-	y = floor(dest_y);
-	if (dest_x <= 0 || dest_x >= var()->map.width * CELL_SIZE \
-	|| dest_y <= 0 || dest_y >= var()->map.height * CELL_SIZE \
-	|| !var()->map.cmap[y] || !var()->map.cmap[y][x])
-		return ;
-	if (var()->map.cmap[y][x] != '1')
-	{
-		var()->player.pos[0] = dest_x;
-		var()->player.pos[1] = dest_y;
-	}
-	else if (var()->map.cmap[y][(int)floor(var()->player.pos[0])] != '1')
-		var()->player.pos[1] = dest_y;
-	else if (var()->map.cmap[(int)floor(var()->player.pos[1])][x] != '1')
-		var()->player.pos[0] = dest_x;
-	else
-		return ;
-	if (var()->disp_2d.win)
-		cub2d_maker(var()->map.cmap);
-	//camera_plane(&var()->player);
-	cub3d_maker(&var()->player);
 }

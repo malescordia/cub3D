@@ -1,54 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   hooks_mvts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:59:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 12:17:00 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:35:44 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-// Sets bool to true if key is pressed
-int	key_press(int code)
-{
-	if (code == 65361)
-		var()->left = true;
-	if (code == 65363)
-		var()->right = true;
-	if (code == 'w' || code == 'W')
-		var()->w_key = true;
-	if (code == 'a' || code == 'A')
-		var()->a_key = true;
-	if (code == 's' || code == 'S')
-		var()->s_key = true;
-	if (code == 'd' || code == 'D')
-		var()->d_key = true;
-	if (code == 65307)
-		clean_exit(NULL, 0);
-	return (0);
-}
-
-// Sets bool to false if key is released
-int	key_release(int code)
-{
-	if (code == 65361)
-		var()->left = false;
-	if (code == 65363)
-		var()->right = false;
-	if (code == 'w' || code == 'W')
-		var()->w_key = false;
-	if (code == 'a' || code == 'A')
-		var()->a_key = false;
-	if (code == 's' || code == 'S')
-		var()->s_key = false;
-	if (code == 'd' || code == 'D')
-		var()->d_key = false;
-	return (0);
-}
 
 // Checks if hooks were triggered
 int	hooks_handler(void)
@@ -104,6 +66,47 @@ void	hooks_rot(void)
 	}
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);
-	//camera_plane(&var()->player);
 	cub3d_maker(&var()->player);
+}
+
+// Checks if destination is within bounds + creates new image
+void	bound_checker(double dest_x, double dest_y)
+{
+	int	x;
+	int	y;
+
+	x = floor(dest_x);
+	y = floor(dest_y);
+	if (dest_x <= 0 || dest_x >= var()->map.width * CELL_SIZE \
+	|| dest_y <= 0 || dest_y >= var()->map.height * CELL_SIZE \
+	|| !var()->map.cmap[y] || !var()->map.cmap[y][x])
+		return ;
+	if (var()->map.cmap[y][x] != '1')
+	{
+		var()->player.pos[0] = dest_x;
+		var()->player.pos[1] = dest_y;
+	}
+	else if (var()->map.cmap[y][(int)floor(var()->player.pos[0])] != '1')
+		var()->player.pos[1] = dest_y;
+	else if (var()->map.cmap[(int)floor(var()->player.pos[1])][x] != '1')
+		var()->player.pos[0] = dest_x;
+	else
+		return ;
+	if (var()->disp_2d.win)
+		cub2d_maker(var()->map.cmap);
+	cub3d_maker(&var()->player);
+}
+
+// Puts each pixel to the img address
+void	my_pixel_put(t_disp *disp, int x, int y, int clr)
+{
+	char	*pxl;
+
+	if (x < 0 || x >= disp->width || y < 0 || y >= disp->height)
+		return ;
+	disp->img_addr = mlx_get_data_addr(disp->img, &disp->bit_pix, \
+	&disp->width, &disp->endian);
+	pxl = disp->img_addr + (y * disp->width + x * (disp->bit_pix / 8));
+	if (pxl)
+		*(unsigned int *)pxl = clr;
 }

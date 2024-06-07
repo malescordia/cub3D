@@ -8,9 +8,9 @@ SRC =	src/main.c \
 		src/parser.c		src/data_parser.c		src/map_parser.c \
 		src/data_utils.c	src/map_utils.c \
 		src/init_player.c 	src/init_display.c \
+		src/hooks_mvts.c \
 		src/display_2d.c \
 		src/raycaster.c src/visual_render.c \
-		src/hooks.c \
 		src/clean_exit.c \
 		gui.c
 

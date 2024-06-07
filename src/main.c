@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:59:07 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:44:03 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:23:22 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int ac, char **av)
 		clean_exit(WIN_ERR, 3);
 	parser(av);
 	init_player(var()->map.cmap);
-	init_display(&var()->disp_2d, 0, "cub2d");
 	init_display(&var()->disp_3d, 1, "cub3d");
 	if (var()->disp_2d.win)
 		cub2d_maker(var()->map.cmap);

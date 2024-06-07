@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:39:52 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:48:21 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,28 +144,29 @@ int		strlen_until_newline(char *str);
 int		check_borders(char **map, int i);
 int		check_up(char **map, int i, int j);
 int		check_down(char **map, int i, int j);
-// Player
+// Init Player
 void	init_player(char **map);
 void	define_facing(t_player *player, char facing);
 // Init Display
 void	init_display(t_disp *disp, int code, char *name);
-void	init_img(t_disp *disp);
-void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 void	init_hooks(t_disp *disp);
+int		key_press(int code);
+int		key_release(int code);
+// Hooks & movements
+
 // 2D Display
 void	cub2d_maker(char **map);
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_line(t_disp *disp, double x, double y);
-void	bound_checker(double dest_x, double dest_y);
 // 3D Display
 
 // Hooks & Events
-int		key_press(int code);
-int		key_release(int code);
 int		hooks_handler(void);
 void	hooks_mvt(double x_dest, double y_dest);
 void	hooks_rot(void);
+void	bound_checker(double dest_x, double dest_y);
+void	my_pixel_put(t_disp *disp, int x, int y, int clr);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);
@@ -196,6 +197,6 @@ double	raycaster(t_player *player, int step_x, int step_y);
 void	visual_render(t_player *player, int i, int wall_height, double	perp_dist);
 void	map_dimensions(char **map);
 void	set_texture(t_tex *tex, char **txt, int i);
-//int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist);
+void	free_texture(t_tex *tex);
 
 #endif

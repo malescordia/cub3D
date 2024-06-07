@@ -6,18 +6,17 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:58:59 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:42:56 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:35:12 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Initialises mlx & window
+// Initialises window, img, hooks for display received
 void	init_display(t_disp *disp, int code, char *name)
 {
 	disp->width = WIDTH;
 	disp->height = HEIGHT;
-	disp->bit_pix = sizeof(int);
 	if (!code)
 	{
 		disp->width = var()->map.width * CELL_SIZE;
@@ -26,13 +25,6 @@ void	init_display(t_disp *disp, int code, char *name)
 	disp->win = mlx_new_window(var()->mlx, disp->width, disp->height, name);
 	if (!disp->win)
 		clean_exit(WIN_ERR, 3);
-	init_img(disp);
-	init_hooks(disp);
-}
-
-// Initialises new image
-void	init_img(t_disp *disp)
-{
 	disp->img = mlx_new_image(var()->mlx, disp->width, disp->height);
 	if (!disp->img)
 		clean_exit(IMG_ERR, 3);
@@ -41,6 +33,7 @@ void	init_img(t_disp *disp)
 		free(disp->img_addr);
 		disp->img_addr = NULL;
 	}
+	init_hooks(disp);
 }
 
 // Sets hooks for window
@@ -51,16 +44,40 @@ void	init_hooks(t_disp *disp)
 	mlx_hook(disp->win, 17, 1L << 17, mlx_loop_end, var()->mlx);
 }
 
-// Puts each pixel to the img address
-void	my_pixel_put(t_disp *disp, int x, int y, int clr)
+// Sets bool to true if key is pressed
+int	key_press(int code)
 {
-	char	*pxl;
+	if (code == 65361)
+		var()->left = true;
+	if (code == 65363)
+		var()->right = true;
+	if (code == 'w' || code == 'W')
+		var()->w_key = true;
+	if (code == 'a' || code == 'A')
+		var()->a_key = true;
+	if (code == 's' || code == 'S')
+		var()->s_key = true;
+	if (code == 'd' || code == 'D')
+		var()->d_key = true;
+	if (code == 65307)
+		clean_exit(NULL, 0);
+	return (0);
+}
 
-	if (x < 0 || x >= disp->width || y < 0 || y >= disp->height)
-		return ;
-	disp->img_addr = mlx_get_data_addr(disp->img, &disp->bit_pix, \
-	&disp->width, &disp->endian);
-	pxl = disp->img_addr + (y * disp->width + x * (disp->bit_pix / 8));
-	if (pxl)
-		*(unsigned int *)pxl = clr;
+// Sets bool to false if key is released
+int	key_release(int code)
+{
+	if (code == 65361)
+		var()->left = false;
+	if (code == 65363)
+		var()->right = false;
+	if (code == 'w' || code == 'W')
+		var()->w_key = false;
+	if (code == 'a' || code == 'A')
+		var()->a_key = false;
+	if (code == 's' || code == 'S')
+		var()->s_key = false;
+	if (code == 'd' || code == 'D')
+		var()->d_key = false;
+	return (0);
 }

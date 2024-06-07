@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:07:27 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/06 16:58:55 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:48:16 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ void	clean_exit(char *err_msg, int err_code)
 	if (err_msg)
 		fd_printf(2, "Error\n%s\n", err_msg);
 	if (err_code != 1)
-		free_map(&var()->map);
+	{
+		if (var()->map.cmap)
+			free_cmatrix(var()->map.cmap);
+		free_texture(&var()->map.ntx);
+		free_texture(&var()->map.etx);
+		free_texture(&var()->map.wtx);
+		free_texture(&var()->map.stx);
+	}
 	if (var()->disp_2d.win)
 		free_display(&var()->disp_2d);
 	if (var()->disp_3d.win)
@@ -30,29 +37,6 @@ void	clean_exit(char *err_msg, int err_code)
 		free(var()->mlx);
 	}
 	exit(err_code);
-}
-
-// Frees map components
-void	free_map(t_map *map)
-{
-	if (map->ntx.name)
-		free(map->ntx.name);
-	if (map->etx.name)
-		free(map->etx.name);
-	if (map->wtx.name)
-		free(map->wtx.name);
-	if (map->stx.name)
-		free(map->stx.name);
-	if (map->cmap)
-		free_cmatrix(map->cmap);
-	if (map->ntx.img)
-		mlx_destroy_image(var()->mlx, map->ntx.img);
-	if (map->etx.img)
-		mlx_destroy_image(var()->mlx, map->etx.img);
-	if (map->wtx.img)
-		mlx_destroy_image(var()->mlx, map->wtx.img);
-	if (map->stx.img)
-		mlx_destroy_image(var()->mlx, map->stx.img);
 }
 
 // Frees disp struct contents
@@ -68,18 +52,14 @@ void	free_display(t_disp *disp)
 }
 
 // Frees matrix of ints
-void	free_imatrix(int **matrix, int indexes)
+void	free_texture(t_tex *tex)
 {
-	int	i;
-
-	i = 0;
-	while (i < indexes)
-	{
-		if (matrix[i])
-			free(matrix[i]);
-		i++;
-	}
-	free(matrix);
+	if (tex->name)
+		free(tex->name);
+	if (tex->pixel)
+		free(tex->pixel);
+	if (tex->img)
+		mlx_destroy_image(var()->mlx, tex->img);
 }
 
 // Frees matrix of chars
