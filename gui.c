@@ -16,7 +16,7 @@
 
 int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist, int j);
 
-// STEP 2: COMMENT WHOLE CAM.C AND INSERT THIS THERE
+// STEP 2: COMMENT WHOLE VISUAL_RENDER.C AND INSERT THIS THERE
 
 void	visual_render(t_player *player, int i, int wall_height, double	perp_dist)
 {
@@ -97,7 +97,3 @@ int draw_texture(t_player *player, t_tex *tex, int wall_height, double	perp_dist
     // Return the color for the current row
     return color;
 }
-
-// STEP 3: DID YOU KNOW YOU ARE NOT ABLE TO BREATH QUICKLY IF YOUR TONGUE IS OUTSIDE YOUR MOUTH?
-
-// STEP 4: YOU ARE THE SEXIEST DOG I EVER HAD THE PLEASURE TO PET
