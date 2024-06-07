@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 17:32:37 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:58:46 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ typedef struct s_player
 	int		side;
 	int		wall[2];
 	double	dir;
-	double	dir_arr[2];
 	double	pos[2];
 	double	ray[2];
 	double	delta[2];
-	double	plane[2];
 	double	side_dist[2];
-	double	fov_dir;
+	double	wall_height;
+	double	perp_dist;
 }	t_player;
 // Display struct
 typedef struct s_disp
@@ -159,13 +158,19 @@ void	hooks_mvt(double x_dest, double y_dest);
 void	hooks_rot(void);
 void	bound_checker(double dest_x, double dest_y);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
-// 2D Display
+// Cub2d maker
 void	cub2d_maker(char **map);
 void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_fov(t_disp *disp, double x, double y, double sign);
-// 3D Display
-
+// Cub3d maker
+void	cub3d_maker(t_player *player);
+void	set_variables(t_player *player, double cam);
+int		step_incr(t_player *player, int axis);
+double	raycaster(t_player *player, int step_x, int step_y);
+// Texture & rendering
+void	rendering(t_player *player, int i, int top, int bottom);
+int	texture_clr(t_player *player, t_tex *tex, int j);
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_display(t_disp *disp);
@@ -175,11 +180,7 @@ void	print_tests(void);
 void	camera_plane(t_player *player);
 void	initialize_plane(void);
 // TEST RAYCASTER
-void	cub3d_maker(t_player *player);
-void	set_variables(t_player *player, double cam);
-int		step_incr(t_player *player, int axis);
-double	raycaster(t_player *player, int step_x, int step_y);
-void	visual_render(t_player *player, int i, int wall_height, double	perp_dist);
+void	visual_render(t_player *player, int i);
 void	map_dimensions(char **map);
 void	set_texture(t_tex *tex, char **txt, int i);
 void	free_texture(t_tex *tex);
