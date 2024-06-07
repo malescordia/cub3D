@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 15:48:21 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:13:00 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,20 +153,17 @@ void	init_hooks(t_disp *disp);
 int		key_press(int code);
 int		key_release(int code);
 // Hooks & movements
-
-// 2D Display
-void	cub2d_maker(char **map);
-void	draw_cell(t_disp *disp, int x, int y, int clr);
-void	put_player(t_disp *disp, double x, double y);
-void	draw_line(t_disp *disp, double x, double y);
-// 3D Display
-
-// Hooks & Events
 int		hooks_handler(void);
 void	hooks_mvt(double x_dest, double y_dest);
 void	hooks_rot(void);
 void	bound_checker(double dest_x, double dest_y);
 void	my_pixel_put(t_disp *disp, int x, int y, int clr);
+// 2D Display
+void	cub2d_maker(char **map);
+void	draw_cell(t_disp *disp, int x, int y, int clr);
+void	put_player(t_disp *disp, double x, double y);
+void	draw_fov(t_disp *disp, double x, double y, double sign);
+// 3D Display
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
 void	free_map(t_map *map);

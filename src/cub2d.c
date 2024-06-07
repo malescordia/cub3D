@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_2d.c                                       :+:      :+:    :+:   */
+/*   cub2d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 15:26:33 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:27:25 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	put_player(t_disp *disp, double x, double y)
 {
 	int		i;
 	int		j;
-	double	k;
+	//double	k;
 
 	i = -3;
 	x *= CELL_SIZE;
@@ -81,29 +81,30 @@ void	put_player(t_disp *disp, double x, double y)
 		}
 		i++;
 	}
-	k = 0;
-	while (k <= (FOV * 100) / 2)
-	{
-		var()->player.fov_dir = var()->player.dir - k;
-		draw_line(disp, x, y);
-		k += 0.1;
-	}
-	k = 0;
-	while (k < (FOV * 100) / 2)
-	{
-		var()->player.fov_dir = var()->player.dir + k;
-		draw_line(disp, x, y);
-		k += 0.1;
-	}
+	draw_fov(disp, x, y, -1);
+	draw_fov(disp, x, y, 1);
 }
 
-// Draws line showing rotation direction
-void	draw_line(t_disp *disp, double x, double y)
+// Draws player's field of view
+void	draw_fov(t_disp *disp, double og_x, double og_y, double sign)
 {
-	while (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] != '1')
+	double	i;
+	double	x;
+	double	y;
+	double	fov_dir;
+
+	i = 0;
+	while (i <= (FOV * 100) / 2)
 	{
-		x += sin(var()->player.fov_dir * PI / 180);
-		y += -cos(var()->player.fov_dir * PI / 180);
-		my_pixel_put(disp, x, y, 0x00FF00);
+		x = og_x;
+		y = og_y;
+		fov_dir = var()->player.dir + (i * sign);
+		while (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] != '1')
+		{
+			x += sin(fov_dir * PI / 180);
+			y += -cos(fov_dir * PI / 180);
+			my_pixel_put(disp, x, y, 0x00FF00);
+		}
+		i += 0.1;
 	}
 }

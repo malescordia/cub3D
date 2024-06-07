@@ -9,7 +9,7 @@ SRC =	src/main.c \
 		src/data_utils.c	src/map_utils.c \
 		src/init_player.c 	src/init_display.c \
 		src/hooks_mvts.c \
-		src/display_2d.c \
+		src/cub2d.c \
 		src/raycaster.c src/visual_render.c \
 		src/clean_exit.c \
 		gui.c
