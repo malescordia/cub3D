@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 19:18:28 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 16:27:25 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 16:31:49 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	put_player(t_disp *disp, double x, double y)
 {
 	int		i;
 	int		j;
-	//double	k;
 
 	i = -3;
 	x *= CELL_SIZE;
@@ -99,7 +98,8 @@ void	draw_fov(t_disp *disp, double og_x, double og_y, double sign)
 		x = og_x;
 		y = og_y;
 		fov_dir = var()->player.dir + (i * sign);
-		while (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] != '1')
+		while (var()->map.cmap[(int)(y / CELL_SIZE)][(int)(x / CELL_SIZE)] \
+		!= '1')
 		{
 			x += sin(fov_dir * PI / 180);
 			y += -cos(fov_dir * PI / 180);

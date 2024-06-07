@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:24:29 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:34:46 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:00:36 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int	is_separator(char *txt)
 int	is_map(char *txt)
 {
 	int	i;
+	int	nl;
 
 	i = 0;
-	while (txt[i])
+	nl = ft_strlen(txt);
+	if (txt[nl-1] == '\n')
+		nl--;
+	while (txt[i] && i < nl)
 	{
 		if (txt[i] != '0' && txt[i] != '1' && txt[i] != ' ')
 			return (0);
@@ -54,3 +58,25 @@ int	is_map(char *txt)
 	}
 	return (1);
 }
+
+// Checks for empty lines within the map
+int	map_empty_line(char *str, int map_start)
+{
+	if (map_start == -1)
+		return (0);
+	while (str[map_start])
+	{
+		if (str[map_start] == '\n' && str[map_start +1] && \
+		str[map_start +1] == '\n')
+		{
+			while (str[map_start] == '\n')
+				map_start++;
+			break ;
+		}
+		map_start++;
+	}
+	if (map_start == (int)ft_strlen(str))
+		return (1);
+	return (0);
+}
+

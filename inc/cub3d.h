@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 16:13:00 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:32:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_var
 t_var	*var(void);
 // Parser
 void	parser(char **av);
-char	**store_mapfile(int fd);
+char	**store_mapfile(int fd, int map_start);
 int		data_parser(char **txt);
 void	map_parser(char **txt, int i);
 // Data parser
@@ -132,6 +132,7 @@ int		tx_complete(t_map *map);
 int		skip_sep(char *str, int i);
 int		is_separator(char *buff);
 int		is_map(char *txt);
+int		map_empty_line(char *str, int map_start);
 // Map parser
 int		check_characters(char **map);
 int		check_line(char **map);
@@ -164,28 +165,15 @@ void	draw_cell(t_disp *disp, int x, int y, int clr);
 void	put_player(t_disp *disp, double x, double y);
 void	draw_fov(t_disp *disp, double x, double y, double sign);
 // 3D Display
+
 // Clean & exit
 void	clean_exit(char *err_msg, int err_code);
-void	free_map(t_map *map);
 void	free_display(t_disp *disp);
-void	free_imatrix(int **matrix, int indexes);
 void	free_cmatrix(char **matrix);
 // Testing shite
 void	print_tests(void);
-void	draw_camera_plane(double x, double y);
 void	camera_plane(t_player *player);
-double	cast_ray(t_player *player);
-void	draw_wall(int x, int start, int end);
 void	initialize_plane(void);
-// Gui
-void	draw(void);
-void	draw_image(int x, int start, int end);
-t_tex	get_texture(void);
-void	dda(void);
-void	before_dda(void);
-void	load_all_textures(void *mlx, t_tex textures[4]);
-void	load_texture(void *mlx, t_tex *tex, char *path);
-int		init_textures(t_map *map);
 // TEST RAYCASTER
 void	cub3d_maker(t_player *player);
 void	set_variables(t_player *player, double cam);

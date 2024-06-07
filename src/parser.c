@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 14:16:39 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:57:37 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parser(char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		clean_exit(strerror(errno), errno);
-	txt = store_mapfile(fd);
+	txt = store_mapfile(fd, -1);
 	close(fd);
 	if (!txt || !txt[0])
 	{
@@ -38,26 +38,30 @@ void	parser(char **av)
 }
 
 // Stores the whole content of the file in a matrix
-char	**store_mapfile(int fd)
+char	**store_mapfile(int fd, int map_start)
 {
 	char	*buff;
 	char	*join;
 	char	*tmp;
 	char	**txt;
 
+	txt = NULL;
 	tmp = get_next_line(fd);
 	while (1)
 	{
 		buff = get_next_line(fd);
 		if (!buff)
 			break ;
+		if (map_start == -1 && is_map(buff) && !is_separator(buff))
+			map_start = ft_strlen(tmp);
 		join = ft_strjoin(tmp, buff);
 		free(tmp);
 		free(buff);
 		tmp = join;
 		join = NULL;
 	}
-	txt = ft_split(tmp, '\n');
+	if (map_empty_line(tmp, map_start))
+		txt = ft_split(tmp, '\n');
 	free(tmp);
 	return (txt);
 }
