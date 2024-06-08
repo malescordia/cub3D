@@ -1,11 +1,11 @@
 
-NO textures/cube/Tech/f.xpm
-SO textures/cube/Tech/e.xpm
-WE textures/cube/Tech/a.xpm
-EA textures/cube/Tech/g.xpm
+NO textures/cube/Techa/a.xpm
+SO textures/cube/Techa/c.xpm
+WE textures/cube/Techa/d.xpm
+EA textures/cube/Techa/b.xpm
 
-F 225,225,225
-C 0,0,0
+F 0,0,0
+C 10,0,0
 
 
 11111111111111111
