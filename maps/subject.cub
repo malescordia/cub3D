@@ -1,11 +1,11 @@
 
-NO textures/blue.xpm
-SO textures/red.xpm
-WE textures/yellow.xpm
-EA textures/green.xpm
+NO textures/out_of_body/a.xpm
+SO textures/out_of_body/b.xpm
+WE textures/out_of_body/c.xpm
+EA textures/out_of_body/d.xpm
 
-F 220,100,0
-C 225,30,0
+F 0,0,0
+C 1,0,0
 
         1111111111111111111111111
         1000000000110000000000001

@@ -6,7 +6,7 @@
 /*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:43:36 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/08 14:01:07 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_dup(char **txt, int lines)
 	while (txt[i] && i < lines -1)
 	{
 		j = i +1;
-		itx = skip_sep(txt[i], 3);
+		itx = skip_sep(txt[i], 2);
 		while (txt[j])
 		{
 			if ((!ft_strncmp(txt[i], txt[j], ft_strlen(txt[i]) + 1) \
