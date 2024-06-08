@@ -1,8 +1,8 @@
 
-NO textures/folder/duck.xpm
-SO textures/red.xpm
-WE textures/blue.xpm
-EA textures/purple.xpm
+NO textures/cube/Tech/f.xpm
+SO textures/cube/Tech/e.xpm
+WE textures/cube/Tech/a.xpm
+EA textures/cube/Tech/g.xpm
 
 F 225,225,225
 C 0,0,0
