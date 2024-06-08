@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:23:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:45:10 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/08 13:18:17 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,18 @@ int	texture_clr(t_player *player, t_tex *tex, int j)
 		wall_x = player->pos[1] + player->perp_dist * player->ray[1];
 	wall_x -= floor(wall_x);
 	tex_pos[0] = (int)(wall_x * (double)tex->width);
-	if (!player->side && player->ray[0] > 0)
+	if ((!player->side && player->ray[0] < 0) || \
+		(player->side && player->ray[1] > 0))
 		tex_pos[0] = tex->width - tex_pos[0] - 1;
-	if (player->side && player->ray[1] < 0)
-		tex_pos[0] = tex->width - tex_pos[0] - 1;
+	y_scaled = j * 256 - HEIGHT * 128 + player->wall_height * 128;
+	tex_pos[1] = ((y_scaled * tex->height) / player->wall_height) / 256;
 	if (tex_pos[0] < 0)
 		tex_pos[0] = 0;
 	if (tex_pos[0] >= tex->width)
-		tex_pos[0] = tex->width -1;
-	y_scaled = j * 256 - HEIGHT * 128 + player->wall_height * 128;
-	tex_pos[1] = ((y_scaled * tex->height) / player->wall_height) / 256;
+		tex_pos[0] = tex->width - 1;
 	if (tex_pos[1] < 0)
 		tex_pos[1] = 0;
 	if (tex_pos[1] >= tex->height)
-		tex_pos[1] = tex->height -1;
+		tex_pos[1] = tex->height - 1;
 	return (((int *)tex->pixel)[tex->width * tex_pos[1] + tex_pos[0]]);
 }
