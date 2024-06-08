@@ -1,8 +1,8 @@
 
-NO textures/blue.xpm
-SO textures/red.xpm
-WE textures/yellow.xpm
-EA textures/green.xpm
+NO textures/retro/a.xpm
+SO textures/retro/b.xpm
+WE textures/retro/c.xpm
+EA textures/retro/d.xpm
 
 F 220,100,0
 C 225,30,0

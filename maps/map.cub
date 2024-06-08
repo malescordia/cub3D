@@ -1,12 +1,11 @@
 
-NO textures/cube/Techa/a.xpm
-SO textures/cube/Techa/c.xpm
-WE textures/cube/Techa/d.xpm
-EA textures/cube/Techa/b.xpm
+NO textures/windows/a.xpm
+SO textures/windows/b.xpm
+WE textures/windows/c.xpm
+EA textures/windows/d.xpm
 
-F 0,0,0
-C 10,0,0
-
+F 0,123,121
+C 05,123,121
 
 11111111111111111
 11110011100001111
