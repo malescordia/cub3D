@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:43:44 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:49:29 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 // 2D display
 # define CELL_SIZE 		100
 // 3D display
-# define HEIGHT			800
-# define WIDTH			800
+# define HEIGHT			1000
+# define WIDTH			1000
 # define FOV			0.66
 // Speed
 # define MV_SPEED		0.05

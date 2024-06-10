@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:18:35 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/08 13:57:21 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:45:28 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	parser(char **av)
 	int		fd;
 	char	**txt;
 
+	var()->map.f_clr = -1;
+	var()->map.c_clr = -1;
 	if (!av[1] || !av[1][0])
 		clean_exit(EMPTY_PARAM, 1);
 	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 4)
@@ -72,8 +74,6 @@ int	data_parser(char **txt)
 	int	i;
 
 	i = 0;
-	var()->map.f_clr = -1;
-	var()->map.c_clr = -1;
 	while (txt[i] && !tx_complete(&var()->map))
 	{
 		if (!ft_strncmp(txt[i], "NO ", 3) && !var()->map.ntx.name)
@@ -89,7 +89,10 @@ int	data_parser(char **txt)
 		else if (!ft_strncmp(txt[i], "C ", 2) && var()->map.c_clr == -1)
 			(var())->map.c_clr = set_clr(txt, i);
 		else if (!is_separator(txt[i]))
+		{
+			free_matrix(txt);
 			clean_exit(WRONG_DATA, 2);
+		}
 		i++;
 	}
 	return (i);

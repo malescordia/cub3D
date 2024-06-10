@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:49:26 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/08 14:01:07 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:48:14 by cbouvet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	set_clr(char **txt, int i)
 	rgb = ft_split(&txt[i][skip_sep(txt[i], 2)], ',');
 	if (!check_rgb(rgb))
 	{
+		free_matrix(rgb);
 		free_matrix(txt);
 		clean_exit(WRONG_DATA, 3);
 	}
@@ -88,17 +89,19 @@ int	set_clr(char **txt, int i)
 int	check_rgb(char **rgb)
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	if (rgb == NULL || get_2d_len(rgb) != 3)
 		return (0);
 	while (i < 3)
 	{
+		j = 0;
+		while (rgb[i][j])
+			if (!ft_isdigit(rgb[i][j++]))
+				return (0);
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
-		{
-			free_matrix(rgb);
 			return (0);
-		}
 		i++;
 	}
 	return (1);
