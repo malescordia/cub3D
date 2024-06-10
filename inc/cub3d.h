@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouvet <cbouvet@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: gude-cas <gude-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:02:09 by cbouvet           #+#    #+#             */
-/*   Updated: 2024/06/10 14:49:29 by cbouvet          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:59:21 by gude-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define WIDTH			1000
 # define FOV			0.66
 // Speed
-# define MV_SPEED		0.05
+# define MV_SPEED		0.20
 # define ROT_DEG		8
 // Maths
 # define PI 			3.14159265358979323846
